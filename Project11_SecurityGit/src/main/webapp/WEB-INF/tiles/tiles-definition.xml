@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="main" template="/WEB-INF/jsp/user/pattern.jsp">	
+	</definition>
+	
+	<definition name="loginSide" template="/WEB-INF/jsp/user/loggingPage.jsp">
+	</definition>
+	
+	<definition name="AdminSide" template="/WEB-INF/jsp/admin/mainPanel.jsp">
+	</definition>
+	
+	<definition name="indexPattern" template="/WEB-INF/jsp/user/index.jsp">
+	</definition>	
+	
+	<definition name="forum" template="/WEB-INF/jsp/user/forum.jsp">
+	</definition>
+	
+	<definition name="friendsMainSide" template="/WEB-INF/jsp/user/friendsMainSide.jsp">
+	</definition>
+	
+	<definition name="friendsSideIndex" extends="friendsMainSide">
+		<put-attribute name="body" value="/WEB-INF/jsp/user/friendsSideIndex.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="autocompleteShowUser" extends="friendsMainSide">
+		<put-attribute name="body" value="/WEB-INF/jsp/user/autocompleteShowUser.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="forumSections" extends="forum">
+		<put-attribute name="body" value="/WEB-INF/jsp/user/sections.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="forumAllTopics" extends="forum">
+		<put-attribute name="body" value="/WEB-INF/jsp/user/allTopics.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="responseTopic" extends="forum">
+		<put-attribute name="body" value="/WEB-INF/jsp/user/responseTopic.jsp"></put-attribute>
+	</definition>	
+	
+	<definition name="index" extends="indexPattern">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/slider.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="mainPageShowRecipe" extends="indexPattern">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/mainShowRecipe.jsp"></put-attribute>
+	</definition>	
+	
+	<definition name="home" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/home.jsp"></put-attribute>
+	</definition>	
+	
+	<definition name="register" extends="main">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/register.jsp"></put-attribute>
+	</definition>	
+	
+	<definition name="logging" extends="main">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/logging.jsp"></put-attribute>
+	</definition>		
+	
+
+	
+	<definition name="settings" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/settings.jsp"></put-attribute>
+	</definition>		
+	
+	<definition name="adminSettings" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/settings.jsp"></put-attribute>
+	</definition>	
+	
+	<definition name="addRecipe" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/addRecipe.jsp"></put-attribute>
+	</definition>	
+	
+	<definition name="allUsers" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/allUsers.jsp"></put-attribute>
+	</definition>	
+	
+	<definition name="myCulinaryRecipe" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/myCulinaryRecipe.jsp"></put-attribute>
+	</definition>	
+	
+	<definition name="upload" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/UploadFile.jsp"></put-attribute>
+	</definition>		
+	
+	<definition name="articles" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/articles.jsp"></put-attribute>
+	</definition>		
+	
+	<definition name="setArticle" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/articles.jsp"></put-attribute>
+	</definition>			
+	
+	<definition name="getRecipeById" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/getRecipeById.jsp"></put-attribute>
+	</definition>		
+	
+	<definition name="statistics" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/statistics.jsp"></put-attribute>
+	</definition>		
+</tiles-definitions>
