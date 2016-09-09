@@ -125,7 +125,7 @@ app.controller("MainControllerSettings", function($scope, $http, $log, WidgetSer
 	
 	
 	$scope.mostPopularRecipesThisDay = function(){
-		$http.get("/ProjectSecurity/widget/mostPopularRecipesThisDay").then(function(list){
+		$http.get("/ProjectSecurityGit/widget/mostPopularRecipesThisDay").then(function(list){
 			
 			$log.info(list.data);
 			$scope.mostPopiulatToday = list.data;
@@ -281,7 +281,7 @@ app.controller("MainControllerSettings", function($scope, $http, $log, WidgetSer
     })
     
 /*     var mostPopularRecipesThisDay = function(){
-    	$http.get("/ProjectSecurity/widget/mostPopularRecipesThisDay").then(function(dane){
+    	$http.get("/ProjectSecurityGit/widget/mostPopularRecipesThisDay").then(function(dane){
     		$log.info(dane);
     	});
     } */

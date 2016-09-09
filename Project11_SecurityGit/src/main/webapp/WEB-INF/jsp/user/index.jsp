@@ -46,7 +46,7 @@ var appTwo = angular.module('appTwo', []);
 <style type="text/css">
 body
 {
-	background-image: url("/ProjectSecurity/resources/images/tlo.jpg");
+	background-image: url("/ProjectSecurityGit/resources/images/tlo.jpg");
 	color: white;
 }
 </style>

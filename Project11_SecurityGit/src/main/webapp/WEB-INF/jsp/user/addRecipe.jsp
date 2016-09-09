@@ -5,7 +5,7 @@
 <h1 align="justify"><b>Put Your cooking recipe:</b></h1><hr/>
 
 <div align="justify">
-	<form:form  modelAttribute="culinaryRecipes" action="/ProjectSecurity/user/addRecipe" method="POST" class="form-horizontal" role="form">
+	<form:form  modelAttribute="culinaryRecipes" action="/ProjectSecurityGit/user/addRecipe" method="POST" class="form-horizontal" role="form">
 	
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="type">Type:</label>

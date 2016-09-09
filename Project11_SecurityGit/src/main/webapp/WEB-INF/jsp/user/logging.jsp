@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <div style="background-color: black;">
 	<div class="col-md-4 col-md-offset-4 jumbotron">
-	      <form class="form-signin registrationForm" name="f" action="/ProjectSecurity/login" method="POST">
+	      <form class="form-signin registrationForm" name="f" action="/ProjectSecurityGit/login" method="POST">
 	        <h2 class="form-signin-heading">Please sign in</h2>
 	        <label for="username" class="sr-only">Login</label>
 	        <input type="text" id="username" name='username' class="form-control" placeholder="Put your login" required autofocus>

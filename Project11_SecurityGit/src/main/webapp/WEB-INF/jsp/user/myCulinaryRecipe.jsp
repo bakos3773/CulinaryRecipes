@@ -96,7 +96,7 @@ app.controller("recipeCtrl", function($scope, $http, $log){
  	/* $scope.allRecipe = []; */
 
 	var refreshRecipes = function(){
-			$http.get('/ProjectSecurity/user/recipes').then(function(response) {
+			$http.get('/ProjectSecurityGit/user/recipes').then(function(response) {
 					$scope.allRecipe = response.data;		
 			});
 	};
@@ -104,10 +104,10 @@ app.controller("recipeCtrl", function($scope, $http, $log){
 	refreshRecipes();
 	
 	$scope.getRecipe = function(id){		
-		$scope.recipeUrl = "/ProjectSecurity/user/recipes/"+id;		
+		$scope.recipeUrl = "/ProjectSecurityGit/user/recipes/"+id;		
 		$http({
 				method: 'GET',
-				url: '/ProjectSecurity/user/recipes/'+id})
+				url: '/ProjectSecurityGit/user/recipes/'+id})
 				.then(function(response){
 					$scope.recipes = response.data;
 					$log.info($scope.recipes);					
@@ -122,7 +122,7 @@ app.controller("recipeCtrl", function($scope, $http, $log){
 	}
 	
  	$scope.removeItem = function(id){
- 		$http.put('/ProjectSecurity/user/recipes/remove/'+id)
+ 		$http.put('/ProjectSecurityGit/user/recipes/remove/'+id)
 		.success(function(data){	
 			$log.info(data);
 			refreshRecipes();

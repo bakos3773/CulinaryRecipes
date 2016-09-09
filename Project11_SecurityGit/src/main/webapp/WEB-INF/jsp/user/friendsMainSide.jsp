@@ -96,13 +96,13 @@ app.controller('friendsMainCtrl', function($scope) {
 
 		/* -------------------------------------------------------------------------------------------   */
 		$('#showUserBtn').on("click",function(){
-			 $(this).attr('href', "/ProjectSecurity/user/frendsSide/autocomplete/autocompleteShowUser/"+document.getElementById("searchingUser").value);
+			 $(this).attr('href', "/ProjectSecurityGit/user/frendsSide/autocomplete/autocompleteShowUser/"+document.getElementById("searchingUser").value);
 		});
 		
 	/* -------------------------------------------------------------------------------------------   */
 	  var availableTags = [];
 	  
-	  $.getJSON("/ProjectSecurity/user/frendsSide/autocomplete/getAllUsers", function(cos){
+	  $.getJSON("/ProjectSecurityGit/user/frendsSide/autocomplete/getAllUsers", function(cos){
 		  availableTags = cos;		  
 		  setAuto(cos);
 	  });

@@ -27,7 +27,7 @@
 	margin: 0;
 }
 body{
-	background-image:  url("/ProjectSecurity/resources/images/tlo3.jpg");
+	background-image:  url("/ProjectSecurityGit/resources/images/tlo3.jpg");
 	background-attachment: fixed;
 }
 a
@@ -47,7 +47,7 @@ a:hover
 }
 /* GORNA CZESC KONTENERA */
 #forumHeader{
-	background-image: url("/ProjectSecurity/resources/images/background_header.jpg");
+	background-image: url("/ProjectSecurityGit/resources/images/background_header.jpg");
 	width: 1000px;
 	height: 120px;
 	position: relative;
@@ -111,12 +111,12 @@ app.controller("forumController", function($scope, $http, $log){
 	
 	$scope.allSections = [];
 	
-	$http.get("/ProjectSecurity/user/forum/getAllSections").then(function(response){
+	$http.get("/ProjectSecurityGit/user/forum/getAllSections").then(function(response){
 		$scope.allSections = response.data;
 	});
 	
 	$scope.updateSections = function(){		
-		$http.get("/ProjectSecurity/user/forum/getAllSections").then(function(response){
+		$http.get("/ProjectSecurityGit/user/forum/getAllSections").then(function(response){
 					$scope.allSections = response.data;
 		});
 	};

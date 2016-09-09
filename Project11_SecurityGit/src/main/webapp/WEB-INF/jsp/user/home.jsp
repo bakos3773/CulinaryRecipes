@@ -18,7 +18,7 @@
       <div class="panel-body" style="background-color: black;">
         SELECT TYPE: 
         
-        <form:form method="POST" commandName="filterPattern" action="/ProjectSecurity/user/checkedTypes">
+        <form:form method="POST" commandName="filterPattern" action="/ProjectSecurityGit/user/checkedTypes">
 		    <div class="checkbox">
 		      <label><form:checkbox path="allTypes" value="Ciasta" checked="checked"/> Ciasta</label>
 		    </div>

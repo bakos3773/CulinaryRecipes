@@ -47,7 +47,7 @@ app.factory('WidgetService', function ($http,  $log, $q) {
 	
     var getListVisitPerMonth = function (x) {
     	
-    	return $http.get('/ProjectSecurity/user/lastMonth/'+x).then(function(response) {
+    	return $http.get('/ProjectSecurityGit/user/lastMonth/'+x).then(function(response) {
 			
 			/*d.resolve(response.data);*/
 			/*$log.info(d.promise.$$state.value);*/
@@ -76,7 +76,7 @@ app.controller("MainController", function($scope, $http, $log) {
 	alert("jestem kontroler login");
 	
 	var getAllLastMonth = function(){
-		$http.get('/ProjectSecurity/user/lastMonth').then(function(response) {
+		$http.get('/ProjectSecurityGit/user/lastMonth').then(function(response) {
 			$scope.lastMonth = response.data;	
 			 $log.info($scope.lastMonth); 
 			 alert("wpisanie zmiennych do tablicy");
@@ -89,7 +89,7 @@ app.controller("MainController", function($scope, $http, $log) {
 <style type="text/css">
 body
 {
-	background-image: url("/ProjectSecurity/resources/images/tlo2.jpg");
+	background-image: url("/ProjectSecurityGit/resources/images/tlo2.jpg");
 	color: white;
 }
 .container{

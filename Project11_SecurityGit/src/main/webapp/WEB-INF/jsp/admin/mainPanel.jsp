@@ -22,7 +22,7 @@
 <style type="text/css">
 body
 {
-	background-image: url("/ProjectSecurity/resources/images/up.jpg");
+	background-image: url("/ProjectSecurityGit/resources/images/up.jpg");
 	color: white;
 }
 </style>			

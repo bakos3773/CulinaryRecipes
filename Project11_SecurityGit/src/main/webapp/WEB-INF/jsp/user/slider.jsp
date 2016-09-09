@@ -69,7 +69,7 @@ appTwo.controller('sliderCtrl', function($scope, $http, $log){
 	
 	var imageInsideSliderFunction = function(){		
 		
-		 $http.get("/ProjectSecurity/aaaa").then(function(response){
+		 $http.get("/ProjectSecurityGit/aaaa").then(function(response){
 			 $scope.tabLastRecipes = response.data;
 				$log.info( $scope.tabLastRecipes);
 		});	 

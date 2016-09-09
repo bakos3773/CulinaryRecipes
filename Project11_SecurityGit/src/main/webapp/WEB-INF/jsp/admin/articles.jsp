@@ -39,7 +39,7 @@ $(document).ready(function() {
 app.controller("articlesCtrl", function($scope, $http, $log){
 	
 	var refreshRecipes = function(){
-		$http.get('/ProjectSecurity/admin/allArticles').then(function(response) {
+		$http.get('/ProjectSecurityGit/admin/allArticles').then(function(response) {
 				$scope.allArtivles = response.data;
 				
 		});
@@ -48,7 +48,7 @@ app.controller("articlesCtrl", function($scope, $http, $log){
 	refreshRecipes();
 	
 	$scope.removeItem = function(id){
- 		$http.put('/ProjectSecurity/admin/articles/remove/'+id)
+ 		$http.put('/ProjectSecurityGit/admin/articles/remove/'+id)
 		.success(function(data){	
 			$log.info(data);
 			refreshRecipes();
