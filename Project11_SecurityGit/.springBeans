@@ -10,6 +10,7 @@
 		<config>src/main/webapp/WEB-INF/Dispatcher-context.xml</config>
 		<config>src/main/webapp/WEB-INF/spring-security.xml</config>
 		<config>src/main/webapp/WEB-INF/databaseConnection.xml</config>
+		<config>src/test/resources/com/bakos/test/test-Dispatcher-context.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

@@ -105,7 +105,7 @@ body
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
-		      <a class="navbar-brand" style="color: purple;">LogoStrony</a>
+		      <a class="navbar-brand" style="color: purple;">[ <security:authentication property="principal.username"/> ]</a>
 		    </div>
 		    <ul class="nav navbar-nav">
 		    <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">

@@ -6,8 +6,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="Friends.checkInvitatios", query = "SELECT x.idSender FROM Invitations x WHERE x.idRecipient= :id"),
+	@NamedQuery(name="Friends.findUserById", query="SELECT x FROM Users x WHERE x.id= :id"),
+	@NamedQuery(name="Friends.ignoreFriend", query="DELETE FROM Invitations x WHERE x.idSender= :id AND x.idRecipient= :idRecipient")
+})
 public class Friends {
 
 	@Id

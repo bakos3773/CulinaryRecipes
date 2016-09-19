@@ -10,8 +10,8 @@
 	        <input type="password" id="password" name='password' class="form-control" placeholder="Password" required>
 	        <div class="checkbox">
 	          <label>
-	            <input id="remember_me" name="_spring_security_remember_me" type="checkbox"/>
-	            <label for="remember_me" class="inline">Remember me</label>
+	            <input id="remember" name="remember-me" type="checkbox"/>
+	            <label for="remember" class="inline">Remember me</label>
 	          </label>
 	        </div>
 	        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

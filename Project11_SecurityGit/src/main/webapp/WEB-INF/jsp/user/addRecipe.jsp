@@ -6,7 +6,7 @@
 
 <div align="justify">
 	<form:form  modelAttribute="culinaryRecipes" action="/ProjectSecurityGit/user/addRecipe" method="POST" class="form-horizontal" role="form">
-	
+	<form:errors path="*" element="div" cssClass="errors" />
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="type">Type:</label>
 	      <div class="col-sm-6">

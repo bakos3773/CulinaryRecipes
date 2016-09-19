@@ -44,7 +44,7 @@ public class ForumController {
 		
 		forumService.setSections(forum);
 		
-		return "forumSections";
+		return "redirect:/user/forum";
 	}
 	
 	@RequestMapping(value="user/forum/getAllSections", method=RequestMethod.GET, headers = { "Accept=text/xml, application/json" })
@@ -76,7 +76,7 @@ public class ForumController {
 		model.addAttribute("allTopics", forumService.getAllForum_Themes(id));
 		model.addAttribute("id_section", id);
 		
-		return "forumAllTopics";
+		return "redirect:/user/forum/section/"+id;
 	}
 
 	@RequestMapping(value="user/forum/section/{id_section}/theme/{id}", method=RequestMethod.GET)

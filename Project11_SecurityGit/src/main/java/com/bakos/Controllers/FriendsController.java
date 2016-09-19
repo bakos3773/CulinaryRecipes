@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,8 +32,15 @@ public class FriendsController {
 	FriendsService friendsService;
 	
 
+	
+
 	@RequestMapping(value="/user/frendsSide/friendsMainSide",  method=RequestMethod.GET)
 	public String startController(Model model){
+		
+		
+	
+		
+		
 		
 		if(!friendsService.checkInvitatios().isEmpty()){
 			model.addAttribute("invitationsExist", true);

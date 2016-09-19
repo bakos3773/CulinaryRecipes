@@ -14,7 +14,10 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,11 +33,15 @@ public class CulinaryRecipes implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
 	private String type;
+	@NotBlank(message="{xxx.validation}")
 	private String name;
 	@Lob
+	@NotBlank(message="{xxx.validation}")
 	private String components;
 	@Lob
+	@NotBlank(message="{xxx.validation}")
 	private String howToPerform;
 	@JsonIgnore	
 	@ManyToOne

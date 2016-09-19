@@ -46,14 +46,14 @@ public class FriendsDAOimpl implements FriendsDAO {
 		
 		Users user = userService.findUserByUsername();
 		
-		Query query = manager.createQuery("SELECT x.idSender FROM Invitations x WHERE x.idRecipient= :id");
+		Query query = manager.createNamedQuery("Friends.checkInvitatios");
 		query.setParameter("id", user.getId());		
 		List<Integer> listId = query.getResultList();
 		
 		List<Users> listUsers = new ArrayList<Users>();
 		
 		for( int id: listId ){
-			Query query2 = manager.createQuery("SELECT x FROM Users x WHERE x.id= :id");
+			Query query2 = manager.createNamedQuery("Friends.findUserById");
 			Users dupa = (Users) query2.setParameter("id", id).getSingleResult();
 			listUsers.add(dupa);
 		}
@@ -63,7 +63,7 @@ public class FriendsDAOimpl implements FriendsDAO {
 
 	@Override
 	public void ignoreFriend(int id) {
-		Query query = manager.createQuery("DELETE FROM Invitations x WHERE x.idSender= :id AND x.idRecipient= :idRecipient");
+		Query query = manager.createNamedQuery("Friends.ignoreFriend");
 		query.setParameter("id", id);
 		query.setParameter("idRecipient", userService.findUserByUsername().getId());
 		query.executeUpdate();

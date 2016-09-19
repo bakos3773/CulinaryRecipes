@@ -15,7 +15,7 @@
     	<security:form-login login-page="/logging" authentication-success-handler-ref="myAuthenticationSuccessHandler" />
     	<security:logout logout-success-url="/" logout-url="/logout" delete-cookies="JSESSIONID"/>	
     	<security:csrf disabled="true"/>
-    	<security:remember-me key="SpringSecured" token-validity-seconds="2419200" />
+    	<security:remember-me  key="SpringSecured" token-validity-seconds="2419200" />
     </security:http>
     
     <beans:bean id="myAuthenticationSuccessHandler"
