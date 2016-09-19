@@ -62,8 +62,8 @@ public class UserController {
 			return "addRecipe";
 		}
 		System.out.println("Controller dodawanie przepisu - opis!");
-		//recipeService.addCulinaryRecipe(culinaryRecipes);
-//		model.addAttribute("filterPattern", new FilterPattern());
+		recipeService.addCulinaryRecipe(culinaryRecipes);
+		model.addAttribute("filterPattern", new FilterPattern());
 
 		return "redirect:/user/recipes/upload";
 	}

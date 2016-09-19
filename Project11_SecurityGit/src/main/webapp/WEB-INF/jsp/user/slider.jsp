@@ -13,7 +13,7 @@
 	  <!-- Slajdy -->
 	  <div class="carousel-inner">
 	    <div class="item active" align="center">
-	      <img src="<c:url value="/resources/images/{{tabLastRecipes[0].id}}.jpg"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
+	      <img src="<c:url value="/user/recipes/images/{{tabLastRecipes[0].id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
 	      <!-- Opis slajdu -->
 	      <div class="carousel-caption">
 	        <h3>{{tabLastRecipes[0].name}}</h3>
@@ -22,7 +22,7 @@
 	    </div>
 	
 	    <div class="item" align="center">
-	       <img src="<c:url value="/resources/images/{{tabLastRecipes[1].id}}.jpg"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
+	       <img src="<c:url value="/images/{{tabLastRecipes[1].id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
 	      <!-- Opis slajdu -->
 	      <div class="carousel-caption">
 	        <h3>{{tabLastRecipes[1].name}}</h3>
@@ -31,7 +31,7 @@
 	    </div>
 	
 	    <div class="item" align="center">
-	       <img src="<c:url value="/resources/images/{{tabLastRecipes[2].id}}.jpg"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
+	       <img src="<c:url value="/images/{{tabLastRecipes[2].id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
 	      <!-- Opis slajdu -->
 	      <div class="carousel-caption">
 	        <h3>{{tabLastRecipes[2].name}}</h3>
@@ -40,7 +40,7 @@
 	    </div>
 	    
 	    <div class="item" align="center">
-	       <img src="<c:url value="/resources/images/{{tabLastRecipes[3].id}}.jpg"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
+	       <img src="<c:url value="/images/{{tabLastRecipes[3].id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
 	      <!-- Opis slajdu -->
 	      <div class="carousel-caption">
 	        <h3>{{tabLastRecipes[3].name}}</h3>

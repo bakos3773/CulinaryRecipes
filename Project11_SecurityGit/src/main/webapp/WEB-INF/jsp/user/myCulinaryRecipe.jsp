@@ -9,7 +9,7 @@
 		<hr/>
 		<div>
 				<hr/>
-			<div><img src="<c:url value="/resources/images/{{recipe.id}}.jpg"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/></div>
+			<div><img src="<c:url value="/user/recipes/images/{{recipe.id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/></div>
 			<div><h4><b>Type:</b>	<c:out value="{{recipe.type}}"/></h4> </div>
 			<div><h4><b>Name:</b>	<i><c:out value="{{recipe.name}}"/></i></h4> </div>
 			<div><h4><b>Components:</b>	<i><c:out value="{{recipe.components}}"/></i></h4> </div>

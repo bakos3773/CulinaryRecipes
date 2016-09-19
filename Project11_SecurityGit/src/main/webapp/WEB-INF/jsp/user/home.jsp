@@ -42,7 +42,7 @@
 <c:forEach items="${recipes}" var="recipe">
 <div class="img">
 	<a href="<spring:url value="/user/recipes/show/${recipe.id}"></spring:url>">
-		<img src="<c:url value="/resources/images/${recipe.id}.jpg"></c:url>" style="max-width: 700px; max-height: 700px;" alt="image"/>
+		<img src="<c:url value="/user/recipes/images/${recipe.id}"></c:url>" style="max-width: 700px; max-height: 700px;" alt="image"/>
   	</a>
 		<c:out value="${recipe.name}"/>
 		<p><span class="glyphicon glyphicon-time"></span> 45min &nbsp; <span class="glyphicon glyphicon-stats"></span> latwe</p>

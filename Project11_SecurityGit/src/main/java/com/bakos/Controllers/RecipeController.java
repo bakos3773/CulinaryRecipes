@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +42,8 @@ public class RecipeController {
 
 	@Autowired
 	CulinaryRecipesService recipesService;
+	
+	String rootDirectory = System.getProperty("catalina.home");
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(RecipeController.class);
@@ -105,16 +108,18 @@ public class RecipeController {
 	@RequestMapping(value="/uploadPost", method=RequestMethod.POST) // TEST 
 	public String onSubmit( HttpServletRequest request, @RequestParam(value = "file", required = true) MultipartFile file ) throws IllegalStateException, IOException{
 		
-		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+		
 		
 		if (!file.isEmpty()) {
 
 			try {
+				
+				File dir = new File(rootDirectory +File.separator + "resources" + File.separator + "images");
+				if (!dir.exists())
+					dir.mkdirs();
 
-				File serverFile = new File(rootDirectory+File.separator + "resources" + File.separator + "images"
-						+ File.separator + recipesService.getlastOneRecipies().getId() + ".jpg");
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(serverFile));
+				File serverFile = new File(dir.getAbsoluteFile() + File.separator + recipesService.getlastOneRecipies().getId() + ".jpg");
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 
 				stream.write(file.getBytes());
 				stream.close();
@@ -125,5 +130,15 @@ public class RecipeController {
 		}
 		
         return "redirect:/user/home";
+	}
+	
+	@RequestMapping(value="/images/{imageId}", method=RequestMethod.GET)
+	@ResponseBody
+	public byte[] getImage(@PathVariable("imageId")String imageId) throws IOException{
+		
+		File fileFromServe = new File(rootDirectory+File.separator + "resources" + File.separator + "images"
+				+ File.separator + imageId + ".jpg");
+		
+		return Files.readAllBytes(fileFromServe.toPath());
 	}
 }
