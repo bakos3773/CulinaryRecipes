@@ -2,6 +2,7 @@ package com.bakos.Service;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.bakos.UserDTO.Articles;
@@ -14,6 +15,7 @@ public interface CulinaryRecipesService {
 
 	public void addCulinaryRecipe(CulinaryRecipes culinaryRecipes);
 
+	
 	public List<CulinaryRecipes> getAllRecipies();
 
 	public List<CulinaryRecipes> getlast10Recipies();

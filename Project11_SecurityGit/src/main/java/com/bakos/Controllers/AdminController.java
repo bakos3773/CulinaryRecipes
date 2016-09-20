@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,7 +28,7 @@ public class AdminController {
 	
 	@Autowired
 	CulinaryRecipesService recipesService;
-
+	@Secured(value = { "ROLE_ADMIN" })
 	@RequestMapping(value = "/allUsers", method = RequestMethod.GET)
 	public String allUsers(Model model) {
 
@@ -35,7 +36,7 @@ public class AdminController {
 
 		return "allUsers";
 	}
-
+	@Secured(value = { "ROLE_ADMIN" })
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteUser(@PathVariable("id") int id, Model model) {
 
@@ -43,7 +44,7 @@ public class AdminController {
 
 		return "allUsers";
 	}
-
+	@Secured(value = { "ROLE_ADMIN" })
 	@RequestMapping(value = "/changeRole/{isTrue}", method = RequestMethod.GET)
 	public String checkedTypes(@PathVariable("isTrue") boolean isTrue,
 			Model model) {
@@ -54,7 +55,7 @@ public class AdminController {
 
 		return "adminSettings";
 	}
-
+	@Secured(value = { "ROLE_ADMIN" })
 	@RequestMapping(value = "/settings", method = RequestMethod.GET)
 	public String adminSettings(Model model) {
 
@@ -62,7 +63,7 @@ public class AdminController {
 		model.addAttribute("article", new Articles());
 		return "adminSettings";
 	}
-	
+	@Secured(value = { "ROLE_ADMIN" })	
 	@RequestMapping(value = "/settings", method = RequestMethod.POST)
 	public String adminSettingsPost( @ModelAttribute("article")Articles article ) {
 
@@ -71,21 +72,20 @@ public class AdminController {
 		recipesService.addArticle(article);
 		return "adminSettings";
 	}	
-	
 	@RequestMapping(value = "/articles", method = RequestMethod.GET)
 	public String articles( Model model) {
 
 		model.addAttribute("y", recipesService.getAllArticles() );
 		return "setArticle";
 	}
-	
+	@Secured(value = { "ROLE_ADMIN" })	
 	@RequestMapping(value = "/allArticles", method = RequestMethod.GET, headers = { "Accept=text/xml, application/json" })
 	public @ResponseBody List<Articles> articlesAll( Model model) {
 		
 		List<Articles> to = recipesService.getAllArticles();
 		return to;
 	}
-	
+	@Secured(value = { "ROLE_ADMIN" })	
 	@RequestMapping(value="/articles/remove/{id}", method=RequestMethod.PUT)
 	@ResponseStatus(value=HttpStatus.NO_CONTENT)
 	public void removeItem(@PathVariable("id") int id) {

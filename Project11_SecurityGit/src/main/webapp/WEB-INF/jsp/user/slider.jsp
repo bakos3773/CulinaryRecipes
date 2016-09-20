@@ -1,4 +1,4 @@
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	
 <div ng-controller="sliderCtrl">	
 	<div id="carousel-example-generic" class="carousel slide">
@@ -22,7 +22,7 @@
 	    </div>
 	
 	    <div class="item" align="center">
-	       <img src="<c:url value="/images/{{tabLastRecipes[1].id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
+	       <img src="<c:url value="/user/recipes/images/{{tabLastRecipes[1].id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
 	      <!-- Opis slajdu -->
 	      <div class="carousel-caption">
 	        <h3>{{tabLastRecipes[1].name}}</h3>
@@ -31,7 +31,7 @@
 	    </div>
 	
 	    <div class="item" align="center">
-	       <img src="<c:url value="/images/{{tabLastRecipes[2].id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
+	       <img src="<c:url value="/user/recipes/images/{{tabLastRecipes[2].id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
 	      <!-- Opis slajdu -->
 	      <div class="carousel-caption">
 	        <h3>{{tabLastRecipes[2].name}}</h3>
@@ -40,7 +40,7 @@
 	    </div>
 	    
 	    <div class="item" align="center">
-	       <img src="<c:url value="/images/{{tabLastRecipes[3].id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
+	       <img src="<c:url value="/user/recipes/images/{{tabLastRecipes[3].id}}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
 	      <!-- Opis slajdu -->
 	      <div class="carousel-caption">
 	        <h3>{{tabLastRecipes[3].name}}</h3>
@@ -69,7 +69,7 @@ appTwo.controller('sliderCtrl', function($scope, $http, $log){
 	
 	var imageInsideSliderFunction = function(){		
 		
-		 $http.get("/ProjectSecurityGit/aaaa").then(function(response){
+		 $http.get("/ProjectSecurityGit/getlast10Recipies").then(function(response){
 			 $scope.tabLastRecipes = response.data;
 				$log.info( $scope.tabLastRecipes);
 		});	 

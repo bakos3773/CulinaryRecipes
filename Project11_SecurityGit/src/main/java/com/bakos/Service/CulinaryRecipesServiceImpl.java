@@ -23,17 +23,13 @@ public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
 
 	@Override
 	public void addCulinaryRecipe(CulinaryRecipes culinaryRecipes) {
-
 		logger.info("Calling a method: addCulinaryRecipe");
-
 		recipeDAO.addCulinaryRecipe(culinaryRecipes);
 	}
 
 	@Override
 	public List<CulinaryRecipes> getAllRecipies() {
-
 		logger.info("Calling a method: getAllRecipiesByUserId");
-
 		return recipeDAO.getAllRecipies();
 	}
 
@@ -111,7 +107,7 @@ public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
 
 	@Override
 	public boolean isItMyRecipe(int id) {
-		
+		logger.info("Calling a method: isItMyRecipe");
 		return recipeDAO.isItMyRecipe(id);
 	}
 

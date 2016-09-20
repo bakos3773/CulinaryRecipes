@@ -119,10 +119,10 @@ public class MainController {
 	
 	
 //**************************************************************************************************	
-	@RequestMapping(value="/aaaa", method=RequestMethod.GET, headers = { "Accept=text/xml, application/json" })	
+	@RequestMapping(value="/getlast10Recipies", method=RequestMethod.GET, headers = { "Accept=text/xml, application/json" })	
 	public @ResponseBody List<CulinaryRecipes> getCulinaryRecipesToHtml(){
 		
-		logger.info("Wszedlem do kontorlera");
+		logger.info("WYWOLANIE METODY: getlast10Recipies()");
 		
 		return recipesService.getlast10Recipies();
 	}	

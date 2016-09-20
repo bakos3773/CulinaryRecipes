@@ -73,11 +73,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<String> getAllUsersLogin() {
+		logger.info("Calling a method: getAllUsersLogin");
 		return userDAO.getAllUsersLogin();
 	}
 
 	@Override
 	public Users getUserLogin(String login) {		
+		logger.info("Calling a method: getUserLogin");
 		return userDAO.getUserLogin(login);
 	}
 

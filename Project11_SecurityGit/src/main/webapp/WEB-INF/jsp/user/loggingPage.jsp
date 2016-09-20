@@ -110,7 +110,7 @@ body
 		    <ul class="nav navbar-nav">
 		    <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
 			      <li><a href='<spring:url value="/user/home"></spring:url>'><span class="glyphicon glyphicon-home"></span> Home</a></li>
-			      <li><a href='<spring:url value="/user/myCulinaryRecipe"></spring:url>'><span class="glyphicon glyphicon-heart"></span> My Recipe</a></li>
+			      <li><a href='<spring:url value="/user/recipes/myCulinaryRecipe"></spring:url>'><span class="glyphicon glyphicon-heart"></span> My Recipe</a></li>
 		    </security:authorize>
 		      <security:authorize access="hasRole('ROLE_USER')">
 		      		<li><a href='<spring:url value="/user/settings"></spring:url>'><span class="glyphicon glyphicon-cog"></span> Settings</a></li>

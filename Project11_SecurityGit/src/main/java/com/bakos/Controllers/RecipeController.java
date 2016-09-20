@@ -9,10 +9,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +57,15 @@ public class RecipeController {
 			BindingResult result, @PathVariable("id") int id) {
 
 		recipesService.updateRecipe(recipe, id);
+	}
+	
+	@RequestMapping(value = "/myCulinaryRecipe", method = RequestMethod.GET)
+	public String myCulinaryRecipe(Model model) {
+
+		model.addAttribute("myRecipes", recipesService.getAllMyCulinaryRecipes());
+		model.addAttribute("recipe", new CulinaryRecipes());
+
+		return "myCulinaryRecipe";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, headers = { "Accept=text/xml, application/json" })
@@ -135,6 +140,8 @@ public class RecipeController {
 	@RequestMapping(value="/images/{imageId}", method=RequestMethod.GET)
 	@ResponseBody
 	public byte[] getImage(@PathVariable("imageId")String imageId) throws IOException{
+		
+		System.out.println("Pobieram zdjecia!!!");
 		
 		File fileFromServe = new File(rootDirectory+File.separator + "resources" + File.separator + "images"
 				+ File.separator + imageId + ".jpg");

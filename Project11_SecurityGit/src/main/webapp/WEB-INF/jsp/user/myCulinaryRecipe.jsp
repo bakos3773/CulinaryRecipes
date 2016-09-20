@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+    		
   
 <div ng-controller="recipeCtrl">
 <%-- 	<c:forEach items="${myRecipes}" var="recipe"> --%>
@@ -107,7 +106,7 @@ app.controller("recipeCtrl", function($scope, $http, $log){
 		$scope.recipeUrl = "/ProjectSecurityGit/user/recipes/"+id;		
 		$http({
 				method: 'GET',
-				url: '/ProjectSecurityGit/user/recipes/'+id})
+				url: "/ProjectSecurityGit/user/recipes/"+id})
 				.then(function(response){
 					$scope.recipes = response.data;
 					$log.info($scope.recipes);					

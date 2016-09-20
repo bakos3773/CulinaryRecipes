@@ -29,7 +29,7 @@ public class WidgetServiceImpl implements WidgetService{
 
 	@Override
 	public List<MostPopularRecipesThisDay> mostPopularRecipesThisDay(int day) {
-		
+		logger.info("Calling a method: mostPopularRecipesThisDay");
 		return widgetDAO.mostPopularRecipesThisDay(day);
 	}
 
