@@ -37,11 +37,6 @@ public class FriendsController {
 	@RequestMapping(value="/user/frendsSide/friendsMainSide",  method=RequestMethod.GET)
 	public String startController(Model model){
 		
-		
-	
-		
-		
-		
 		if(!friendsService.checkInvitatios().isEmpty()){
 			model.addAttribute("invitationsExist", true);
 			model.addAttribute("listOfInvitation", friendsService.checkInvitatios());
@@ -84,7 +79,7 @@ public class FriendsController {
 	}
 	
 	@RequestMapping(value="/user/frendsSide/ignoreFriend/{id}", method=RequestMethod.GET, headers = { "Accept=text/xml, application/json" })
-	@ResponseStatus(value=HttpStatus.OK)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void ignoreFriend(@PathVariable("id")int id, Model model){
 		
 		friendsService.ignoreFriend(id);

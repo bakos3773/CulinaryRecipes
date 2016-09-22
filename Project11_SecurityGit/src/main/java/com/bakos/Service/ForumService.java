@@ -11,7 +11,7 @@ public interface ForumService {
 	public List<Forum> setSections(Forum forum);
 	public List<Forum> getAllSections();
 	
-	public List<Forum_Themes> setForumTopics(Forum_Themes forumThemes, int id);
+	public void setForumTopics(Forum_Themes forumThemes, int id);
 	public List<Forum_Themes> getAllForum_Themes(int id);
 	public Forum_Themes getForumThemeById(int id);
 	

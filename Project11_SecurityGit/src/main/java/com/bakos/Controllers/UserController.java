@@ -27,7 +27,7 @@ import com.bakos.UserDTO.Messages;
 public class UserController {
 
 	@Autowired
-	UserService service;
+	UserService userService;
 
 	@Autowired
 	CulinaryRecipesService recipeService;
@@ -43,36 +43,10 @@ public class UserController {
 	@RequestMapping(value = "/settings", method = RequestMethod.GET)
 	public String settings(Model model) {
 
-		model.addAttribute("user", service.findUserByUsername());
+		model.addAttribute("user", userService.findUserByUsername());
 		return "settings";
 	}	
-	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
-	@RequestMapping(value = "/addRecipe", method = RequestMethod.GET)
-	public String addRecipeBefore(Model model) {
 
-		model.addAttribute("culinaryRecipes", new CulinaryRecipes());
-
-		return "addRecipe";
-	}
-	
-//	@PreAuthorize -  Jeœli u¿ytkownik posiada rolê ROLE_USER oraz dlugosc pola name klasy culinaryRecipes bedzie
-//	wieksze(=)5, to wywo³anie metody bêdzie mo¿liwe, oraz jesli u¿ytkownik posiada rolê ROLE_ADMIN. W przeciwnym 
-//	wypadku wyrzucony zostanie wyj¹tek zabezpieczeñ i metoda nie zostanie wywo³ana.
-	@PreAuthorize("(hasRole('ROLE_USER') and #culinaryRecipes.name.length()>=5) or hasRole('ROLE_ADMIN')" )
-	@RequestMapping(value = "/addRecipe", method = RequestMethod.POST)
-	public String addRecipeAfter(
-			@Valid @ModelAttribute("culinaryRecipes") CulinaryRecipes culinaryRecipes, BindingResult result, HttpServletRequest request,
-			Model model) {		
-
-		if(result.hasErrors()){
-			return "addRecipe";
-		}
-		System.out.println("Controller dodawanie przepisu - opis!");
-		recipeService.addCulinaryRecipe(culinaryRecipes);
-		model.addAttribute("filterPattern", new FilterPattern());
-
-		return "redirect:/user/recipes/upload";
-	}
 
 	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value = "/checkedTypes", method = RequestMethod.POST)
@@ -93,6 +67,4 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-
-
 }

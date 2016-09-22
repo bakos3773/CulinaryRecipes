@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bakos.UserDAO.CulinaryRecipesDAO;
 import com.bakos.UserDTO.Articles;
@@ -109,6 +110,12 @@ public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
 	public boolean isItMyRecipe(int id) {
 		logger.info("Calling a method: isItMyRecipe");
 		return recipeDAO.isItMyRecipe(id);
+	}
+
+	@Override
+	public void saveImage(MultipartFile file) {
+		logger.info("Calling a method: saveImage");
+		recipeDAO.saveImage(file);		
 	}
 
 

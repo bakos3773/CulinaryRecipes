@@ -21,7 +21,7 @@ public interface ForumDAO {
 	@CachePut("forum")
 	public List<Forum> getAllSections();
 	
-	public List<Forum_Themes> setForumTopics(Forum_Themes forumThemes, int id);
+	public void setForumTopics(Forum_Themes forumThemes, int id);
 	@CachePut("forumThemes")
 //	 Adnotacja @CachePut z kolei nie sprawdza nigdy pasuj¹cych wartoœci w pamiêci
 //	 cache, zawsze wywo³uje metodê, a zwrócon¹ przez ni¹ wartoœæ zapisuje w pamiêci

@@ -14,12 +14,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
+
 //import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bakos.Service.UserService;
 import com.bakos.UserDTO.CulinaryRecipes;
 import com.bakos.UserDTO.MostPopularRecipesThisDay;
 import com.bakos.UserDTO.Statistics;
@@ -32,7 +34,7 @@ public class WidgetDAOImpl implements WidgetDAO {
 	private EntityManager manager;	
 	
 	@Autowired
-	UserDAO userDAO;
+	UserService userService;
 
 	@Override
 	@SuppressWarnings("unchecked")	
@@ -43,12 +45,6 @@ public class WidgetDAOImpl implements WidgetDAO {
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(todayDay);
-
-/*	    int year1 = calendar.get(Calendar.YEAR);
-	    int month1 = calendar.get(Calendar.MONTH);
-	    int day1 = calendar.get(Calendar.DAY_OF_MONTH);
-	    SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-	    String dateInString = "2016-05-13 15:35:03";*/
 	    
 	    List<Integer> listOfDays = new ArrayList<Integer>();
 	    listOfDays.add(0);
@@ -58,17 +54,17 @@ public class WidgetDAOImpl implements WidgetDAO {
 				if( (calendar.get(Calendar.MONTH)+1) > 9){
 					month = manager.createQuery("Select x.date From Users u INNER JOIN u.culinaryRecipes c INNER JOIN c.statistics x WHERE SUBSTRING(x.date, 6, 2) = :pattern AND u.id= :id");
 					month.setParameter("pattern", (calendar.get(Calendar.MONTH)+1)+"");		
-					month.setParameter("id", userDAO.findUserByUsername().getId());
+					month.setParameter("id", userService.findUserByUsername().getId());
 				}else{
 					month = manager.createQuery("Select x.date From Users u INNER JOIN u.culinaryRecipes c INNER JOIN c.statistics x WHERE SUBSTRING(x.date, 7, 1) = :pattern AND u.id= :id");
 					month.setParameter("pattern", (calendar.get(Calendar.MONTH)+1)+"");	
-					month.setParameter("id", userDAO.findUserByUsername().getId());
+					month.setParameter("id", userService.findUserByUsername().getId());
 				}				
 			}
 			else{
 				month = manager.createQuery("Select x.date From Users u INNER JOIN u.culinaryRecipes c INNER JOIN c.statistics x WHERE SUBSTRING(x.date, 1, 7) = :pattern AND u.id= :id");
 				month.setParameter("pattern", year_month);	   
-				month.setParameter("id", userDAO.findUserByUsername().getId());	 
+				month.setParameter("id", userService.findUserByUsername().getId());	 
 			}
 
 			List<Date> result = month.getResultList();
@@ -88,11 +84,8 @@ public class WidgetDAOImpl implements WidgetDAO {
 				}
 				listOfDays.add(ile);
 				ile = 0;
-			}
-			
-
+			}	
 	    	return listOfDays;
-
 	}
 
 
@@ -101,7 +94,7 @@ public class WidgetDAOImpl implements WidgetDAO {
 	public List<MostPopularRecipesThisDay> mostPopularRecipesThisDay(int day) {
 		Query daysTab = manager.createQuery("SELECT c.id FROM Users u INNER JOIN u.culinaryRecipes c INNER JOIN c.statistics x WHERE SUBSTRING(x.date, 9, 2) = :day AND u.id= :id");
 		daysTab.setParameter("day", day+"");		
-		daysTab.setParameter("id", userDAO.findUserByUsername().getId());
+		daysTab.setParameter("id", userService.findUserByUsername().getId());
 	
 		
 		List<Integer> statisticsThisDay = daysTab.getResultList();
@@ -126,7 +119,6 @@ public class WidgetDAOImpl implements WidgetDAO {
 			list.add(new MostPopularRecipesThisDay(values, (String) queryName.getSingleResult()));
 			counter = 0;		
 		}
-		
 		
 		return list;
 	}

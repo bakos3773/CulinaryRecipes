@@ -8,11 +8,15 @@ import java.nio.file.Files;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bakos.Service.CulinaryRecipesService;
 import com.bakos.Service.UserService;
 import com.bakos.UserDTO.CulinaryRecipes;
+import com.bakos.UserDTO.FilterPattern;
 
 @Controller
 @RequestMapping("/user/recipes")
@@ -45,10 +50,12 @@ public class RecipeController {
 			.getLogger(RecipeController.class);
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = { "Accept=text/xml, application/json" })
-	public @ResponseBody CulinaryRecipes read(@PathVariable(value = "id") int id) {
+	public ResponseEntity<CulinaryRecipes> read(@PathVariable(value = "id") int id) {
 
-		CulinaryRecipes recipe = recipesService.read(id);
-		return recipe;
+		CulinaryRecipes recipe = recipesService.read(id);		
+		HttpStatus status = recipe!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+		
+		return new ResponseEntity<CulinaryRecipes>(recipe, status);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
@@ -59,6 +66,34 @@ public class RecipeController {
 		recipesService.updateRecipe(recipe, id);
 	}
 	
+	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
+	@RequestMapping(value = "/addRecipe", method = RequestMethod.GET)
+	public String addRecipeBefore(Model model) {
+
+		model.addAttribute("culinaryRecipes", new CulinaryRecipes());
+
+		return "addRecipe";
+	}
+	
+//	@PreAuthorize -  Jeœli u¿ytkownik posiada rolê ROLE_USER oraz dlugosc pola name klasy culinaryRecipes bedzie
+//	wieksze(=)5, to wywo³anie metody bêdzie mo¿liwe, oraz jesli u¿ytkownik posiada rolê ROLE_ADMIN. W przeciwnym 
+//	wypadku wyrzucony zostanie wyj¹tek zabezpieczeñ i metoda nie zostanie wywo³ana.
+	@PreAuthorize("(hasRole('ROLE_USER') and #culinaryRecipes.name.length()>=5) or hasRole('ROLE_ADMIN')" )
+	@RequestMapping(value = "/addRecipe", method = RequestMethod.POST)
+	public String addRecipeAfter(
+			@Valid @ModelAttribute("culinaryRecipes") CulinaryRecipes culinaryRecipes, BindingResult result, HttpServletRequest request,
+			Model model) {		
+
+		if(result.hasErrors()){
+			return "addRecipe";
+		}
+		System.out.println("Controller dodawanie przepisu - opis!");
+		recipesService.addCulinaryRecipe(culinaryRecipes);
+		model.addAttribute("filterPattern", new FilterPattern());
+
+		return "redirect:/user/recipes/upload";
+	}	
+	
 	@RequestMapping(value = "/myCulinaryRecipe", method = RequestMethod.GET)
 	public String myCulinaryRecipe(Model model) {
 
@@ -68,13 +103,20 @@ public class RecipeController {
 		return "myCulinaryRecipe";
 	}
 
+//	W ramach alternatywy dla @ResponseBody metody kontrolerów mog¹ zwracaæ obiekty
+//	ResponseEntity. Obiekty ResponseEntity, oprócz samego obiektu, który zostanie skon-
+//	wertowany i zwrócony jako reprezentacja zasobu, zawieraj¹ metadane (takie jak nag³ówki
+//	i kody statusu) dotycz¹ce odpowiedzi.
 	@RequestMapping(method = RequestMethod.GET, headers = { "Accept=text/xml, application/json" })
-	public @ResponseBody List<CulinaryRecipes> updateAll() {
+	public ResponseEntity<List<CulinaryRecipes>>updateAll() {
 
-		return recipesService.getAllMyCulinaryRecipes();
+		List<CulinaryRecipes> allMyCulinaryRecipes = recipesService.getAllMyCulinaryRecipes();
+		HttpStatus status = allMyCulinaryRecipes!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+		
+		return new ResponseEntity<List<CulinaryRecipes>>(allMyCulinaryRecipes, status);
 	}
 
-	@RequestMapping(value = "/remove/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void removeItem(@PathVariable("id") int id) {
 
@@ -113,26 +155,7 @@ public class RecipeController {
 	@RequestMapping(value="/uploadPost", method=RequestMethod.POST) // TEST 
 	public String onSubmit( HttpServletRequest request, @RequestParam(value = "file", required = true) MultipartFile file ) throws IllegalStateException, IOException{
 		
-		
-		
-		if (!file.isEmpty()) {
-
-			try {
-				
-				File dir = new File(rootDirectory +File.separator + "resources" + File.separator + "images");
-				if (!dir.exists())
-					dir.mkdirs();
-
-				File serverFile = new File(dir.getAbsoluteFile() + File.separator + recipesService.getlastOneRecipies().getId() + ".jpg");
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-
-				stream.write(file.getBytes());
-				stream.close();
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		recipesService.saveImage(file);
 		
         return "redirect:/user/home";
 	}

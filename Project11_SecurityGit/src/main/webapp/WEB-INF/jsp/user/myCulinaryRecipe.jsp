@@ -121,7 +121,7 @@ app.controller("recipeCtrl", function($scope, $http, $log){
 	}
 	
  	$scope.removeItem = function(id){
- 		$http.put('/ProjectSecurityGit/user/recipes/remove/'+id)
+ 		$http.delete('/ProjectSecurityGit/user/recipes/remove/'+id)
 		.success(function(data){	
 			$log.info(data);
 			refreshRecipes();

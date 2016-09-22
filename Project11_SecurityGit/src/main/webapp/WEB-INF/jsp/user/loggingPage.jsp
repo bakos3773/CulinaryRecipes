@@ -120,7 +120,7 @@ body
 		      		<li><a href='<spring:url value="/admin/settings"></spring:url>'  style="color: red;"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
 		      </security:authorize>
 			  <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
-	      			<li><a href='<spring:url value="/user/addRecipe"></spring:url>'><span class="glyphicon glyphicon-pushpin"></span> Add Recipe</a></li>
+	      			<li><a href='<spring:url value="/user/recipes/addRecipe"></spring:url>'><span class="glyphicon glyphicon-pushpin"></span> Add Recipe</a></li>
 
 	     	   </security:authorize>
 		      <security:authorize access="hasRole('ROLE_USER')">

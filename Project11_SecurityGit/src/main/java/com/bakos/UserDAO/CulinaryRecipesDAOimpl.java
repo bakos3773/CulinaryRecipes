@@ -1,5 +1,9 @@
 package com.bakos.UserDAO;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +14,10 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bakos.Service.CulinaryRecipesService;
+import com.bakos.Service.UserService;
 import com.bakos.UserDTO.Articles;
 import com.bakos.UserDTO.CulinaryRecipes;
 import com.bakos.UserDTO.FilterPattern;
@@ -26,7 +33,12 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 	private EntityManager manager;
 
 	@Autowired
-	UserDAO userDAO;
+	UserService userService;
+	
+	@Autowired
+	CulinaryRecipesService recipesService;
+	
+	String rootDirectory = System.getProperty("catalina.home");
 
 	@Override
 	public void addCulinaryRecipe(CulinaryRecipes culinaryRecipes) {
@@ -37,15 +49,11 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 				culinaryRecipes.getHowToPerform(),
 				culinaryRecipes.getIsPrivateRecipe());
 
-		Users user = userDAO.findUserByUsername();
+		Users user = userService.findUserByUsername();
 		newCulinaryRecipes.setUser(user);
 
 		manager.persist(newCulinaryRecipes);
 		manager.merge(user);
-		//
-		//
-		// manager.refresh(newCulinaryRecipes);
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -65,7 +73,7 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 
 		Query query = manager
 				.createQuery("SELECT c FROM Users u INNER JOIN u.culinaryRecipes c WHERE u.id= :id");
-		query.setParameter("id", userDAO.findUserByUsername().getId());
+		query.setParameter("id", userService.findUserByUsername().getId());
 		List<CulinaryRecipes> lista = query.getResultList();
 
 		return lista;
@@ -130,8 +138,9 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 
 		Query query = manager
 				.createQuery("DELETE FROM CulinaryRecipes x WHERE x.id= :id");
-		query.setParameter("id", id);
-		query.executeUpdate();
+		query.setParameter("id", id).executeUpdate();
+		
+		System.out.println();
 
 	}
 
@@ -201,7 +210,7 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 		
 		Query query = manager
 				.createQuery("SELECT c.id FROM Users u INNER JOIN u.culinaryRecipes c WHERE u.id= :id");
-		query.setParameter("id", userDAO.findUserByUsername().getId());
+		query.setParameter("id", userService.findUserByUsername().getId());
 		List<CulinaryRecipes> lista = query.getResultList();
 		
 		if( lista.contains(id) ){
@@ -209,6 +218,28 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 		}
 		else return false;
 		
+	}
+
+	@Override
+	public void saveImage(MultipartFile file) {
+		if (!file.isEmpty()) {
+
+			try {
+				
+				File dir = new File(rootDirectory +File.separator + "resources" + File.separator + "images");
+				if (!dir.exists())
+					dir.mkdirs();
+
+				File serverFile = new File(dir.getAbsoluteFile() + File.separator + recipesService.getlastOneRecipies().getId() + ".jpg");
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+
+				stream.write(file.getBytes());
+				stream.close();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}		
 	}
 
 }

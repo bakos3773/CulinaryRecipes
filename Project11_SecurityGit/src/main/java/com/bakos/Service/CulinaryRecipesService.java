@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bakos.UserDTO.Articles;
 import com.bakos.UserDTO.CulinaryRecipes;
@@ -44,5 +45,7 @@ public interface CulinaryRecipesService {
 	public void setStatistics(int id );
 	
 	public boolean isItMyRecipe(int id);
+	
+	public void saveImage(MultipartFile file);
 	
 }

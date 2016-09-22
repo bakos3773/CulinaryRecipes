@@ -29,15 +29,13 @@ public class FriendsDAOimpl implements FriendsDAO {
 	@Override
 	public void sendInvitation(int idRecipient) {		
 		
-		Users user = userService.findUserByUsername();
-		
+		Users user = userService.findUserByUsername();		
 		
 		Invitations invitation = new Invitations(false, user.getId(), idRecipient, new Date());
 		user.getInvitations().add(invitation);	
 		
 		manager.persist(invitation);
-		manager.merge(user);
-		
+		manager.merge(user);		
 	}
 
 	@SuppressWarnings("unchecked")

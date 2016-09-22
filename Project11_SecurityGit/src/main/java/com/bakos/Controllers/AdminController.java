@@ -37,7 +37,7 @@ public class AdminController {
 		return "allUsers";
 	}
 	@Secured(value = { "ROLE_ADMIN" })
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public String deleteUser(@PathVariable("id") int id, Model model) {
 
 		service.deleteUser(id);
@@ -86,7 +86,7 @@ public class AdminController {
 		return to;
 	}
 	@Secured(value = { "ROLE_ADMIN" })	
-	@RequestMapping(value="/articles/remove/{id}", method=RequestMethod.PUT)
+	@RequestMapping(value="/articles/remove/{id}", method=RequestMethod.DELETE)
 	@ResponseStatus(value=HttpStatus.NO_CONTENT)
 	public void removeItem(@PathVariable("id") int id) {
 

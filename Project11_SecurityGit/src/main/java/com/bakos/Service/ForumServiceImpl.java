@@ -29,9 +29,9 @@ public class ForumServiceImpl implements ForumService{
 	}
 
 	@Override
-	public List<Forum_Themes> setForumTopics(Forum_Themes forumThemes, int id) {
+	public void setForumTopics(Forum_Themes forumThemes, int id) {
 		
-		return forumDAO.setForumTopics(forumThemes, id);
+		forumDAO.setForumTopics(forumThemes, id);
 	}
 
 	@Override

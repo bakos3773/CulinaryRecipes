@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bakos.Service.UserService;
 import com.bakos.UserDTO.Forum;
 import com.bakos.UserDTO.Forum_Messages;
 import com.bakos.UserDTO.Forum_Themes;
@@ -22,9 +23,9 @@ public class ForumDAOimpl implements ForumDAO{
 
 	@PersistenceContext
 	private EntityManager manager;
-	
+
 	@Autowired
-	UserDAO userDAO;
+	UserService userService;
 	
 	List<Forum_Themes> listForumThemes = new ArrayList<Forum_Themes>();
 	
@@ -55,7 +56,7 @@ public class ForumDAOimpl implements ForumDAO{
 	}
 
 	@Override
-	public List<Forum_Themes> setForumTopics(Forum_Themes forumThemes, int id) {
+	public void setForumTopics(Forum_Themes forumThemes, int id) {
 		
 		Query query = manager.createQuery("Select x FROM Forum x WHERE x.id= :id");
 		Forum forum = (Forum) query.setParameter("id", id).getSingleResult();
@@ -67,15 +68,11 @@ public class ForumDAOimpl implements ForumDAO{
 		Forum_Themes forumTopic = new Forum_Themes();
 		forumTopic.setThemes(forumThemes.getThemes());
 		forumTopic.setLastPost(data+"");
-		forumTopic.setAuthor(userDAO.findUserByUsername().getLogin());
+		forumTopic.setAuthor(userService.findUserByUsername().getLogin());
 		forumTopic.setForum(forum);
 		
-
 		manager.merge(forum);
 		manager.persist(forumTopic);
-	
-		
-		return null;
 	}
 
 
@@ -103,7 +100,7 @@ public class ForumDAOimpl implements ForumDAO{
 	public void setTopicAnswer(Forum_Messages forumMessages, int idTopics) {
 		
 		Forum_Messages messages = new Forum_Messages();
-		messages.setAuthor(userDAO.findUserByUsername().getLogin());
+		messages.setAuthor(userService.findUserByUsername().getLogin());
 		messages.setDate(new Date()+"");
 		messages.setMessage(forumMessages.getMessage());
 		
