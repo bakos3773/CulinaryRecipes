@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -25,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@XmlRootElement
 public class CulinaryRecipes implements Serializable {
 
 	/**
@@ -84,7 +87,7 @@ public class CulinaryRecipes implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public String getComponents() {
 		return components;
 	}
@@ -92,7 +95,7 @@ public class CulinaryRecipes implements Serializable {
 	public void setComponents(String components) {
 		this.components = components;
 	}
-
+	
 	public String getType() {
 		return type;
 	}
@@ -100,7 +103,7 @@ public class CulinaryRecipes implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	
 	public String getHowToPerform() {
 		return howToPerform;
 	}
@@ -108,7 +111,7 @@ public class CulinaryRecipes implements Serializable {
 	public void setHowToPerform(String howToPerform) {
 		this.howToPerform = howToPerform;
 	}
-
+	
 	public String getIsPrivateRecipe() {
 		return isPrivateRecipe;
 	}
@@ -116,7 +119,7 @@ public class CulinaryRecipes implements Serializable {
 	public void setIsPrivateRecipe(String isPrivateRecipe) {
 		this.isPrivateRecipe = isPrivateRecipe;
 	}
-
+	@XmlTransient
 	public Users getUser() {
 		return user;
 	}
@@ -124,7 +127,7 @@ public class CulinaryRecipes implements Serializable {
 	public void setUser(Users user) {
 		this.user = user;
 	}
-
+	@XmlTransient
 	public List<Statistics> getStatistics() {
 		return statistics;
 	}

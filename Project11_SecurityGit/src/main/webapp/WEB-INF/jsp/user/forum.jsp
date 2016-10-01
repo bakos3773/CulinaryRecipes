@@ -210,7 +210,7 @@ app.controller("forumController", function($scope, $http, $log){
 </div>
 
 <!------------ Modal ----------->
-  <form:form action="/${pageContext.request.contextPath}/user/forum/setSection" commandName="forum" method="POST">
+  <form:form action="/ProjectSecurityGit/user/forum/setSection" commandName="forum" method="POST">
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">

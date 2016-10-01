@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bakos.Service.ForumService;
 import com.bakos.UserDTO.Forum;
@@ -26,11 +28,14 @@ public class ForumController {
 	ForumService forumService;
 	
 	@RequestMapping(value="/user/forum", method=RequestMethod.GET)
-	public String forum(Model model){
+	public ModelAndView forum(){
+		ModelAndView model = new ModelAndView("forumSections");
+		model.addObject("forum", new Forum());	
 		
-		model.addAttribute("forum", new Forum());
+		return model;
 		
-		return "forumSections";
+//		model.addAttribute("forum", new Forum());		
+//		return "forumSections";
 	}
 
 	@RequestMapping(value="/user/forum/setSection", method=RequestMethod.GET)
@@ -52,9 +57,15 @@ public class ForumController {
 	@RequestMapping(value="user/forum/getAllSections", method=RequestMethod.GET, headers = { "Accept=text/xml, application/json" })
 	@ResponseBody
 	public List<Forum> getAllSections(){
-		
 		return forumService.getAllSections();
 	}	
+	
+//	@Scheduled(fixedRate=15000)
+//	public void checkAllSections(){
+//		System.out.println("Wchodze co 15 sec");
+//		System.out.println("Ale nie jestem w stanie odswiezyc widoku strony(reload) mimo ze zwraca ona widok"
+//				+ " a jedyne wejsc do metody i ja wykonac");
+//	}
 	
 	@RequestMapping(value="user/forum/section/{id_section}", method=RequestMethod.GET)
 	public String showTopicBefore(Model model, @PathVariable("id_section")int id){

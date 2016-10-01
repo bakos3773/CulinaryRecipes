@@ -8,6 +8,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.MailException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,7 +35,7 @@ public class UserDAOimpl implements UserDAO {
 
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		user.setPassword(encoder.encode(user.getPassword()));
-
+		
 		manager.persist(user);
 	}
 
@@ -40,7 +45,8 @@ public class UserDAOimpl implements UserDAO {
 				.createQuery("Select x From Users x WHERE x.login= :login AND password= :password");
 		query.setParameter("login", login);
 		query.setParameter("password", Password);
-		return (Users) query.getSingleResult();
+		Users user = (Users) query.getSingleResult();
+		return user;
 	}
 
 	@Override

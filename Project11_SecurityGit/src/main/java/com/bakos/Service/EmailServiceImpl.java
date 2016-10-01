@@ -10,10 +10,22 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailServiceImpl implements EmailService{
+	
+	@Autowired(required=false)
+	MailSender mailSender;
+	
+//	@Autowired(required=false)
+//	JavaMailSender mailSender;
+	
     protected String mailSmtpAuth = "true";
     protected String mailSmtpHost = "smtp.gmail.com";
     protected String mailSmtpPort = "587";
@@ -58,5 +70,24 @@ public class EmailServiceImpl implements EmailService{
 
         return false;
     }
+    
+    @Async
+    public void sendAsync(String recipientEmail, String subject,
+			String content, String login, String password) {
+    	sendEmail2(recipientEmail, subject, content, login, password);    	
+    }
+
+	@Override
+	public void sendEmail2(String recipientEmail, String subject,
+			String content, String login, String password) {
+		
+		   SimpleMailMessage message = new SimpleMailMessage(); 	   
+		   message.setFrom("p.bakowski1@gmail.com");	
+		   message.setTo(recipientEmail);
+		   message.setSubject(subject);
+		   message.setText(content);
+		   mailSender.send(message);			
+		
+	}
     
 }

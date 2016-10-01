@@ -15,7 +15,7 @@
 	</definition>
 	
 	<definition name="indexPattern" template="/WEB-INF/jsp/user/index.jsp">
-	</definition>	
+	</definition>
 	
 	<definition name="forum" template="/WEB-INF/jsp/user/forum.jsp">
 	</definition>

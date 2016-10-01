@@ -22,7 +22,13 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -59,8 +65,10 @@ public class MainController {
 	@Autowired
 	EmailService emailService;
 	
+
 	@Autowired
 	CulinaryRecipesService recipesService;
+	
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(MainController.class);
@@ -69,9 +77,10 @@ public class MainController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public String main(Model model) {
+		
 
 		model.addAttribute("latest", recipesService.getlast10Recipies());
-
+		
 		return "index";
 	}
 
@@ -88,14 +97,16 @@ public class MainController {
 
 		if (result.hasErrors()) {
 			return "register";
-		}
-
+		}		
+		   
 		// Method sending Email
 		// if(emailService.sendEmail(user.getMail(), "", "", user.getLogin(),
 		// user.getPassword())){
+		
+		emailService.sendEmail2("p.bakowski1@gmail.com", "Nowy urzytkownik", "Nowy urzytkownik ["+user.getUsername()+" " +user.getSurname()+"] zarejestrowal sie na stronie", user.getLogin(), user.getPassword());
 		service.addUser(user);
 		// }
-
+		
 		return "redirect:/"; 
 							
 	}
@@ -124,12 +135,12 @@ public class MainController {
 	
 	
 //**************************************************************************************************	
-	@RequestMapping(value="/getlast10Recipies", method=RequestMethod.GET, headers = { "Accept=text/xml, application/json" })	
+	@RequestMapping(value="/getlast10Recipies", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)	
 	public @ResponseBody List<CulinaryRecipes> getCulinaryRecipesToHtml(){
 		
 		logger.info("WYWOLANIE METODY: getlast10Recipies()");
 		
 		return recipesService.getlast10Recipies();
 	}	
-	
+
 }

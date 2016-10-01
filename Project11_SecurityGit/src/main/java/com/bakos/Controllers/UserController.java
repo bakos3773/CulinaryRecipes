@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -32,9 +33,10 @@ public class UserController {
 	@Autowired
 	CulinaryRecipesService recipeService;
 
+	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model) {
-
+		
 		model.addAttribute("recipes", recipeService.getAllRecipies());
 		model.addAttribute("filterPattern", new FilterPattern());
 		return "home";
@@ -48,7 +50,7 @@ public class UserController {
 	}	
 
 
-	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
+//	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value = "/checkedTypes", method = RequestMethod.POST)
 	public String checkedTypes(
 			@ModelAttribute("filterPattern") FilterPattern filterPattern, RedirectAttributes model) {

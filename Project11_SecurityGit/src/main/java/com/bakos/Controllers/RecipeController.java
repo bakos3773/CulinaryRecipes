@@ -88,7 +88,7 @@ public class RecipeController {
 			return "addRecipe";
 		}
 		System.out.println("Controller dodawanie przepisu - opis!");
-		recipesService.addCulinaryRecipe(culinaryRecipes);
+//		recipesService.addCulinaryRecipe(culinaryRecipes);
 		model.addAttribute("filterPattern", new FilterPattern());
 
 		return "redirect:/user/recipes/upload";
@@ -163,8 +163,6 @@ public class RecipeController {
 	@RequestMapping(value="/images/{imageId}", method=RequestMethod.GET)
 	@ResponseBody
 	public byte[] getImage(@PathVariable("imageId")String imageId) throws IOException{
-		
-		System.out.println("Pobieram zdjecia!!!");
 		
 		File fileFromServe = new File(rootDirectory+File.separator + "resources" + File.separator + "images"
 				+ File.separator + imageId + ".jpg");
