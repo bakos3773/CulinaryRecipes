@@ -50,17 +50,7 @@ public class UserController {
 	}	
 
 
-//	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
-	@RequestMapping(value = "/checkedTypes", method = RequestMethod.POST)
-	public String checkedTypes(
-			@ModelAttribute("filterPattern") FilterPattern filterPattern, RedirectAttributes model) {
-//		 RedirectAttributes  - Mo¿emy zatem umieœciæ obiekt Spitter w sesji przed wykonaniem przekierowania,
-//		a nastêpnie pobraæ z sesji po jego wykonaniu
-//		model.addAttribute("recipes", recipeService.checkedTypes(filterPattern));
-		model.addFlashAttribute("recipes", recipeService.checkedTypes(filterPattern));
 
-		return "redirect:/home";
-	}
 	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
 	public String sendMessage(@ModelAttribute("message") Messages message,

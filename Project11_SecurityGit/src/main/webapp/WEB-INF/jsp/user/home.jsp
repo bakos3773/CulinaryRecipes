@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+    <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
     <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -38,7 +38,7 @@ $(document).ready(function() {
       <div class="panel-body" style="background-color: black;">
         SELECT TYPE: 
         
-        <form:form method="POST" commandName="filterPattern" action="/ProjectSecurityGit/user/checkedTypes">
+        <form:form action="/ProjectSecurityGit/user/recipes/checkedTypes" method="POST" commandName="filterPattern" >
 		    <div class="checkbox">
 		      <label><form:checkbox path="allTypes" value="Ciasta" checked="checked"/> Ciasta</label>
 		    </div>
@@ -51,7 +51,7 @@ $(document).ready(function() {
 		    <div class="checkbox">
 		      <label><form:checkbox path="allTypes" value="Zupy"  checked="checked"/> Zupy</label>
 		    </div>	
-		    <input type="submit" value="OK"> 	    		    		            	
+		    <input type="submit" value="OK">
         </form:form>
 
       </div>

@@ -59,7 +59,7 @@ public class WidgetController {
 	    cal.setTime(date);
 	    int day = cal.get(Calendar.DAY_OF_MONTH);
 	    
-	    
-		return widgetService.mostPopularRecipesThisDay(day);
+	    List<MostPopularRecipesThisDay> x = widgetService.mostPopularRecipesThisDay(day);
+		return x;
 	}	
 }

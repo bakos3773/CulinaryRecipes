@@ -191,7 +191,7 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 
 	@Override
 	public void setStatistics(int id) {
-		
+		System.out.println("USTAWIAM PRZEPIS NA DZIS");
 		if( !this.isItMyRecipe(id)){
 			
 			Statistics statistics = new Statistics();

@@ -28,11 +28,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bakos.Service.CulinaryRecipesService;
 import com.bakos.Service.UserService;
 import com.bakos.UserDTO.CulinaryRecipes;
 import com.bakos.UserDTO.FilterPattern;
+import com.bakos.pdf.SaveSelectedRecesice;
+import com.itextpdf.text.DocumentException;
 
 @Controller
 @RequestMapping("/user/recipes")
@@ -57,6 +61,18 @@ public class RecipeController {
 		
 		return new ResponseEntity<CulinaryRecipes>(recipe, status);
 	}
+	
+//	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
+	@RequestMapping(value = "/checkedTypes", method = RequestMethod.POST)
+	public String checkedTypes(@ModelAttribute("filterPattern") FilterPattern filterPattern, RedirectAttributes model) {
+//		 RedirectAttributes  - Mo¿emy zatem umieœciæ obiekt Spitter w sesji przed wykonaniem przekierowania,
+//		a nastêpnie pobraæ z sesji po jego wykonaniu
+//		model.addAttribute("recipes", recipeService.checkedTypes(filterPattern));
+		System.out.println("Wszedlem do checkedTypes");
+		model.addFlashAttribute("recipes", recipesService.checkedTypes(filterPattern));
+
+		return "redirect:/home";
+	}	
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
@@ -135,9 +151,25 @@ public class RecipeController {
 	public String show( @PathVariable("id")int id, Model model ){
 		
 		recipesService.setStatistics(id);
-		model.addAttribute("recipes", recipesService.getRecipieById(id) );
+		model.addAttribute("recipes", recipesService.getRecipieById(id));
 		return "getRecipeById";
 	}	
+	
+	@RequestMapping(value="/show/pdf/{id}", method=RequestMethod.GET)
+	public ModelAndView showPDF( @PathVariable("id")int id, Model model ){
+				
+		return new ModelAndView("pdfView", "recipes", recipesService.getRecipieById(id)); 
+	}
+	
+	@RequestMapping(value="/save/{id}", method=RequestMethod.GET)
+	public String saveRecipeOnDesctop(@PathVariable("id")int id) throws DocumentException, IOException{
+		
+		CulinaryRecipes recipe = recipesService.getRecipieById(id);
+		
+		new SaveSelectedRecesice().metoda(recipe);
+		
+		return "redirect:/user/recipes/show/"+recipe.getId();
+	}
 	
 	@RequestMapping(value="/statistics", method=RequestMethod.GET)
 	public String statiscic( Model model ){

@@ -19,6 +19,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 		
 		<cache:annotation-driven/>
+		
 		<bean id="cacheManager" class="org.springframework.cache.concurrent.ConcurrentMapCacheManager">
 		</bean>		
 		
@@ -118,6 +119,10 @@
 		<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 			<property name="basename" value="messages"></property>
 		</bean>
+		<!-- show pdf view -->
+		<bean id="viewResolverPdf" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	        <property name="basename" value="views"/>
+	    </bean>
 			
 		<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 			<property name="validationMessageSource" ref="messageSource"></property>

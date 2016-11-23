@@ -117,7 +117,7 @@ public class WidgetDAOImpl implements WidgetDAO {
 			List<Integer> values = new ArrayList<Integer>();
 			values.add(counter);
 			list.add(new MostPopularRecipesThisDay(values, (String) queryName.getSingleResult()));
-			counter = 0;		
+			counter = 0;
 		}
 		
 		return list;

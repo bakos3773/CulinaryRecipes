@@ -2,6 +2,7 @@ package com.bakos.Controllers;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
@@ -55,6 +56,8 @@ import com.bakos.UserDTO.CulinaryRecipes;
 import com.bakos.UserDTO.FilterPattern;
 import com.bakos.UserDTO.Messages;
 import com.bakos.UserDTO.Users;
+import com.bakos.pdf.SaveSelectedRecesice;
+import com.itextpdf.text.DocumentException;
 
 @Controller
 public class MainController {
@@ -76,10 +79,12 @@ public class MainController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public String main(Model model) {
+	public String main(Model model) throws FileNotFoundException, DocumentException {
 		
 
 		model.addAttribute("latest", recipesService.getlast10Recipies());
+		
+		SaveSelectedRecesice savePdf = new SaveSelectedRecesice();
 		
 		return "index";
 	}

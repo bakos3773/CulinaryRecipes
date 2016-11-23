@@ -5,11 +5,12 @@
     <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
     <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
+
 	<hr/>
 	<div align="center">	
-	<img src="<c:url value="/user/recipes/images/${recipes.id}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/>
+ 	<img src="<c:url value="/user/recipes/images/${recipes.id}"></c:url>" style="max-width: 300px; max-height: 300px;" alt="image"/> 
 		 <div><h4><b>Type:</b>	<c:out value="${recipes.type}"/> </h4> </div>
-		<div><h4><b><i><c:out value="${recipes.name}"/></i></b></h4> </div>
+		<div><h4><b>Name:</b><i> <c:out value="${recipes.name}"/></i></h4> </div>
  		<div><h4><b>Components:</b>	<i><c:out value="${recipes.components}"/></i></h4> </div>
 		<div><h4><b>How to perform:</b>	<i><c:out value="${recipes.howToPerform}"/></i></h4> </div> 
 		<p>
@@ -17,5 +18,7 @@
 				<span class="glyphicon-hand-left glyphicon"></span>
 				back
 			</a>
+			<a href='<spring:url value="/user/recipes/save/${recipes.id}"></spring:url>' class="btn btn-primary">Save to PDF</a>
+			<a href='<spring:url value="/user/recipes/show/pdf/${recipes.id}.pdf"></spring:url>' class="btn btn-danger">Print PDF</a>
 		</p>
 	</div>

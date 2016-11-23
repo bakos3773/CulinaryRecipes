@@ -33,6 +33,17 @@
 </properties>  
   
   <dependencies>
+<!-- PDF view -->  
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itextpdf</artifactId>
+    <version>5.5.9</version>
+</dependency>
+<dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itextpdf</artifactId>
+    <version>5.5.9</version>
+</dependency>
 <!--   JMS- asynchroniczna obsluga komunikatow -->
 <!-- <dependency>
     <groupId>org.springframework</groupId>
@@ -45,7 +56,14 @@
   <version>5.14.0</version>
 </dependency>   -->
   
+ 
+  <!-- Testy integracyjne -->
   <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-test</artifactId>
+    <version>${org.springframework.version}</version>
+</dependency>
+<dependency>
    <groupId>javax.el</groupId>
    <artifactId>javax.el-api</artifactId>
    <version>2.2.4</version>
@@ -54,13 +72,6 @@
    <groupId>org.glassfish.web</groupId>
    <artifactId>javax.el</artifactId>
    <version>2.2.4</version>
-</dependency>
-  
-  <!-- Testy integracyjne -->
-  <dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-test</artifactId>
-    <version>${org.springframework.version}</version>
 </dependency>
   
   <!-- JSON -->
