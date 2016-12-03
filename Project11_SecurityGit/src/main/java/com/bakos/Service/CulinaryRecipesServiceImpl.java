@@ -41,7 +41,7 @@ public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
 	}
 
 	@Override
-	public List<CulinaryRecipes> checkedTypes(FilterPattern filterPattern) {
+	public List<CulinaryRecipes> checkedTypes(List<String> filterPattern) {
 		logger.info("Calling a method: checkedTypes");
 		return recipeDAO.checkedTypes(filterPattern);
 	}
@@ -116,6 +116,12 @@ public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
 	public void saveImage(MultipartFile file) {
 		logger.info("Calling a method: saveImage");
 		recipeDAO.saveImage(file);		
+	}
+
+	@Override
+	public void addComment(int idRecpe, String comment) {
+		recipeDAO.addComment(idRecpe, comment);
+		
 	}
 
 

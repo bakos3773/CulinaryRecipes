@@ -5,16 +5,23 @@
     
 
 		
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">	
+		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" ></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+ 		<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.0.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+		
 <script src = "http://cdn.zingchart.com/zingchart.min.js" ></script>
 
 <script src = "http://cdn.zingchart.com/angular/zingchart-angularjs.js"></script>
-
 		
-<!-- Include Bootstrap Datepicker -->
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+		<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>	
+		
+		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">		  
+		<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+						
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
 
 
 
@@ -29,7 +36,7 @@ $(document).ready(function() {
             showAnim: 'slide'
         });
 	
-/* 	$("#showWidgets li").click(function(){
+ 	$("#showWidgets li").click(function(){
 		if( $('.box').eq($(this).index()).text() =="Show All Month"){		
 			
   			angular.element(document.getElementById('MainControllerSettings')).scope().test();
@@ -44,7 +51,7 @@ $(document).ready(function() {
    			$(".lineaWidget").show();
  			$(".circleWidget").hide(); 
 		}		
-	}); */
+	}); 
 });
 </script>
 
@@ -94,13 +101,13 @@ $(document).ready(function() {
             </div>            
             <button ng-click="czas()">show</button>
 		</div>
-		<div id="resizable" style="float: left" ng-if="loaded===true">
+		<div id="resizable" style="float: left" ng-if="loaded===false">
 		     <div zingchart id="chart-1" class="lineaWidget" zc-json="myJson" zc-width="100%" zc-height="100%"></div>
 		</div>    		  
 		<nvd3 options="options" data="data"></nvd3>  
     </div>
 
-    <div role="tabpanel" class="tab-pane" id="messages" ng-if="loaded===false">
+    <div role="tabpanel" class="tab-pane" id="messages" ng-if="loaded===false"> <!-- loaded===false -->
     	<div ng-if="mostPopiulatToday.length">
     		<div zingchart id="chart-1" zc-json="myJsonCircle" zc-width="100%" zc-height="400px"></div>
     	</div>
@@ -112,11 +119,6 @@ $(document).ready(function() {
   </div>
 </div>
 	
-
-
-
-
-
 </div>
 <script type="text/javascript">
 
@@ -133,7 +135,7 @@ app.controller("MainControllerSettings", function($scope, $http, $log, WidgetSer
 		});
 	}
 	$scope.mostPopularRecipesThisDay();
-	var zingchartWidget = function(dane){		
+	var zingchartWidget = function(dane){
         $scope.myJson = {        		
                 title : {
                   text : "Most viewed recipes this day",
@@ -203,7 +205,7 @@ app.controller("MainControllerSettings", function($scope, $http, $log, WidgetSer
                 },
                 series: [{
                 	
-                    values: dane
+                    values: [3,4,1,0,0,2] //dane
 
                 }]
             }  		
@@ -268,6 +270,7 @@ app.controller("MainControllerSettings", function($scope, $http, $log, WidgetSer
 	$scope.czas = function(){    	 
    	    WidgetService.getListVisitPerMonth(document.getElementById("date").value).then(function(dane){
 
+   	    	console.log(dane);
    	    	zingchartWidget(dane);
    	    	$scope.loaded = true;
    	    })    	 

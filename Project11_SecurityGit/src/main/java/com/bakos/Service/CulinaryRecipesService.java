@@ -27,7 +27,7 @@ public interface CulinaryRecipesService {
 
 	public List<CulinaryRecipes> getAllMyCulinaryRecipes();
 
-	public List<CulinaryRecipes> checkedTypes(FilterPattern filterPattern);
+	public List<CulinaryRecipes> checkedTypes(List<String> filterPattern);
 
 	public void updateRecipe(CulinaryRecipes recipe, int id);
 
@@ -47,5 +47,7 @@ public interface CulinaryRecipesService {
 	public boolean isItMyRecipe(int id);
 	
 	public void saveImage(MultipartFile file);
+	
+	public void addComment(int idRecpe, String comment);
 	
 }

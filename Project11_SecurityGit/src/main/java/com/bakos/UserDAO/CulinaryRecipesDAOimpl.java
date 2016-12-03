@@ -21,6 +21,7 @@ import com.bakos.Service.UserService;
 import com.bakos.UserDTO.Articles;
 import com.bakos.UserDTO.CulinaryRecipes;
 import com.bakos.UserDTO.FilterPattern;
+import com.bakos.UserDTO.RecipesComments;
 import com.bakos.UserDTO.Statistics;
 import com.bakos.UserDTO.Users;
 
@@ -48,6 +49,7 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 				culinaryRecipes.getComponents(),
 				culinaryRecipes.getHowToPerform(),
 				culinaryRecipes.getIsPrivateRecipe());
+		newCulinaryRecipes.setDate(new Date());
 
 		Users user = userService.findUserByUsername();
 		newCulinaryRecipes.setUser(user);
@@ -79,13 +81,16 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 		return lista;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
-	public List<CulinaryRecipes> checkedTypes(FilterPattern filterPattern) {
+	public List<CulinaryRecipes> checkedTypes(List<String> filterPattern) {
 		String allTypes = "";
 
-		for (int i = 0; i < filterPattern.getAllTypes().size(); i++) {
-			allTypes += "'" + filterPattern.getAllTypes().get(i) + "',";
+//		for (int i = 0; i < filterPattern.getAllTypes().size(); i++) {
+//			allTypes += "'" + filterPattern.getAllTypes().get(i) + "',";
+//		}
+		
+		for (int i = 0; i < filterPattern.size(); i++) {
+			allTypes += "'" + filterPattern.get(i) + "',";
 		}
 		allTypes = allTypes.substring(0, allTypes.length() - 1);
 
@@ -239,7 +244,20 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}		
+		}
 	}
+
+	@Override
+	public void addComment(int idRecpe, String comment) {
+		
+		Query query = manager.createQuery("SELECT x FROM CulinaryRecipes x WHERE x.id= :id");
+		CulinaryRecipes culinaryRecipes = (CulinaryRecipes) query.setParameter("id", idRecpe).getSingleResult();
+		RecipesComments recipesComments = new RecipesComments();
+		recipesComments.setComment(comment);		
+		recipesComments.setCulinaryRecipes(culinaryRecipes);		
+		manager.persist(recipesComments);
+	}
+	
+	
 
 }

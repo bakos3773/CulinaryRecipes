@@ -13,7 +13,7 @@
 
 <h2><b><i>A R T I C L E S</i></b></h2>
 
-<table id="example" class="table table-striped table-bordered" cellspacing="10" width="100%">
+<table id="articleTable" class="table table-striped table-bordered" cellspacing="10" width="100%">
   <thead>
     <tr>
       <th>Data dodania</th>
@@ -35,6 +35,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#example').DataTable();
+    $('#articleTable').DataTable();
 } );
 </script>   

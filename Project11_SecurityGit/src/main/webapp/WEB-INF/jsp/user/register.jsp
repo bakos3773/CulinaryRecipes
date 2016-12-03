@@ -2,8 +2,9 @@
     pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<script type="text/javascript" src="/ProjectSecurityGit/resources/js/jqueryFile.js"></script>
 
-<div class="jumbotron" align="center"><h2>REGISTRATION</h2></div>
+<div class="jumbotron" align="center"><h2><span style="color: black;">REGISTRATION</span></h2></div>
 <form:form modelAttribute="user" class="form-horizontal registrationForm" role="form">
 	<form:errors path="*" cssClass="alert alert-danger" element="div"/>
     <div class="form-group">
@@ -62,47 +63,3 @@
     </div>           
 	<input type="submit" class="btn btn-primary btn-lg" value="Add to database"/> 
 </form:form>
-
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".registrationForm").validate({
-		rules: {
-			login: {
-				required : true,
-				minlength : 4
-			},
-			password: {
-				required : true,
-				minlength : 4
-			},
-			password_again: {	
-				required : true,
-				minlength : 4,
-				equalTo: "#password"
-			},			
-			username: {
-				required : true,
-				minlength : 4
-			},
-			surname: {
-				required : true,
-				minlength : 4
-			},
-			mail: {
-				required : true,
-				email : true
-			},			
-			address: {	
-				required : true,
-				minlength : 4
-			}			
-		},
-		highlight : function(element){
-			$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-		},
-		unhighlight : function(element){
-			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');			
-		}		
-	});
-});
-</script>

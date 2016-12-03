@@ -37,8 +37,8 @@ public class WidgetController {
 		else{
 			System.out.println("Wszedleeeeeeeeeeeeeeeeem: "+ selectedDate);			
 		}
-		
-		return widgetService.lastMont(selectedDate);
+		List<Integer>lastMonth = widgetService.lastMont(selectedDate);
+		return lastMonth;
 	}
 	
 	@RequestMapping(value="/user/lastMonth", method = RequestMethod.GET, headers = { "Accept=text/xml, application/json" })

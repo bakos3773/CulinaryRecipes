@@ -39,6 +39,7 @@ public class WidgetDAOImpl implements WidgetDAO {
 	@Override
 	@SuppressWarnings("unchecked")	
 	public List<Integer> lastMont(String year_month) {
+		System.out.println("year_month="+year_month);
 	
 		Date todayDay = new Date();
 		

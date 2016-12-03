@@ -20,6 +20,8 @@
 		
 		<cache:annotation-driven/>
 		
+		<mvc:default-servlet-handler/>
+		
 		<bean id="cacheManager" class="org.springframework.cache.concurrent.ConcurrentMapCacheManager">
 		</bean>		
 		

@@ -9,6 +9,7 @@
 
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">	
+		 		
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.js"></script>
 		<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.0.js"></script>

@@ -9,14 +9,36 @@
 	<form:errors path="*" element="div" cssClass="errors" />
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="type">Type:</label>
-	      <div class="col-sm-6">
+	      <div class="col-sm-6">	                   
 			<%-- <form:input id="type" path="type" class="form-control" placeholder="Enter type"/> --%>
 			<form:select id="type" path="type" class="form-control">
 				<form:option value="Ciasta">Ciasta</form:option>
-				<form:option value="Potrawy miesne">Potrawy miesne</form:option>
-				<form:option value="Surowki">Surowki</form:option>
+				<form:option value="Dania miesne">Dania miesne</form:option>
+				<form:option value="Desery">Desery</form:option>
+				<form:option value="Dla dzieci">Dla dzieci</form:option>
+				<form:option value="Kasza i ryz">Kasza i ryz</form:option>
+				<form:option value="Makarony">Makarony</form:option>
+				<form:option value="Maczne">Maczne</form:option>
+				<form:option value="Salatki">Salatki</form:option>
+				<form:option value="Sosy">Sosy</form:option>
+				<form:option value="Pasty">Pasty</form:option>
+				<form:option value="Pieczywo">Pieczywo</form:option>
+				<form:option value="Pizze">Pizze</form:option>
+				<form:option value="Przekaski">Przekaski</form:option>
+				<form:option value="Grzyby">Grzyby</form:option>
+				<form:option value="Swiateczne">Swiateczne</form:option>
+				<form:option value="Warzywa">Warzywa</form:option>
+				<form:option value="Wegetarianskie">Wegetarianskie</form:option>
 				<form:option value="Zupy">Zupy</form:option>
-				<form:option value="cdn...">Cdn...</form:option>
+				<form:option value="Przetwory">Przetwory</form:option>
+				<form:option value="Ryby i owoce morza">Ryby i owoce morza</form:option>				
+				<form:option value="Na grilla">Na grilla</form:option>
+				<form:option value="Napoje">Napoje</form:option>
+				<form:option value="Alkohole">Alkohole</form:option>		
+				<form:option value="Kuchnie swiata">Kuchnie swiata</form:option>
+				<form:option value="Diety">Diety</form:option>
+				<form:option value="Inne przepisy">Inne przepisy</form:option>
+				
 			</form:select>			
 	      </div>
 	      

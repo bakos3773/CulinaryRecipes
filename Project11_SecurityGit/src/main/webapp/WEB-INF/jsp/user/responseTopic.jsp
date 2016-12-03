@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="/ProjectSecurityGit/resources/js/jqueryFile.js"></script>
 
 <div ng-controller="answerTopicController">
 	<div id="backToSections">
@@ -80,15 +81,7 @@
 	</div>
 </form:form>
 <!---------------------------------------------->
-<script type="text/javascript">
-$(document).ready(function(){
-	$('#addTopicAnswer').click(function(){
-		 $('#formSetTopicAnswer').attr('action', document.URL+"/setMessage");
-	});
-	
-	
-  });
-</script>
+
 <script type="text/javascript">
 app.controller("answerTopicController", function($scope, $http, $log){
 	

@@ -2,6 +2,7 @@ package com.bakos.UserDTO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,6 +27,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -48,6 +52,9 @@ public class CulinaryRecipes implements Serializable {
 	@Lob
 	@NotBlank(message="{xxx.validation}")
 	private String howToPerform;
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="HH:mm:ss dd/MM/yyyy")
+	private Date date;		
 	@JsonIgnore	
 	@ManyToOne
 	@JoinColumn(name = "users_id")
@@ -57,6 +64,10 @@ public class CulinaryRecipes implements Serializable {
 	@OneToMany(mappedBy="culinaryRecipes",fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Statistics> statistics = new ArrayList<Statistics>();
+	
+	@OneToMany(mappedBy="culinaryRecipes", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<RecipesComments> recipeComments = new ArrayList<RecipesComments>();
 
 
 	public CulinaryRecipes() {
@@ -136,5 +147,24 @@ public class CulinaryRecipes implements Serializable {
 		this.statistics = statistics;
 	}
 
+	public List<RecipesComments> getRecipeComments() {
+		return recipeComments;
+	}
+
+	public void setRecipeComments(List<RecipesComments> recipeComments) {
+		this.recipeComments = recipeComments;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 }

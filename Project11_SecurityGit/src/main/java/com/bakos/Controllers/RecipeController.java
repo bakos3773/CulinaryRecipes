@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +37,7 @@ import com.bakos.Service.CulinaryRecipesService;
 import com.bakos.Service.UserService;
 import com.bakos.UserDTO.CulinaryRecipes;
 import com.bakos.UserDTO.FilterPattern;
+import com.bakos.UserDTO.RecipesComments;
 import com.bakos.pdf.SaveSelectedRecesice;
 import com.itextpdf.text.DocumentException;
 
@@ -52,6 +55,12 @@ public class RecipeController {
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(RecipeController.class);
+	
+	@RequestMapping(value="/loadAllRecipes", method=RequestMethod.GET)
+	public ResponseEntity<List<CulinaryRecipes>> loadAllRecipes(){
+		System.out.println("Wszedllleeem");
+		return new ResponseEntity<List<CulinaryRecipes>>(recipesService.getAllRecipies(), HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = { "Accept=text/xml, application/json" })
 	public ResponseEntity<CulinaryRecipes> read(@PathVariable(value = "id") int id) {
@@ -62,18 +71,27 @@ public class RecipeController {
 		return new ResponseEntity<CulinaryRecipes>(recipe, status);
 	}
 	
-//	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
-	@RequestMapping(value = "/checkedTypes", method = RequestMethod.POST)
-	public String checkedTypes(@ModelAttribute("filterPattern") FilterPattern filterPattern, RedirectAttributes model) {
-//		 RedirectAttributes  - Mo¿emy zatem umieœciæ obiekt Spitter w sesji przed wykonaniem przekierowania,
-//		a nastêpnie pobraæ z sesji po jego wykonaniu
-//		model.addAttribute("recipes", recipeService.checkedTypes(filterPattern));
-		System.out.println("Wszedlem do checkedTypes");
-		model.addFlashAttribute("recipes", recipesService.checkedTypes(filterPattern));
+	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
+	@RequestMapping(value = "/checkedTypes", method = RequestMethod.POST, produces="application/json")
+	public ResponseEntity<List<CulinaryRecipes>> checkedTypes(@RequestBody List<String> pattern) {
 
-		return "redirect:/home";
+		List<CulinaryRecipes> recipe = recipesService.checkedTypes(pattern);
+		HttpStatus status = recipe!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+
+		return new ResponseEntity<List<CulinaryRecipes>>(recipe, status);
 	}	
+	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
+	@RequestMapping(value = "/dropdownTypes/{type}", method = RequestMethod.GET, produces="application/json")
+	public ResponseEntity<List<CulinaryRecipes>> dropdownTypes(@PathVariable("type")String type) {
 
+		List<String> pattern = new ArrayList<String>();
+		pattern.add(type);
+		List<CulinaryRecipes> recipe = recipesService.checkedTypes(pattern);
+		HttpStatus status = recipe!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+
+		return new ResponseEntity<List<CulinaryRecipes>>(recipe, status);
+	}	
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void update(@ModelAttribute("recipe") CulinaryRecipes recipe,
@@ -96,15 +114,14 @@ public class RecipeController {
 //	wypadku wyrzucony zostanie wyj¹tek zabezpieczeñ i metoda nie zostanie wywo³ana.
 	@PreAuthorize("(hasRole('ROLE_USER') and #culinaryRecipes.name.length()>=5) or hasRole('ROLE_ADMIN')" )
 	@RequestMapping(value = "/addRecipe", method = RequestMethod.POST)
-	public String addRecipeAfter(
-			@Valid @ModelAttribute("culinaryRecipes") CulinaryRecipes culinaryRecipes, BindingResult result, HttpServletRequest request,
-			Model model) {		
+	public String addRecipeAfter(@Valid @ModelAttribute("culinaryRecipes") CulinaryRecipes culinaryRecipes,
+			BindingResult result, HttpServletRequest request, Model model) {		
 
 		if(result.hasErrors()){
 			return "addRecipe";
 		}
 		System.out.println("Controller dodawanie przepisu - opis!");
-//		recipesService.addCulinaryRecipe(culinaryRecipes);
+		recipesService.addCulinaryRecipe(culinaryRecipes);
 		model.addAttribute("filterPattern", new FilterPattern());
 
 		return "redirect:/user/recipes/upload";
@@ -196,9 +213,17 @@ public class RecipeController {
 	@ResponseBody
 	public byte[] getImage(@PathVariable("imageId")String imageId) throws IOException{
 		
-		File fileFromServe = new File(rootDirectory+File.separator + "resources" + File.separator + "images"
+		
+		File fileFromServe = new File(rootDirectory + File.separator + "resources" + File.separator + "images"
 				+ File.separator + imageId + ".jpg");
 		
 		return Files.readAllBytes(fileFromServe.toPath());
 	}
+	
+	@RequestMapping(value="/addComment/{id}", method=RequestMethod.POST)
+	public ResponseEntity<Void> addComment(@PathVariable("id")int id, @RequestBody String comment){
+		
+		recipesService.addComment(id, comment);
+		return null;
+	}	
 }

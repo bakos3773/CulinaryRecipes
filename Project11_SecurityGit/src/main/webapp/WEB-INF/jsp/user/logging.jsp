@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+	
+
+<script type="text/javascript" src="/ProjectSecurityGit/resources/js/jqueryFile.js"></script>
 <div style="background-color: black;">
 	<div class="col-md-4 col-md-offset-4 jumbotron">
-	      <form class="form-signin registrationForm" name="f" action="/ProjectSecurityGit/login" method="POST">
-	        <h2 class="form-signin-heading">Please sign in</h2>
+	      <form class="form-signin loggingForm" name="f" action="/ProjectSecurityGit/login" method="POST">
+	        <h2 class="form-signin-heading"><span style="color: black;">Please sign in</span></h2>
 	        <label for="username" class="sr-only">Login</label>
 	        <input type="text" id="username" name='username' class="form-control" placeholder="Put your login" required autofocus>
 	        <label for="password" class="sr-only">Password</label>
@@ -19,26 +22,3 @@
 	      </form>
 	</div>
 </div>
-
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".registrationForm").validate({
-		rules: {
-			password: {
-				required : true,
-				minlength : 4
-			},			
-			username: {
-				required : true,
-				minlength : 4
-			}			
-		},
-		highlight : function(element){
-			$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-		},
-		unhighlight : function(element){
-			$(element).closest('.form-group').removeClass('has-error').addClass('has-success');			
-		}		
-	});
-});
-</script>
