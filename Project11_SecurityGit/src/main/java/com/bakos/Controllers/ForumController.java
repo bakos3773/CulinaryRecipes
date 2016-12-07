@@ -103,7 +103,7 @@ public class ForumController {
 		return "responseTopic";
 	}
 	
-	@RequestMapping(value="user/forum/section/{id_section}/theme/{id}/setMessage", method=RequestMethod.POST)
+	@RequestMapping(value="user/forum/section/{id_section}/theme/{id}", method=RequestMethod.POST)
 	public String responseFromTheTopicPost(@ModelAttribute("formThemesAnswer")Forum_Messages forumMessages, BindingResult result, @PathVariable("id_section")int id_section, @PathVariable("id")int id, Model model){
 				
 		model.addAttribute("forum", new Forum());

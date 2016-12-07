@@ -118,7 +118,6 @@ list-style-type:none;
 </tfoot>
 <tbody>
 
-
 		<tr ng-repeat="recipe in recipes | orderBy:'date':true" ng-if="$index%3==0" ng-show="typeOfView=='normal'">
 			<td>
 				<span ng-if="recipes[$index].id">
@@ -126,7 +125,7 @@ list-style-type:none;
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
 		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> 45min &nbsp; <span class="glyphicon glyphicon-stats"></span> latwe</p>
+		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index].level}}</p>
 				</span>
 			</td>
 			<td>
@@ -135,7 +134,7 @@ list-style-type:none;
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
 		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> 45min &nbsp; <span class="glyphicon glyphicon-stats"></span> latwe</p>
+		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+1].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+1].level}}</p>
 				</span>
 			</td>			
 			<td>
@@ -144,7 +143,7 @@ list-style-type:none;
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+2].id}}" class="sizeWidth"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+2].name}}</span></b></h4></p>
 		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> 45min &nbsp; <span class="glyphicon glyphicon-stats"></span> latwe</p>
+		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+2].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+2].level}}</p>
 				</span>
 			</td>			
 		</tr>
@@ -158,7 +157,7 @@ list-style-type:none;
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth2"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
 		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> 45min &nbsp; <span class="glyphicon glyphicon-stats"></span> latwe</p>
+		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index].level}}</p>
 				</span>
 			</td>
 			<td>
@@ -167,7 +166,7 @@ list-style-type:none;
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth2"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
 		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> 45min &nbsp; <span class="glyphicon glyphicon-stats"></span> latwe</p>
+		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+1].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+1].level}}</p>
 				</span>
 			</td>
 		</tr>
@@ -180,7 +179,7 @@ list-style-type:none;
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth3"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
 		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> 45min &nbsp; <span class="glyphicon glyphicon-stats"></span> latwe</p>
+		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index].level}}</p>
 				</span>
 			</td>
 			<td>
@@ -189,16 +188,16 @@ list-style-type:none;
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth3"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
 		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> 45min &nbsp; <span class="glyphicon glyphicon-stats"></span> latwe</p>
+		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+1].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+1].level}}</p>
 				</span>
-			</td>			
+			</td>
 			<td>
 				<span ng-if="recipes[$index+2].id">
 					<a href="<spring:url value="/user/recipes/show/{{recipes[$index+2].id}}"></spring:url>">
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+2].id}}" class="sizeWidth3"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+2].name}}</span></b></h4></p>
 		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> 45min &nbsp; <span class="glyphicon glyphicon-stats"></span> latwe</p>
+		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+2].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+2].level}}</p>
 				</span>
 			</td>	
 			<td>
@@ -207,7 +206,7 @@ list-style-type:none;
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+3].id}}" class="sizeWidth3"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+3].name}}</span></b></h4></p>
 		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> 45min &nbsp; <span class="glyphicon glyphicon-stats"></span> latwe</p>
+		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+3].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+3].level}}</p>
 				</span>
 			</td>					
 		</tr>

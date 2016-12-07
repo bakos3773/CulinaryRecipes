@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bakos.UserDTO.Articles;
 import com.bakos.UserDTO.CulinaryRecipes;
 import com.bakos.UserDTO.FilterPattern;
+import com.bakos.UserDTO.RecipesComments;
 
 public interface CulinaryRecipesDAO {
 	
@@ -58,4 +59,8 @@ public interface CulinaryRecipesDAO {
 	public void saveImage(MultipartFile file);
 	
 	public void addComment(int idRecpe, String comment);
+	
+	public List<RecipesComments> getAllRecipiesComments(int id);
+	
+	public List<CulinaryRecipes> getAllSearchingRecipies(String searchingText);
 }

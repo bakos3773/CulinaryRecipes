@@ -56,6 +56,11 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/user/home.jsp"></put-attribute>
 	</definition>	
 	
+	<definition name="serchingRecipes" extends="loginSide">
+  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+		<put-attribute name="body" value="/WEB-INF/jsp/user/serchingRecipes.jsp"></put-attribute>
+	</definition>	
+	
 	<definition name="register" extends="main">
   		<put-attribute name="title" value="Bakos Title"></put-attribute>	
 		<put-attribute name="body" value="/WEB-INF/jsp/user/register.jsp"></put-attribute>
@@ -65,8 +70,6 @@
   		<put-attribute name="title" value="Bakos Title"></put-attribute>	
 		<put-attribute name="body" value="/WEB-INF/jsp/user/logging.jsp"></put-attribute>
 	</definition>		
-	
-
 	
 	<definition name="settings" extends="loginSide">
   		<put-attribute name="title" value="Bakos Title"></put-attribute>	

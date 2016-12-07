@@ -65,6 +65,7 @@ app.factory('WidgetService', function ($http, $log, $q) {
 app.controller("MainController", function($scope, $http, $log, WidgetService) {	
 	
 	$scope.recipes = {};
+	$scope.recipiesComments = [];
 	
 	var getAllLastMonth = function(){
 		$http.get('/ProjectSecurityGit/user/lastMonth').then(function(response) {
@@ -79,8 +80,66 @@ app.controller("MainController", function($scope, $http, $log, WidgetService) {
 		$http.post('/ProjectSecurityGit/user/recipes/addComment/'+id, document.getElementById("conmment").value).then(function(response){
 		});
 	}
+	
+	$scope.loadAllRecipesComments = function(id){
+		$http.get('/ProjectSecurityGit/user/recipes/loadAllRecipesComments/'+id).then(function(response){
+			 $scope.recipiesComments = response.data; 
+			 console.log($scope.recipiesComments); 
+		});
+	}	
+	/* ***************************************************************************	RATING experiment */
+    $scope.rating = 0;
+    $scope.ratings = [{
+        current: 3,
+        max: 5
+    }];
+
+    $scope.getSelectedRating = function (rating) {
+        console.log(rating);
+    }
+
+/* ***************************************************************************   */  	
 });	
 
+app.directive('starRating', function () {
+    return {
+        restrict: 'A',
+        template: '<ul class="rating">' +
+            '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +
+            '\u2605' +
+            '</li>' +
+            '</ul>',
+        scope: {
+            ratingValue: '=',
+            max: '=',
+            onRatingSelected: '&'
+        },
+        link: function (scope, elem, attrs) {
+
+            var updateStars = function () {
+                scope.stars = [];
+                for (var i = 0; i < scope.max; i++) {
+                    scope.stars.push({
+                        filled: i < scope.ratingValue
+                    });
+                }
+            };
+
+            scope.toggle = function (index) {
+                scope.ratingValue = index + 1;
+                scope.onRatingSelected({
+                    rating: index + 1
+                });
+            };
+
+            scope.$watch('ratingValue', function (oldVal, newVal) {
+                if (newVal) {
+                    updateStars();
+                }
+            });
+        }
+    }
+});
 
 app.controller("homeController", function($scope, $http, $log, WidgetService) {	
 	
@@ -88,7 +147,7 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 	$scope.typeOfView = "normal";
 
 	var loadAllRecipes = function(){
-		$http.get('recipes/loadAllRecipes').then(function(response){
+		$http.get('/ProjectSecurityGit/user/recipes/loadAllRecipes').then(function(response){
 			$scope.recipes = response.data;			
 		});
 	}	
@@ -121,7 +180,13 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 	$scope.setView = function(view){
 		$scope.typeOfView = view;
 	}
-  
+	
+	$scope.searchRecipe = function(searchingTxt){
+		$http.get('/ProjectSecurityGit/user/recipes/serchingRecipes/'+searchingTxt).then(function(response) {
+				console.log(response);
+		});
+	}
+	
 });
 </script>	
 <style type="text/css">
@@ -292,11 +357,12 @@ position: absolute;
 		      </security:authorize>
    		      <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER') or hasRole('ROLE_SHADOW')">
    		      <ul class="nav navbar-nav">
-	   		      <form class="navbar-form ng-pristine ng-valid" role="search">
+	   		      <form ng-controller="homeController" class="navbar-form ng-pristine ng-valid" role="search">
 					        <div class="form-group">
-					          <input type="text" class="form-control" placeholder="Search">
+					          <input type="text" ng-model="searching" class="form-control" placeholder="Search">
 					        </div>
-					        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+					        
+					        <a href="<spring:url value="/user/recipes/serchingRecipes/{{searching}}"></spring:url>" type="submit"  ng-click="searchRecipe(searching)" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a>
 				  </form>
 			  </ul>
 			    <ul class="nav navbar-nav navbar-right">

@@ -58,8 +58,17 @@ public class RecipeController {
 	
 	@RequestMapping(value="/loadAllRecipes", method=RequestMethod.GET)
 	public ResponseEntity<List<CulinaryRecipes>> loadAllRecipes(){
-		System.out.println("Wszedllleeem");
+
 		return new ResponseEntity<List<CulinaryRecipes>>(recipesService.getAllRecipies(), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/loadAllRecipesComments/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<RecipesComments>> loadAllRecipesComments(@PathVariable("id")int id){
+		
+		List<RecipesComments> recipe = recipesService.getAllRecipiesComments(id);
+		HttpStatus status = recipe!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+		
+		return new ResponseEntity<List<RecipesComments>>(recipe, status);		
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = { "Accept=text/xml, application/json" })
@@ -225,5 +234,15 @@ public class RecipeController {
 		
 		recipesService.addComment(id, comment);
 		return null;
+	}
+	
+	@RequestMapping(value="/serchingRecipes/{searchingTxt}", method=RequestMethod.GET)
+	public String serchingRecipes(@PathVariable("searchingTxt")String searchingTxt, Model model){
+		
+		System.out.println("Wszedlem");
+		
+		model.addAttribute("serchingRecipes", recipesService.getAllSearchingRecipies(searchingTxt));
+
+		return "serchingRecipes";
 	}	
 }

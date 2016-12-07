@@ -12,6 +12,7 @@ import com.bakos.UserDAO.CulinaryRecipesDAO;
 import com.bakos.UserDTO.Articles;
 import com.bakos.UserDTO.CulinaryRecipes;
 import com.bakos.UserDTO.FilterPattern;
+import com.bakos.UserDTO.RecipesComments;
 
 @Service
 public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
@@ -122,6 +123,16 @@ public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
 	public void addComment(int idRecpe, String comment) {
 		recipeDAO.addComment(idRecpe, comment);
 		
+	}
+
+	@Override
+	public List<RecipesComments> getAllRecipiesComments(int id) {
+		return recipeDAO.getAllRecipiesComments(id);
+	}
+
+	@Override
+	public List<CulinaryRecipes> getAllSearchingRecipies(String searchingText) {		
+		return recipeDAO.getAllSearchingRecipies(searchingText);
 	}
 
 

@@ -55,7 +55,7 @@
 	  	<br/>
 <!-- <div style="color: white;" ng-controller="forumControllerThemes">{{getIDsection()}}</div> -->
 <!------------ Modal ----------->
-<form:form id="formSetTopic" action="" commandName="forumThemes" method="POST">
+<%-- <form:form id="formSetTopic" action="" commandName="forumThemes" method="POST">
 	<div class="modal fade" id="myModalNewTopic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
@@ -72,6 +72,30 @@
 	      </div>
 	    </div>
 	  </div>
+	</div>
+</form:form> --%>
+
+<form:form id="formSetTopic" commandName="forumThemes" action=""  method="POST">
+<div class="modal fade" id="myModalNewTopic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" style="background-color: gray;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="gridModalLabel">Add new topic</h4>
+				</div>
+				<div class="modal-body">
+					<form:textarea path="themes" class="form-control custom-control" rows="4" style="resize:none; background-color: black;" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" id="addTopic" class="btn btn-primary"
+						value="Add">
+				</div>
+			</div>
+		</div>
 	</div>
 </form:form>
 <!------------------------------------------->

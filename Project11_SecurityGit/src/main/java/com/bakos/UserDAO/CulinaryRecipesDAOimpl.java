@@ -38,9 +38,12 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 	
 	@Autowired
 	CulinaryRecipesService recipesService;
+
 	
 	String rootDirectory = System.getProperty("catalina.home");
 
+	
+	
 	@Override
 	public void addCulinaryRecipe(CulinaryRecipes culinaryRecipes) {
 
@@ -48,7 +51,9 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 				culinaryRecipes.getType(), culinaryRecipes.getName(),
 				culinaryRecipes.getComponents(),
 				culinaryRecipes.getHowToPerform(),
-				culinaryRecipes.getIsPrivateRecipe());
+				culinaryRecipes.getIsPrivateRecipe(), 
+				culinaryRecipes.getLevel(),
+				culinaryRecipes.getTimeToPrepare());
 		newCulinaryRecipes.setDate(new Date());
 
 		Users user = userService.findUserByUsername();
@@ -253,9 +258,33 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 		Query query = manager.createQuery("SELECT x FROM CulinaryRecipes x WHERE x.id= :id");
 		CulinaryRecipes culinaryRecipes = (CulinaryRecipes) query.setParameter("id", idRecpe).getSingleResult();
 		RecipesComments recipesComments = new RecipesComments();
-		recipesComments.setComment(comment);		
+		recipesComments.setComment(comment);	
+		recipesComments.setDate(new Date());
+		recipesComments.setIdCommentator(userService.findUserByUsername().getId());
+		recipesComments.setNameCommentator(userService.findUserByUsername().getLogin());
 		recipesComments.setCulinaryRecipes(culinaryRecipes);		
 		manager.persist(recipesComments);
+	}
+
+	@Override
+	public List<RecipesComments> getAllRecipiesComments(int id) {
+		
+		Query query = manager
+				.createQuery("SELECT c FROM CulinaryRecipes u INNER JOIN u.recipeComments c WHERE u.id= :id");
+		query.setParameter("id", id);
+		List<RecipesComments> lista = query.getResultList();
+
+		return lista;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CulinaryRecipes> getAllSearchingRecipies(String searchingText) {
+		Query query = manager.createQuery("SELECT c FROM CulinaryRecipes c WHERE c.name LIKE:searchingText");		
+		
+		List<CulinaryRecipes> getAllSearchingRecipies = query.setParameter("searchingText", "%"+searchingText+"%").getResultList();
+		
+		return getAllSearchingRecipies;
 	}
 	
 	

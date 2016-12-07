@@ -6,34 +6,27 @@
 
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">	
-		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" ></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
- 		<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.0.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
-		
+				
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>		
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" ></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet"/>		
 <script src = "http://cdn.zingchart.com/zingchart.min.js" ></script>
-
 <script src = "http://cdn.zingchart.com/angular/zingchart-angularjs.js"></script>
-		
-		<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>	
-		
-		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">		  
-		<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
-						
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
-
-
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">		  
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#datePicker')
-        .datepicker({
-        	duration: "slow",
-            format: "yyyy-mm",
-            viewMode: "months", 
-            minViewMode: "months",
-            showAnim: 'slide'
+
+        $('#datetimepicker10').datetimepicker({
+            viewMode: 'years',
+            format: 'YYYY-MM'
         });
 	
  	$("#showWidgets li").click(function(){
@@ -94,17 +87,25 @@ $(document).ready(function() {
   <!-- Tab panes -->
   <div class="tab-content">
    	<div role="tabpanel" class="tab-pane active" id="month" ng-show="true">    	
-		<div>
-           Change date: <div class="input-group input-append date" id="datePicker" style="width: 200px;">
-                <input type="text" class="form-control" id="date" name="date" value="{{actualYYYYMM}}">
-                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>            
+ 		<div>
+           Change date: 
+		    <div class="col-sm-6" style="height:130px; width: 200px" >
+		        <div class="form-group">
+		            <div class='input-group date' id='datetimepicker10'>
+		                <input type='text'  id="date" name="date" class="form-control" style="background-color: black;"/>
+		                <span class="input-group-addon">
+		                    <span class="glyphicon glyphicon-calendar">
+		                    </span>
+		                </span>
+		            </div>
+		        </div>
+		    </div>        
             <button ng-click="czas()">show</button>
 		</div>
-		<div id="resizable" style="float: left" ng-if="loaded===false">
+		<!-- <div id="resizable" style="float: left" ng-if="loaded===false">
 		     <div zingchart id="chart-1" class="lineaWidget" zc-json="myJson" zc-width="100%" zc-height="100%"></div>
 		</div>    		  
-		<nvd3 options="options" data="data"></nvd3>  
+		<nvd3 options="options" data="data"></nvd3>   -->
     </div>
 
     <div role="tabpanel" class="tab-pane" id="messages" ng-if="loaded===false"> <!-- loaded===false -->
@@ -291,11 +292,11 @@ app.controller("MainControllerSettings", function($scope, $http, $log, WidgetSer
     
 });
 
-$(function() {
+/* $(function() {
     $("#resizable").resizable({
         handles: 'ne, se, sw, nw'
     });	  
-});
+}); */
 
 </script>
 
@@ -313,5 +314,10 @@ $(function() {
 }
 body {
 	color: white;
+	
 }
+.table-condensed{
+	background-color: black;
+}
+
 </style>

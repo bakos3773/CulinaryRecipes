@@ -10,7 +10,6 @@
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="type">Type:</label>
 	      <div class="col-sm-6">	                   
-			<%-- <form:input id="type" path="type" class="form-control" placeholder="Enter type"/> --%>
 			<form:select id="type" path="type" class="form-control">
 				<form:option value="Ciasta">Ciasta</form:option>
 				<form:option value="Dania miesne">Dania miesne</form:option>
@@ -37,11 +36,9 @@
 				<form:option value="Alkohole">Alkohole</form:option>		
 				<form:option value="Kuchnie swiata">Kuchnie swiata</form:option>
 				<form:option value="Diety">Diety</form:option>
-				<form:option value="Inne przepisy">Inne przepisy</form:option>
-				
+				<form:option value="Inne przepisy">Inne przepisy</form:option>				
 			</form:select>			
-	      </div>
-	      
+	      </div>	      
 	    </div>
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="name">Name:</label>
@@ -52,7 +49,7 @@
 	    <div class="form-group">
 	      <label class="control-label col-sm-2" for="components">Components:</label>
 	      <div class="col-sm-6">
-			<form:textarea id="components" path="components" class="form-control" rows="2" placeholder="Enter components"/>
+			<form:textarea id="components" path="components" class="form-control" rows="4" placeholder="Enter components"/>
 	      </div>
 	    </div>
 	    <div class="form-group">
@@ -61,13 +58,31 @@
 			<form:textarea id="howToPerform" path="howToPerform" class="form-control" rows="6" placeholder="Enter how to perform:"/>
 	      </div>
 	    </div> 
+	    
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for="timeToPrepare">Time to prepare:</label>
+	      <div class="col-sm-6">
+			<form:input id="timeToPrepare" path="timeToPrepare" class="form-control" placeholder="Enter time to prepare"/>
+	      </div>
+	    </div>	    
+	    
+	    <div class="form-group">
+	      <label class="control-label col-sm-2" for="level">Level:</label>
+	      <div class="col-sm-6">	                   
+			<form:select id="level" path="level" class="form-control">
+				<form:option value="latwy">latwy</form:option>
+				<form:option value="sredni">sredni</form:option>
+				<form:option value="trudny">trudny</form:option>			
+			</form:select>			
+	      </div>	      
+	    </div>	   
+	     
 	    <div class="checkbox">
 		    <label>
 		    	<form:checkbox id="isPrivateRecipe" path="isPrivateRecipe" value="true"/> Private Recipe
 		    </label>
 	    </div>
-	    
-	             	    	
+	    	
 		<input class="btn btn-success btn-lg"  type="submit" value="Dalej"/>
 	</form:form>
 </div>

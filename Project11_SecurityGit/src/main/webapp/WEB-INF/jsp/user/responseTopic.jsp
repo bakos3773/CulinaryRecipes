@@ -55,12 +55,11 @@
 
 
 <!------------------ Modal ----------------------->
-<form:form id="formSetTopicAnswer" commandName="formThemesAnswer"
-	action="">
+<form:form id="formSetTopicAnswer" commandName="formThemesAnswer" action="">
 	<div id="gridSystemModal" class="modal fade" tabindex="-1"
 		role="dialog" aria-labelledby="gridModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content">
+			<div class="modal-content" style="background-color: gray;">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
@@ -69,7 +68,7 @@
 					<h4 class="modal-title" id="gridModalLabel">Modal title</h4>
 				</div>
 				<div class="modal-body">
-					<form:textarea path="message" />
+					<form:textarea path="message" class="form-control custom-control" rows="4" style="resize:none; background-color: black;" />
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -80,6 +79,7 @@
 		</div>
 	</div>
 </form:form>
+
 <!---------------------------------------------->
 
 <script type="text/javascript">

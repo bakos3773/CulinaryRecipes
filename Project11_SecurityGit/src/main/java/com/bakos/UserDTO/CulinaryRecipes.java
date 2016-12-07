@@ -60,6 +60,8 @@ public class CulinaryRecipes implements Serializable {
 	@JoinColumn(name = "users_id")
 	private Users user;
 	private String isPrivateRecipe;
+	private String level;
+	private int timeToPrepare;
 	
 	@OneToMany(mappedBy="culinaryRecipes",fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	@JsonIgnore
@@ -75,12 +77,15 @@ public class CulinaryRecipes implements Serializable {
 	}
 
 	public CulinaryRecipes(String type, String name, String components,
-			String howToPerform, String isPrivateRecipe) {
+			String howToPerform, String isPrivateRecipe,
+			String level, int timeToPrepare) {
 		this.type = type;
 		this.name = name;
 		this.components = components;
 		this.howToPerform = howToPerform;
 		this.isPrivateRecipe = isPrivateRecipe;
+		this.level = level;
+		this.timeToPrepare = timeToPrepare;
 	}
 
 	public int getId() {
@@ -165,6 +170,22 @@ public class CulinaryRecipes implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public int getTimeToPrepare() {
+		return timeToPrepare;
+	}
+
+	public void setTimeToPrepare(int timeToPrepare) {
+		this.timeToPrepare = timeToPrepare;
 	}
 
 }
