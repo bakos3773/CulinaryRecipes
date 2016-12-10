@@ -135,5 +135,15 @@ public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
 		return recipeDAO.getAllSearchingRecipies(searchingText);
 	}
 
+	@Override
+	public void ratingRecipe(Short rate, int idRecipe){
+		recipeDAO.ratingRecipe(rate, idRecipe);
+	}
+
+	@Override
+	public Short ratingAverage(int id) {		
+		return recipeDAO.ratingAverage(id);
+	}
+
 
 }

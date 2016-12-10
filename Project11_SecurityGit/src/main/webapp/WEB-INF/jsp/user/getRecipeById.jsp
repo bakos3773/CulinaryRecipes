@@ -61,6 +61,7 @@ list-style-type: none;
   border-radius:0 0 6px 6px;
 
 }
+
 </style>
 <script type="text/javascript">
 $(function () {
@@ -73,7 +74,11 @@ $(function () {
 <div style="color: white;">
 	<div class="row">
 		<div class="col-sm-3 col-md-4 col-lg-4" style="padding-top: 10px;">
-			<p><a href="">Autor: XXX</a></p>
+			<p>
+				<a href="">Autor: XXX</a>
+				<div><star-rating rating-value="${recipes.avgRaings}" max="5" on-rating-selected="getSelectedRating(rating)" readonly="true"></star-rating></div>				
+			</p>
+
 			<p><h2><b><i><span style="font-family: cursive;">${recipes.name}</span></i></b></h2></p>
 			<br/>
 			<p><h3><b><span style="font-family: cursive;">Skladniki</span></b></h3></p>
@@ -85,10 +90,10 @@ $(function () {
 			<div><img src="<c:url value="/user/recipes/images/${recipes.id}"></c:url>" style="max-width: 450px; max-height: 450px;" alt="image"/></div><br/> 
 			<div><p><span class="glyphicon glyphicon-time"></span> ${recipes.timeToPrepare}min &nbsp; <span class="glyphicon glyphicon-stats"></span> ${recipes.level}</p>
 			    <div>
-				    <span ng-repeat="rating in ratings">{{rating.current}} out of {{rating.max}}
+				    Rate: <span ng-repeat="rating in ratings">{{rating.current}} out of {{rating.max}}
 				        <div star-rating rating-value="rating.current" max="rating.max" on-rating-selected="getSelectedRating(rating)"></div>
 				   </span>	
-				   <button>Ocen</button>
+				   
 				</div>		
 			</div>
 			<br/>

@@ -244,5 +244,20 @@ public class RecipeController {
 		model.addAttribute("serchingRecipes", recipesService.getAllSearchingRecipies(searchingTxt));
 
 		return "serchingRecipes";
-	}	
+	}
+	
+	@RequestMapping(value="/{idRecipe}/rate/{rate}", method=RequestMethod.GET) // TEST 
+	public void ratingRecipe(@PathVariable("idRecipe")int idRecipe, @PathVariable("rate")Short rate){
+		recipesService.ratingRecipe(rate, idRecipe);
+	}
+	
+	@RequestMapping(value="/ratingAverage/{id}", method=RequestMethod.GET) // TEST 
+	public ResponseEntity<Short> ratingAverage(@PathVariable("id")int id){
+		System.out.println("Wszedlem do ratingAverage id="+id);
+		
+		Short score = recipesService.ratingAverage(id);
+		HttpStatus status = score!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+		
+		return new ResponseEntity<Short>(score, status);
+	}
 }

@@ -63,4 +63,8 @@ public interface CulinaryRecipesDAO {
 	public List<RecipesComments> getAllRecipiesComments(int id);
 	
 	public List<CulinaryRecipes> getAllSearchingRecipies(String searchingText);
+	
+	public void ratingRecipe(Short rate, int idRecipe);
+	
+	public Short ratingAverage(int id);
 }

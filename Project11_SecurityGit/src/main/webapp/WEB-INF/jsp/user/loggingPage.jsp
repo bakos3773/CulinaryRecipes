@@ -8,187 +8,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">	
-		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" ></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
- 		<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.0.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
-		
-<script src = "http://cdn.zingchart.com/zingchart.min.js" ></script>
+<link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" ></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet"/>		
 
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">		  
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
+<script src = "http://cdn.zingchart.com/zingchart.min.js" ></script>
 <script src = "http://cdn.zingchart.com/angular/zingchart-angularjs.js"></script>
-		
-		<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>	
-		
-		<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">		  
-		<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.js"></script>
-						
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
+<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
 	 
 
 			
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 
+		<script src = "http://cdn.zingchart.com/zingchart.min.js" ></script>
+		
+		<script src = "http://cdn.zingchart.com/angular/zingchart-angularjs.js"></script>
 
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-    $('.dropdown-toggle').dropdown()
-});
-
-var app = angular.module('myApp', ['ngSanitize', 'zingchart-angularjs']);
-
-
-app.factory('WidgetService', function ($http, $log, $q) {
-    
-	var listVisitPerMonth = [];
-	
-	var d = $q.defer();
-	
-    var getListVisitPerMonth = function (x) {    	
-    	return $http.get('/ProjectSecurityGit/user/lastMonth/'+x).then(function(response) {		   
-			return response.data;
-		});	  	
-    };
-    
-    return{
-    	getListVisitPerMonth: getListVisitPerMonth
-    };
-    
-});
-
-
-
-app.controller("MainController", function($scope, $http, $log, WidgetService) {	
-	
-	$scope.recipes = {};
-	$scope.recipiesComments = [];
-	
-	var getAllLastMonth = function(){
-		$http.get('/ProjectSecurityGit/user/lastMonth').then(function(response) {
-			$scope.lastMonth = response.data;	
-			 $log.info($scope.lastMonth); 
-			 alert("wpisanie zmiennych do tablicy");
-			 return $scope.lastMonth;
-		});		
-	}
-	
-	$scope.addCommentToThisRecipipe = function(id){
-		$http.post('/ProjectSecurityGit/user/recipes/addComment/'+id, document.getElementById("conmment").value).then(function(response){
-		});
-	}
-	
-	$scope.loadAllRecipesComments = function(id){
-		$http.get('/ProjectSecurityGit/user/recipes/loadAllRecipesComments/'+id).then(function(response){
-			 $scope.recipiesComments = response.data; 
-			 console.log($scope.recipiesComments); 
-		});
-	}	
-	/* ***************************************************************************	RATING experiment */
-    $scope.rating = 0;
-    $scope.ratings = [{
-        current: 3,
-        max: 5
-    }];
-
-    $scope.getSelectedRating = function (rating) {
-        console.log(rating);
-    }
-
-/* ***************************************************************************   */  	
-});	
-
-app.directive('starRating', function () {
-    return {
-        restrict: 'A',
-        template: '<ul class="rating">' +
-            '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +
-            '\u2605' +
-            '</li>' +
-            '</ul>',
-        scope: {
-            ratingValue: '=',
-            max: '=',
-            onRatingSelected: '&'
-        },
-        link: function (scope, elem, attrs) {
-
-            var updateStars = function () {
-                scope.stars = [];
-                for (var i = 0; i < scope.max; i++) {
-                    scope.stars.push({
-                        filled: i < scope.ratingValue
-                    });
-                }
-            };
-
-            scope.toggle = function (index) {
-                scope.ratingValue = index + 1;
-                scope.onRatingSelected({
-                    rating: index + 1
-                });
-            };
-
-            scope.$watch('ratingValue', function (oldVal, newVal) {
-                if (newVal) {
-                    updateStars();
-                }
-            });
-        }
-    }
-});
-
-app.controller("homeController", function($scope, $http, $log, WidgetService) {	
-	
-	$scope.recipes = [];
-	$scope.typeOfView = "normal";
-
-	var loadAllRecipes = function(){
-		$http.get('/ProjectSecurityGit/user/recipes/loadAllRecipes').then(function(response){
-			$scope.recipes = response.data;			
-		});
-	}	
-	
-	loadAllRecipes();	
-	
-  $scope.showTypes = function() {
-	  $scope.listAllTypes = [];
-	  var typeOfRecipes = document.forms.namedItem("typeRecipes");
-	  var i;	  	  
-	  for(i=0; i<typeOfRecipes.length; i++){
-		  if(typeOfRecipes[i].checked){			
-			  $scope.listAllTypes.push(typeOfRecipes[i].value);
-		  }
-	  }	 
-	   $http.post("recipes/checkedTypes", $scope.listAllTypes).success(function($dane){    	    	 
-	    	 $scope.recipes = $dane;
-	    	 console.log( $scope.recipes);
-	  }); 
-  	};
-  
-  	
-	$scope.dropdownType = function(type){
-		   $http.get("recipes/dropdownTypes/"+type).success(function($dane){
-			    $scope.recipes = $dane;
-		    	 console.log( $scope.recipes);
-		  }); 		  
-	}
-	
-	$scope.setView = function(view){
-		$scope.typeOfView = view;
-	}
-	
-	$scope.searchRecipe = function(searchingTxt){
-		$http.get('/ProjectSecurityGit/user/recipes/serchingRecipes/'+searchingTxt).then(function(response) {
-				console.log(response);
-		});
-	}
-	
-});
-</script>	
 <style type="text/css">
 body
 {
@@ -312,15 +160,217 @@ position: absolute;
     padding: 3px 15px !important;
   }
 }
+
+
 </style>
+<!-- *******************************************************-->
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('.dropdown-toggle').dropdown()
+});
+
+var app = angular.module('myApp', ['ngSanitize', 'zingchart-angularjs']);
+
+
+app.factory('WidgetService', function ($http, $log, $q) {
+    
+	var listVisitPerMonth = [];
+	
+	var d = $q.defer();
+	
+    var getListVisitPerMonth = function (x) {    	
+    	return $http.get('/ProjectSecurityGit/user/lastMonth/'+x).then(function(response) {		   
+			return response.data;
+		});	  	
+    };
+    var ratingRecipe = function (idRecipe, rate) {    	    	
+    	$http.get('/ProjectSecurityGit/user/recipes/'+idRecipe+'/rate/'+rate).then(function(response){
+				
+		});      	
+    };    
+    
+    return{
+    	getListVisitPerMonth: getListVisitPerMonth,
+    	ratingRecipe: ratingRecipe
+    };
+    
+});
+
+
+
+app.controller("MainController", function($scope, $http, $log, WidgetService) {	
+	
+	$scope.recipes = {};
+	$scope.recipiesComments = [];
+	$scope.WidgetService = WidgetService;
+	
+	var getAllLastMonth = function(){
+		$http.get('/ProjectSecurityGit/user/lastMonth').then(function(response) {
+			$scope.lastMonth = response.data;	
+			 $log.info($scope.lastMonth); 
+			 alert("wpisanie zmiennych do tablicy");
+			 return $scope.lastMonth;
+		});		
+	}
+	
+	$scope.addCommentToThisRecipipe = function(id){
+		$http.post('/ProjectSecurityGit/user/recipes/addComment/'+id, document.getElementById("conmment").value).then(function(response){
+		});
+	}
+	
+	$scope.loadAllRecipesComments = function(id){
+		$http.get('/ProjectSecurityGit/user/recipes/loadAllRecipesComments/'+id).then(function(response){
+			 $scope.recipiesComments = response.data; 
+			 console.log($scope.recipiesComments); 
+		});
+	}	
+	/* ***************************************************************************	RATING experiment */
+    $scope.rating = 0;
+    $scope.ratings = [{
+        current: 3,
+        max: 5
+    }];
+    
+
+    $scope.getSelectedRating = function (rating) {
+        console.log(rating);
+    }
+
+/* ***************************************************************************   */  	
+});	
+
+app.directive('starRating', function (WidgetService) {
+    return {
+        restrict: 'EA',
+        template: '<ul class="rating">' +
+            '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +
+            '\u2605' +
+            '</li>' +
+            '</ul>',
+        scope: {
+            ratingValue: '=',
+            max: '=',
+            onRatingSelected: '&',
+            readonly: '=?'
+        },
+        link: function (scope, elem, attrs, $http) {
+
+            var updateStars = function () {
+                scope.stars = [];
+                for (var i = 0; i < scope.max; i++) {
+                    scope.stars.push({
+                        filled: i < scope.ratingValue
+                    });
+                }
+               
+            };
+
+            scope.toggle = function (index) {
+            	
+                if (scope.readonly == undefined || scope.readonly === false){
+                    scope.ratingValue = index + 1;
+                    scope.onRatingSelected({
+                        rating: index + 1
+                    });
+                    alert("Twoja ocena "+scope.ratingValue);
+                    scope.addRatingToRecipe(scope.ratingValue)
+                  }    
+            };
+            
+            scope.addRatingToRecipe = function(rate){
+            	var href = window.location.pathname;
+            	var idRecipe =  href.substr(href.lastIndexOf('/') + 1);      
+            	WidgetService.ratingRecipe(idRecipe, rate);
+            };
+
+            scope.$watch('ratingValue', function (oldVal, newVal) {
+                if (newVal) {
+                    updateStars();                    
+                }
+                
+            });
+        }
+    }
+});
+
+app.controller("homeController", function($scope, $http, $log, WidgetService) {	
+	
+	$scope.WidgetService = WidgetService;
+	
+	$scope.recipes = [];
+	$scope.typeOfView = "normal";
+	
+    $scope.rating = 0;
+    $scope.ratings = [{
+        current: 3,
+        max: 5
+    }];	
+
+
+	var loadAllRecipes = function(){
+		$http.get('/ProjectSecurityGit/user/recipes/loadAllRecipes').then(function(response){
+			$scope.recipes = response.data;			
+		});
+	}	
+	
+	loadAllRecipes();	
+	
+  $scope.showTypes = function() {
+	  $scope.listAllTypes = [];
+	  var typeOfRecipes = document.forms.namedItem("typeRecipes");
+	  var i;	  	  
+	  for(i=0; i<typeOfRecipes.length; i++){
+		  if(typeOfRecipes[i].checked){			
+			  $scope.listAllTypes.push(typeOfRecipes[i].value);
+		  }
+	  }	 
+	   $http.post("recipes/checkedTypes", $scope.listAllTypes).success(function($dane){    	    	 
+	    	 $scope.recipes = $dane;
+	    	 console.log( $scope.recipes);
+	  }); 
+  	};
+  
+  	
+	$scope.dropdownType = function(type){
+		   $http.get("recipes/dropdownTypes/"+type).success(function($dane){
+			    $scope.recipes = $dane;
+		    	 console.log( $scope.recipes);
+		  }); 		  
+	}
+	
+	$scope.setView = function(view){
+		$scope.typeOfView = view;
+	}
+	
+	$scope.searchRecipe = function(searchingTxt){
+		$http.get('/ProjectSecurityGit/user/recipes/serchingRecipes/'+searchingTxt).then(function(response) {
+				console.log(response);
+		});
+	}
+	
+	$scope.ratingRecipe = function(id){
+ 		$http.get('/ProjectSecurityGit/user/recipes/ratingAverage/'+id).then(function(response) {
+			
+ 			$scope.WidgetService.setXXX(12);
+ 			
+			$scope.WidgetService.getXXX();
+		});	
+	} 
+	
+});
+</script>	
+
 </head>
 <body ng-app="myApp">
 <div id="firtLevel">
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
-		    <div class="navbar-header">
-		      <a class="navbar-brand" style="color: purple;">[ <security:authentication property="principal.username"/> ]</a>
-		    </div>
+		  <security:authorize access="hasRole('ROLE_USER')">
+			    <div class="navbar-header">
+			      <a class="navbar-brand" style="color: purple;">[ <security:authentication property="principal.username"/> ]</a>
+			    </div>
+		   </security:authorize>
 		    <ul class="nav navbar-nav">
 		    <security:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')">
 			      <li><a href='<spring:url value="/user/home"></spring:url>'><span class="glyphicon glyphicon-home"></span> Home</a></li>
@@ -359,7 +409,7 @@ position: absolute;
    		      <ul class="nav navbar-nav">
 	   		      <form ng-controller="homeController" class="navbar-form ng-pristine ng-valid" role="search">
 					        <div class="form-group">
-					          <input type="text" ng-model="searching" class="form-control" placeholder="Search">
+					          <input type="text" ng-model="searching" class="form-control" placeholder="Search" style="width: 140px;">
 					        </div>
 					        
 					        <a href="<spring:url value="/user/recipes/serchingRecipes/{{searching}}"></spring:url>" type="submit"  ng-click="searchRecipe(searching)" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a>

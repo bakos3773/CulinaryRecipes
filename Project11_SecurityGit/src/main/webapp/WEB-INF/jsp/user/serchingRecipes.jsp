@@ -21,12 +21,12 @@
 			<td>			
 				<div class="row">
 					<a href="<spring:url value="/user/recipes/show/${recipe.id}"></spring:url>">
-						<div class="col-sm-3 " style="padding-top: 10px; background-color: red;">
+						<div class="col-sm-3 " style="padding-top: 10px;">
 							<img src="<c:url value="/user/recipes/images/${recipe.id}"></c:url>" style="max-width: 150px" alt="image"/>					
 						</div>					
-						<div class="col-sm-9 " style="padding-left: 20px; padding-top: 20px; background-color: blue;">
+						<div class="col-sm-9 " style="padding-left: 20px; padding-top: 20px;">
 							<div align="center"><h3><b>${recipe.name}</b></h3></div>
-							<br/>
+														<br/>
 							<div><span class="glyphicon glyphicon-time"></span> ${recipe.timeToPrepare}min &nbsp; <span class="glyphicon glyphicon-stats"></span> ${recipe.level}</div>
 						</div>
 					</a>

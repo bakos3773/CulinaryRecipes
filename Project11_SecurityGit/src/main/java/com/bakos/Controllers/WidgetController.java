@@ -57,9 +57,19 @@ public class WidgetController {
 		Date date = new Date();
 	    Calendar cal = Calendar.getInstance();
 	    cal.setTime(date);
+	    String dateToPass = "";
+	    int year = cal.get(Calendar.YEAR);
+	    int month = cal.get(Calendar.MONTH) + 1;
 	    int day = cal.get(Calendar.DAY_OF_MONTH);
 	    
-	    List<MostPopularRecipesThisDay> x = widgetService.mostPopularRecipesThisDay(day);
+	    if( day<10 ){
+	    	dateToPass = year+"-"+month+"-0"+day;
+	    }
+	    else{
+	    	dateToPass = year+"-"+month+"-"+day;
+	    }	    
+	    
+	    List<MostPopularRecipesThisDay> x = widgetService.mostPopularRecipesThisDay(dateToPass);
 		return x;
 	}	
 }

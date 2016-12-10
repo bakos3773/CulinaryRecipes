@@ -74,7 +74,7 @@ public class WidgetDAOImpl implements WidgetDAO {
 			
 			int ile=0;
 
-			for(int j=1; j<=31; j++){
+			for(int j=2; j<=31; j++){
 				for(int i=0; i<result.size(); i++){
 			
 					cal.setTime(result.get(i));
@@ -92,11 +92,13 @@ public class WidgetDAOImpl implements WidgetDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<MostPopularRecipesThisDay> mostPopularRecipesThisDay(int day) {
-		Query daysTab = manager.createQuery("SELECT c.id FROM Users u INNER JOIN u.culinaryRecipes c INNER JOIN c.statistics x WHERE SUBSTRING(x.date, 9, 2) = :day AND u.id= :id");
-		daysTab.setParameter("day", day+"");		
-		daysTab.setParameter("id", userService.findUserByUsername().getId());
-	
+	public List<MostPopularRecipesThisDay> mostPopularRecipesThisDay(String searchingDate){
+		
+		
+		Query daysTab = manager.createQuery("SELECT c.id FROM Users u INNER JOIN u.culinaryRecipes c INNER JOIN c.statistics x WHERE u.id= :id AND  SUBSTRING(x.date, 1, 10)= :searchingDate");			
+							
+		daysTab.setParameter("id", userService.findUserByUsername().getId());	
+		daysTab.setParameter("searchingDate", searchingDate);		
 		
 		List<Integer> statisticsThisDay = daysTab.getResultList();
 		Set<Integer> uniqueGas = new HashSet<Integer>(statisticsThisDay);

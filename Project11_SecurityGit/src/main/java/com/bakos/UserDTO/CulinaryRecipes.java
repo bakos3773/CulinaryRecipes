@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -34,9 +35,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @XmlRootElement
 public class CulinaryRecipes implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -62,6 +61,11 @@ public class CulinaryRecipes implements Serializable {
 	private String isPrivateRecipe;
 	private String level;
 	private int timeToPrepare;
+	private int counterRatings;
+	private int avgRaings;
+	@ElementCollection
+	@JsonIgnore
+	private List<Short> collectionRatings = new ArrayList<Short>();
 	
 	@OneToMany(mappedBy="culinaryRecipes",fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	@JsonIgnore
@@ -188,4 +192,29 @@ public class CulinaryRecipes implements Serializable {
 		this.timeToPrepare = timeToPrepare;
 	}
 
+	public int getCounterRatings() {
+		return counterRatings;
+	}
+
+	public void setCounterRatings(int counterRatings) {
+		this.counterRatings = counterRatings;
+	}
+
+	public List<Short> getCollectionRatings() {
+		return collectionRatings;
+	}
+
+	public void setCollectionRatings(List<Short> collectionRatings) {
+		this.collectionRatings = collectionRatings;
+	}
+
+	public int getAvgRaings() {
+		return avgRaings;
+	}
+
+	public void setAvgRaings(int avgRaings) {
+		this.avgRaings = avgRaings;
+	}
+
+	
 }

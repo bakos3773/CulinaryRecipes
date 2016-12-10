@@ -286,6 +286,43 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 		
 		return getAllSearchingRecipies;
 	}
+
+	@Override
+	public void ratingRecipe(Short rate, int idRecipe) {
+		CulinaryRecipes recipe = (CulinaryRecipes) manager.createQuery("SELECT c FROM CulinaryRecipes c WHERE c.id= :idRecipe").setParameter("idRecipe", idRecipe).getSingleResult();
+		
+		recipe.setCounterRatings(recipe.getCounterRatings()+1);
+		recipe.getCollectionRatings().add(rate);
+		
+		float all=0;
+		for(Short x :recipe.getCollectionRatings()){
+			all += x;
+		}	
+		recipe.setAvgRaings((int)(Math.round( (all/recipe.getCounterRatings()))));		
+		
+		manager.merge(recipe);
+	}
+
+	@Override
+	public Short ratingAverage(int id) {
+		CulinaryRecipes recipe = (CulinaryRecipes) manager.createQuery("SELECT c FROM CulinaryRecipes c WHERE c.id= :id").setParameter("id", id).getSingleResult();
+		
+//		System.out.println("id="+id);
+//		
+//		if(recipe.getCounterRatings()==0){
+//			System.out.println("id="+id + " wynik= 0");
+//			return 0;
+//		}
+//		
+//		float all=0;
+//		for(Short x :recipe.getCollectionRatings()){
+//			all += x;
+//		}	
+//		
+//		
+//		System.out.println( "id="+id + " wynik="+((short)(Math.round( (all/recipe.getCounterRatings())))) );
+		return null;
+	}
 	
 	
 

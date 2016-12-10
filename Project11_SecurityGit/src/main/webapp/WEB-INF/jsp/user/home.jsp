@@ -121,7 +121,7 @@ list-style-type:none;
 		<tr ng-repeat="recipe in recipes | orderBy:'date':true" ng-if="$index%3==0" ng-show="typeOfView=='normal'">
 			<td>
 				<span ng-if="recipes[$index].id">
-					<a href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">
+					<a ng-click="ratingRecipe(recipes[$index].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
 		 			</a>
@@ -130,7 +130,7 @@ list-style-type:none;
 			</td>
 			<td>
 				<span ng-if="recipes[$index+1].id">
-					<a href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">
+					<a ng-click="ratingRecipe(recipes[$index+1].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
 		 			</a>
@@ -139,7 +139,7 @@ list-style-type:none;
 			</td>			
 			<td>
 				<span ng-if="recipes[$index+2].id">
-					<a href="<spring:url value="/user/recipes/show/{{recipes[$index+2].id}}"></spring:url>">
+					<a ng-click="ratingRecipe(recipes[$index+2].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+2].id}}"></spring:url>">
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+2].id}}" class="sizeWidth"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+2].name}}</span></b></h4></p>
 		 			</a>
@@ -153,7 +153,7 @@ list-style-type:none;
 		<tr ng-repeat="recipe in recipes" ng-if="$index%2==0"  ng-show="typeOfView=='big'">
 			<td>
 				<span ng-if="recipes[$index].id">
-					<a href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">
+					<a ng-click="ratingRecipe(recipes[$index].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth2"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
 		 			</a>
@@ -162,7 +162,7 @@ list-style-type:none;
 			</td>
 			<td>
 				<span ng-if="recipes[$index+1].id">
-					<a href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">
+					<a ng-click="ratingRecipe(recipes[$index+1].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth2"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
 		 			</a>
@@ -175,7 +175,7 @@ list-style-type:none;
 		<tr ng-repeat="recipe in recipes" ng-if="$index%4==0"  ng-show="typeOfView=='small'">
 			<td>
 				<span ng-if="recipes[$index].id">
-					<a href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">
+					<a ng-click="ratingRecipe(recipes[$index].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth3"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
 		 			</a>
@@ -184,7 +184,7 @@ list-style-type:none;
 			</td>
 			<td>
 				<span ng-if="recipes[$index+1].id">
-					<a href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">
+					<a ng-click="ratingRecipe(recipes[$index+1].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth3"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
 		 			</a>
@@ -193,7 +193,7 @@ list-style-type:none;
 			</td>
 			<td>
 				<span ng-if="recipes[$index+2].id">
-					<a href="<spring:url value="/user/recipes/show/{{recipes[$index+2].id}}"></spring:url>">
+					<a ng-click="ratingRecipe(recipes[$index+2].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+2].id}}"></spring:url>">
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+2].id}}" class="sizeWidth3"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+2].name}}</span></b></h4></p>
 		 			</a>
@@ -202,7 +202,7 @@ list-style-type:none;
 			</td>	
 			<td>
 				<span ng-if="recipes[$index+3].id">
-					<a href="<spring:url value="/user/recipes/show/{{recipes[$index+3].id}}"></spring:url>">
+					<a ng-click="ratingRecipe(recipes[$index+3].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+3].id}}"></spring:url>">
 	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+3].id}}" class="sizeWidth3"/>
 	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+3].name}}</span></b></h4></p>
 		 			</a>

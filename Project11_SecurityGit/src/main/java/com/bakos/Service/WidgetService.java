@@ -7,5 +7,5 @@ import com.bakos.UserDTO.MostPopularRecipesThisDay;
 public interface WidgetService{
 	
 	public List<Integer> lastMont(String year_month);
-	public List<MostPopularRecipesThisDay> mostPopularRecipesThisDay(int day);
+	public List<MostPopularRecipesThisDay> mostPopularRecipesThisDay(String day);
 }
