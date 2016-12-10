@@ -29,10 +29,12 @@
 }
 .sizeWidth2 {
     width: 40vw;
+    height: 50vh;	
     padding: 0px;
 }
 .sizeWidth3 {
     width: 20vw;
+    height: 50vh;    
     padding: 0px;
 }
 #recipeView > ul > li {
@@ -54,6 +56,79 @@ list-style-type:none;
    background-color:#FFF;
    background-image:none;
  }
+
+  #pudelko {
+    width: 30vw;
+     height: 50vh;
+    margin:0 auto;
+
+    -webkit-perspective:400px;
+  }
+      
+#pudelko2 {
+	 width: 40vw;
+	 height: 50vh;		
+	 margin:0 auto;
+	 -webkit-perspective:400px;
+}  
+      
+#pudelko3 {
+	width: 20vw;
+	height: 50vh;		
+	margin:0 auto;
+	-webkit-perspective:400px;
+}            
+
+      #karta {
+        position:relative;
+        width:100%;
+        height:100%;
+        text-align:center;
+        transition:1s;
+        -webkit-transition:1s;
+        transform-style:preserve-3d;
+        -webkit-transform-style:preserve-3d;
+      }
+
+      #pudelko:hover > #karta {
+        transform:rotateY(180deg);
+        -webkit-transform:rotateY(180deg);
+      }
+      #pudelko2:hover > #karta {
+        transform:rotateY(180deg);
+        -webkit-transform:rotateY(180deg);
+      }      
+      #pudelko3:hover > #karta {
+        transform:rotateY(180deg);
+        -webkit-transform:rotateY(180deg);
+      }        
+
+      #przod {
+        position:absolute;
+        width:100%;
+        height:100%;
+   
+        box-shadow:0 0 4px 8px #FFF inset;
+        backface-visibility:hidden;
+        -webkit-backface-visibility:hidden;
+      }
+
+      #tyl {
+        position:absolute;
+        width:100%;
+        height:100%;
+        line-height:30px;
+        
+        padding-top:20px;
+        color:#FFF;
+        font-size:1.6em;
+        background-color:#000;
+        box-shadow:0 0 4px 8px #FFF inset;
+        transform:rotateY(180deg);
+        -webkit-transform:rotateY(180deg);
+        backface-visibility:hidden;
+        -webkit-backface-visibility:hidden;
+      } 
 </style>   
 <div ng-controller="homeController">    
    <div id="recipeView"> 
@@ -121,29 +196,43 @@ list-style-type:none;
 		<tr ng-repeat="recipe in recipes | orderBy:'date':true" ng-if="$index%3==0" ng-show="typeOfView=='normal'">
 			<td>
 				<span ng-if="recipes[$index].id">
-					<a ng-click="ratingRecipe(recipes[$index].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">
-	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth"/>
-	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
-		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index].level}}</p>
+					<a ng-click="ratingRecipe(recipes[$index].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">		 				
+					    <div id="pudelko">
+					      <div id="karta">
+					        <div id="przod"><img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth"/></div>
+					        <div id="tyl">				        
+					        	<span class="glyphicon glyphicon-time"></span> {{recipes[$index].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index].level}}
+					        </div>
+					      </div>
+					    </div>		 		
+		 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
+		 			</a>		 			
 				</span>
 			</td>
 			<td>
 				<span ng-if="recipes[$index+1].id">
-					<a ng-click="ratingRecipe(recipes[$index+1].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">
-	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth"/>
-	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
-		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+1].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+1].level}}</p>
+					<a ng-click="ratingRecipe(recipes[$index+1].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">		 				
+					    <div id="pudelko">
+					      <div id="karta">
+					        <div id="przod"><img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth"/></div>
+					        <div id="tyl"><span class="glyphicon glyphicon-time"></span> {{recipes[$index+1].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+1].level}}</div>
+					      </div>
+					    </div>		 		
+		 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
+		 			</a>		 			
 				</span>
 			</td>			
 			<td>
 				<span ng-if="recipes[$index+2].id">
-					<a ng-click="ratingRecipe(recipes[$index+2].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+2].id}}"></spring:url>">
-	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+2].id}}" class="sizeWidth"/>
-	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+2].name}}</span></b></h4></p>
-		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+2].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+2].level}}</p>
+					<a ng-click="ratingRecipe(recipes[$index+2].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+2].id}}"></spring:url>">		 				
+					    <div id="pudelko">
+					      <div id="karta">
+					        <div id="przod"><img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+2].id}}" class="sizeWidth"/></div>
+					        <div id="tyl"><span class="glyphicon glyphicon-time"></span> {{recipes[$index+2].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+2].level}}</div>
+					      </div>
+					    </div>		 		
+		 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+2].name}}</span></b></h4></p>
+		 			</a>		 			
 				</span>
 			</td>			
 		</tr>
@@ -153,20 +242,28 @@ list-style-type:none;
 		<tr ng-repeat="recipe in recipes" ng-if="$index%2==0"  ng-show="typeOfView=='big'">
 			<td>
 				<span ng-if="recipes[$index].id">
-					<a ng-click="ratingRecipe(recipes[$index].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">
-	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth2"/>
-	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
-		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index].level}}</p>
+					<a ng-click="ratingRecipe(recipes[$index].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">		 				
+					    <div id="pudelko2">
+					      <div id="karta">
+					        <div id="przod"><img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth2"/></div>
+					        <div id="tyl"><span class="glyphicon glyphicon-time"></span> {{recipes[$index].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index].level}}</div>
+					      </div>
+					    </div>		 		
+		 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
+		 			</a>		 			
 				</span>
 			</td>
 			<td>
 				<span ng-if="recipes[$index+1].id">
-					<a ng-click="ratingRecipe(recipes[$index+1].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">
-	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth2"/>
-	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
-		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+1].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+1].level}}</p>
+					<a ng-click="ratingRecipe(recipes[$index+1].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">		 				
+					    <div id="pudelko2">
+					      <div id="karta">
+					        <div id="przod"><img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth2"/></div>
+					        <div id="tyl"><span class="glyphicon glyphicon-time"></span> {{recipes[$index+1].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+1].level}}</div>
+					      </div>
+					    </div>		 		
+		 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
+		 			</a>		 			
 				</span>
 			</td>
 		</tr>
@@ -175,38 +272,54 @@ list-style-type:none;
 		<tr ng-repeat="recipe in recipes" ng-if="$index%4==0"  ng-show="typeOfView=='small'">
 			<td>
 				<span ng-if="recipes[$index].id">
-					<a ng-click="ratingRecipe(recipes[$index].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">
-	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth3"/>
-	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
-		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index].level}}</p>
+					<a ng-click="ratingRecipe(recipes[$index].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index].id}}"></spring:url>">		 				
+					    <div id="pudelko3">
+					      <div id="karta">
+					        <div id="przod"><img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index].id}}" class="sizeWidth3"/></div>
+					        <div id="tyl"><span class="glyphicon glyphicon-time"></span> {{recipes[$index].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index].level}}</div>
+					      </div>
+					    </div>		 		
+		 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index].name}}</span></b></h4></p>
+		 			</a>		 			
 				</span>
 			</td>
 			<td>
 				<span ng-if="recipes[$index+1].id">
-					<a ng-click="ratingRecipe(recipes[$index+1].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">
-	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth3"/>
-	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
-		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+1].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+1].level}}</p>
+					<a ng-click="ratingRecipe(recipes[$index+1].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+1].id}}"></spring:url>">		 				
+					    <div id="pudelko3">
+					      <div id="karta">
+					        <div id="przod"><img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+1].id}}" class="sizeWidth3"/></div>
+					        <div id="tyl"><span class="glyphicon glyphicon-time"></span> {{recipes[$index+1].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+1].level}}</div>
+					      </div>
+					    </div>		 		
+		 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+1].name}}</span></b></h4></p>
+		 			</a>		 			
 				</span>
 			</td>
 			<td>
 				<span ng-if="recipes[$index+2].id">
-					<a ng-click="ratingRecipe(recipes[$index+2].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+2].id}}"></spring:url>">
-	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+2].id}}" class="sizeWidth3"/>
-	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+2].name}}</span></b></h4></p>
-		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+2].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+2].level}}</p>
+					<a ng-click="ratingRecipe(recipes[$index+2].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+2].id}}"></spring:url>">		 				
+					    <div id="pudelko3">
+					      <div id="karta">
+					        <div id="przod"><img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+2].id}}" class="sizeWidth3"/></div>
+					        <div id="tyl"><span class="glyphicon glyphicon-time"></span> {{recipes[$index+2].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+2].level}}</div>
+					      </div>
+					    </div>		 		
+		 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+2].name}}</span></b></h4></p>
+		 			</a>		 			
 				</span>
 			</td>	
 			<td>
 				<span ng-if="recipes[$index+3].id">
-					<a ng-click="ratingRecipe(recipes[$index+3].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+3].id}}"></spring:url>">
-	 				<img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+3].id}}" class="sizeWidth3"/>
-	 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+3].name}}</span></b></h4></p>
-		 			</a>
-		 			<p><span class="glyphicon glyphicon-time"></span> {{recipes[$index+3].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+3].level}}</p>
+					<a ng-click="ratingRecipe(recipes[$index+3].id);" href="<spring:url value="/user/recipes/show/{{recipes[$index+3].id}}"></spring:url>">		 				
+					    <div id="pudelko3">
+					      <div id="karta">
+					        <div id="przod"><img src="/ProjectSecurityGit/user/recipes/images/{{recipes[$index+3].id}}" class="sizeWidth3"/></div>
+					        <div id="tyl"><span class="glyphicon glyphicon-time"></span> {{recipes[$index+3].timeToPrepare}}min &nbsp; <span class="glyphicon glyphicon-stats"></span> {{recipes[$index+3].level}}</div>
+					      </div>
+					    </div>		 		
+		 				<p><h4><b><span style="max-width: 80%; text-overflow: ellipsis; break-word: break-word ; display: block;  overflow: hidden">{{recipes[$index+3].name}}</span></b></h4></p>
+		 			</a>		 			
 				</span>
 			</td>					
 		</tr>

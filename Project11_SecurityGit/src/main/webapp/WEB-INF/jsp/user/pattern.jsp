@@ -40,7 +40,7 @@ body
 		    </div>
 		    <ul class="nav navbar-nav">
 		      <li><a href='<spring:url value="/"></spring:url>'><span class="glyphicon glyphicon-home"></span> Home</a></li>
-		      <li><a href="mailto:p.bakowski1@gmail.com?subject=Przepisnik"><span class="glyphicon glyphicon-earphone"></span> Kontakt</a></li>
+		      <li><a href='<spring:url value="/contact"></spring:url>'><span class="glyphicon glyphicon-earphone"></span> Kontakt</a></li>
 		    </ul>
 		    <ul class="nav navbar-nav navbar-right">
 		      <li><a href='<spring:url value="/register"></spring:url>'><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

@@ -88,6 +88,13 @@ public class MainController {
 		
 		return "index";
 	}
+	
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public String contact() {
+		
+		return "contact";
+	}	
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)

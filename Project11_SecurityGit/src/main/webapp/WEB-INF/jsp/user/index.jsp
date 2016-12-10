@@ -61,7 +61,7 @@ body
 		    </div>
 		    <ul class="nav navbar-nav">
 		      <li><a href='<spring:url value="/"></spring:url>'><span class="glyphicon glyphicon-home"></span> Home</a></li>
-		      <li><a href="mailto:p.bakowski1@gmail.com?subject=Przepisnik"><span class="glyphicon glyphicon-earphone"></span> Kontakt</a></li>
+		      <li><a href='<spring:url value="/contact"></spring:url>'><span class="glyphicon glyphicon-earphone"></span> Kontakt</a></li>
 				      
 		    </ul>
 		    <ul class="nav navbar-nav navbar-right">
@@ -84,9 +84,9 @@ body
 					
 					  <div id="second" class="tab-content" align="left" style="padding-left: 10px; padding-top: 10px;">
 					    <div id="home" class="tab-pane fade in active">
-					      <ul>
+					      <ul  style="text-decoration: none;">
 						      <c:forEach items="${latest}" var="recipe">
-						      		<li><a href='<spring:url value="/getRecipeById/${recipe.id}"></spring:url>' style="color: background;"><c:out value="${recipe.name}"/></a></li>		      
+						      		<li><a href='<spring:url value="/getRecipeById/${recipe.id}"></spring:url>' style="color: white;"><c:out value="${recipe.name}"/></a></li>		      
 						      </c:forEach>
 					      </ul>
 					    </div>

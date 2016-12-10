@@ -47,6 +47,10 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/user/slider.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="contact" extends="indexPattern">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/contact.jsp"></put-attribute>
+	</definition>	
+	
 	<definition name="mainPageShowRecipe" extends="indexPattern">
 		<put-attribute name="content" value="/WEB-INF/jsp/user/mainShowRecipe.jsp"></put-attribute>
 	</definition>	
