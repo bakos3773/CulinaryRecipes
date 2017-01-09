@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -18,13 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bakos.Service.CulinaryRecipesService;
 import com.bakos.Service.UserService;
+import com.bakos.UserDAO.SpringData.CulinaryRecipesJpaRepository;
 import com.bakos.UserDTO.Articles;
 import com.bakos.UserDTO.CulinaryRecipes;
 import com.bakos.UserDTO.FilterPattern;
 import com.bakos.UserDTO.RecipesComments;
 import com.bakos.UserDTO.Statistics;
 import com.bakos.UserDTO.Users;
-
 
 @Repository
 @Transactional
@@ -35,15 +37,15 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	CulinaryRecipesService recipesService;
 
-	
 	String rootDirectory = System.getProperty("catalina.home");
 
-	
-	
+	@Autowired
+	CulinaryRecipesJpaRepository culinaryRecipesJpaRepository;
+
 	@Override
 	public void addCulinaryRecipe(CulinaryRecipes culinaryRecipes) {
 
@@ -51,15 +53,15 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 				culinaryRecipes.getType(), culinaryRecipes.getName(),
 				culinaryRecipes.getComponents(),
 				culinaryRecipes.getHowToPerform(),
-				culinaryRecipes.getIsPrivateRecipe(), 
-				culinaryRecipes.getLevel(),
-				culinaryRecipes.getTimeToPrepare());
+				culinaryRecipes.getIsPrivateRecipe(),
+				culinaryRecipes.getLevel(), culinaryRecipes.getTimeToPrepare());
 		newCulinaryRecipes.setDate(new Date());
 
 		Users user = userService.findUserByUsername();
 		newCulinaryRecipes.setUser(user);
 
-		manager.persist(newCulinaryRecipes);
+		
+		culinaryRecipesJpaRepository.save(newCulinaryRecipes);
 		manager.merge(user);
 	}
 
@@ -67,33 +69,22 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 	@Override
 	public List<CulinaryRecipes> getAllRecipies() {
 
-		Query query = manager
-				.createQuery("Select z from CulinaryRecipes z WHERE  z.isPrivateRecipe IS NULL");
-		List<CulinaryRecipes> lista = query.getResultList();
-
-		return lista;
+		return culinaryRecipesJpaRepository.findAllWhereIsPrivateRecipeISNull();
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<CulinaryRecipes> getAllMyCulinaryRecipes() {
 
-		Query query = manager
-				.createQuery("SELECT c FROM Users u INNER JOIN u.culinaryRecipes c WHERE u.id= :id");
-		query.setParameter("id", userService.findUserByUsername().getId());
-		List<CulinaryRecipes> lista = query.getResultList();
-
-		return lista;
+		return culinaryRecipesJpaRepository
+				.findAllMyCulinaryRecipes(userService.findUserByUsername()
+						.getId());
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<CulinaryRecipes> checkedTypes(List<String> filterPattern) {
 		String allTypes = "";
 
-//		for (int i = 0; i < filterPattern.getAllTypes().size(); i++) {
-//			allTypes += "'" + filterPattern.getAllTypes().get(i) + "',";
-//		}
-		
 		for (int i = 0; i < filterPattern.size(); i++) {
 			allTypes += "'" + filterPattern.get(i) + "',";
 		}
@@ -109,71 +100,45 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 
 	@Override
 	public CulinaryRecipes getRecipieById(int id) {
-		Query query = manager
-				.createQuery("SELECT DISTINCT c FROM CulinaryRecipes c WHERE c.id= :arg1");
-		query.setParameter("arg1", id);
-
-		return (CulinaryRecipes) query.getSingleResult();
+		return culinaryRecipesJpaRepository.findById(id);
 	}
 
 	@Override
 	public void updateRecipe(CulinaryRecipes recipe, int id) {
 
-		Query query = manager
-				.createQuery("UPDATE CulinaryRecipes x SET "
-						+ "x.name= :name, x.type= :type, x.components= :components, "
-						+ "x.howToPerform =:howToPerform, x.isPrivateRecipe= :isPrivateRecipe "
-						+ "WHERE x.id= :id");
+		culinaryRecipesJpaRepository.updateCulinaryRecipe(recipe.getName(),
+				recipe.getType(), recipe.getComponents(),
+				recipe.getHowToPerform(), recipe.getIsPrivateRecipe(), id);
 
-		query.setParameter("name", recipe.getName());
-		query.setParameter("type", recipe.getType());
-		query.setParameter("components", recipe.getComponents());
-		query.setParameter("howToPerform", recipe.getHowToPerform());
-		query.setParameter("isPrivateRecipe", recipe.getIsPrivateRecipe());
-		query.setParameter("id", id);
-		query.executeUpdate();
 	}
 
 	@Override
 	public CulinaryRecipes read(int id) {
-		Query query = manager
-				.createQuery("SELECT DISTINCT x FROM CulinaryRecipes x WHERE x.id= :id");
-		query.setParameter("id", id);
 
-		return (CulinaryRecipes) query.getSingleResult();
+		return culinaryRecipesJpaRepository.findById(id);
 	}
 
 	@Override
 	public void removeRecipe(int id) {
 
-		Query query = manager
-				.createQuery("DELETE FROM CulinaryRecipes x WHERE x.id= :id");
-		query.setParameter("id", id).executeUpdate();
-		
-		System.out.println();
-
+		culinaryRecipesJpaRepository.removeById(id);
 	}
 
 	@Override
 	public List<CulinaryRecipes> getlast10Recipies() {
-		Query query = manager
-				.createQuery("Select z from CulinaryRecipes z WHERE  z.isPrivateRecipe IS NULL "
-						+ "ORDER BY z.id DESC");
-		@SuppressWarnings("unchecked")
-		List<CulinaryRecipes> lista = query.setMaxResults(10).getResultList();
 
-		return lista;
+		return culinaryRecipesJpaRepository.findLast10Recipies();
 	}
 
 	@Override
 	public void addArticle(Articles article) {
-		
+
 		manager.persist(article);
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Articles> getAllArticles(){
+	public List<Articles> getAllArticles() {
 		Query query = manager.createQuery("SELECT x FROM Articles x");
 		List<Articles> articles = query.getResultList();
 		return articles;
@@ -185,9 +150,7 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 				.createQuery("DELETE FROM Articles x WHERE x.id= :id");
 		query.setParameter("id", id);
 		query.executeUpdate();
-		
 	}
-
 
 	@Override
 	public CulinaryRecipes getlastOneRecipies() {
@@ -202,32 +165,32 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 	@Override
 	public void setStatistics(int id) {
 		System.out.println("USTAWIAM PRZEPIS NA DZIS");
-		if( !this.isItMyRecipe(id)){
-			
+		if (!this.isItMyRecipe(id)) {
+
 			Statistics statistics = new Statistics();
 			statistics.setCounter(1);
 			statistics.setDate(new Date());
-			statistics.setCulinaryRecipes(getRecipieById(id));			
-			
-			manager.persist(statistics);			
-		}		
+			statistics.setCulinaryRecipes(getRecipieById(id));
+
+			manager.persist(statistics);
+		}
 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isItMyRecipe(int id) {
-		
+
 		Query query = manager
 				.createQuery("SELECT c.id FROM Users u INNER JOIN u.culinaryRecipes c WHERE u.id= :id");
 		query.setParameter("id", userService.findUserByUsername().getId());
 		List<CulinaryRecipes> lista = query.getResultList();
-		
-		if( lista.contains(id) ){
+
+		if (lista.contains(id)) {
 			return true;
-		}
-		else return false;
-		
+		} else
+			return false;
+
 	}
 
 	@Override
@@ -235,13 +198,17 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 		if (!file.isEmpty()) {
 
 			try {
-				
-				File dir = new File(rootDirectory +File.separator + "resources" + File.separator + "images");
+
+				File dir = new File(rootDirectory + File.separator
+						+ "resources" + File.separator + "images");
 				if (!dir.exists())
 					dir.mkdirs();
 
-				File serverFile = new File(dir.getAbsoluteFile() + File.separator + recipesService.getlastOneRecipies().getId() + ".jpg");
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				File serverFile = new File(dir.getAbsoluteFile()
+						+ File.separator
+						+ recipesService.getlastOneRecipies().getId() + ".jpg");
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(serverFile));
 
 				stream.write(file.getBytes());
 				stream.close();
@@ -254,21 +221,25 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 
 	@Override
 	public void addComment(int idRecpe, String comment) {
-		
-		Query query = manager.createQuery("SELECT x FROM CulinaryRecipes x WHERE x.id= :id");
-		CulinaryRecipes culinaryRecipes = (CulinaryRecipes) query.setParameter("id", idRecpe).getSingleResult();
+
+		Query query = manager
+				.createQuery("SELECT x FROM CulinaryRecipes x WHERE x.id= :id");
+		CulinaryRecipes culinaryRecipes = (CulinaryRecipes) query.setParameter(
+				"id", idRecpe).getSingleResult();
 		RecipesComments recipesComments = new RecipesComments();
-		recipesComments.setComment(comment);	
+		recipesComments.setComment(comment);
 		recipesComments.setDate(new Date());
-		recipesComments.setIdCommentator(userService.findUserByUsername().getId());
-		recipesComments.setNameCommentator(userService.findUserByUsername().getLogin());
-		recipesComments.setCulinaryRecipes(culinaryRecipes);		
+		recipesComments.setIdCommentator(userService.findUserByUsername()
+				.getId());
+		recipesComments.setNameCommentator(userService.findUserByUsername()
+				.getLogin());
+		recipesComments.setCulinaryRecipes(culinaryRecipes);
 		manager.persist(recipesComments);
 	}
 
 	@Override
 	public List<RecipesComments> getAllRecipiesComments(int id) {
-		
+
 		Query query = manager
 				.createQuery("SELECT c FROM CulinaryRecipes u INNER JOIN u.recipeComments c WHERE u.id= :id");
 		query.setParameter("id", id);
@@ -277,53 +248,31 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 		return lista;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<CulinaryRecipes> getAllSearchingRecipies(String searchingText) {
-		Query query = manager.createQuery("SELECT c FROM CulinaryRecipes c WHERE c.name LIKE:searchingText");		
-		
-		List<CulinaryRecipes> getAllSearchingRecipies = query.setParameter("searchingText", "%"+searchingText+"%").getResultList();
-		
-		return getAllSearchingRecipies;
+
+		return culinaryRecipesJpaRepository.findAllSearchingRecipies("%"
+				+ searchingText + "%");
 	}
 
 	@Override
 	public void ratingRecipe(Short rate, int idRecipe) {
-		CulinaryRecipes recipe = (CulinaryRecipes) manager.createQuery("SELECT c FROM CulinaryRecipes c WHERE c.id= :idRecipe").setParameter("idRecipe", idRecipe).getSingleResult();
-		
-		recipe.setCounterRatings(recipe.getCounterRatings()+1);
+		CulinaryRecipes recipe = (CulinaryRecipes) manager
+				.createQuery(
+						"SELECT c FROM CulinaryRecipes c WHERE c.id= :idRecipe")
+				.setParameter("idRecipe", idRecipe).getSingleResult();
+
+		recipe.setCounterRatings(recipe.getCounterRatings() + 1);
 		recipe.getCollectionRatings().add(rate);
-		
-		float all=0;
-		for(Short x :recipe.getCollectionRatings()){
+
+		float all = 0;
+		for (Short x : recipe.getCollectionRatings()) {
 			all += x;
-		}	
-		recipe.setAvgRaings((int)(Math.round( (all/recipe.getCounterRatings()))));		
-		
+		}
+
+		recipe.setAvgRaings((int) (Math.round((all / recipe.getCounterRatings()))));
+
 		manager.merge(recipe);
 	}
-
-	@Override
-	public Short ratingAverage(int id) {
-		CulinaryRecipes recipe = (CulinaryRecipes) manager.createQuery("SELECT c FROM CulinaryRecipes c WHERE c.id= :id").setParameter("id", id).getSingleResult();
-		
-//		System.out.println("id="+id);
-//		
-//		if(recipe.getCounterRatings()==0){
-//			System.out.println("id="+id + " wynik= 0");
-//			return 0;
-//		}
-//		
-//		float all=0;
-//		for(Short x :recipe.getCollectionRatings()){
-//			all += x;
-//		}	
-//		
-//		
-//		System.out.println( "id="+id + " wynik="+((short)(Math.round( (all/recipe.getCounterRatings())))) );
-		return null;
-	}
-	
-	
 
 }

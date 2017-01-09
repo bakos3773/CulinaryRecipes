@@ -36,7 +36,7 @@ public class UserController {
 	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model) {
-
+		model.addAttribute("latest", recipeService.getlast10Recipies());
 		return "home";
 	}
 	@Secured(value = { "ROLE_USER" })

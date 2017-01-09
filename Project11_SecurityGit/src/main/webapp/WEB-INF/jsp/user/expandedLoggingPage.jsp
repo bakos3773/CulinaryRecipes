@@ -43,9 +43,11 @@ body
 	background-image: url("/ProjectSecurityGit/resources/images/tlo2.jpg");
 	color: white;
 }
+
 a{
 font-family: fantasy;
 }
+
 #firtLevel{
 position: relative;
 top: 50px;
@@ -165,12 +167,61 @@ position: absolute;
 }
 
 
+#caly {
+  width:300px;
+  line-height:30px;
+  position:relative;
+  left:-250px;
+  transition:1s;
+  -webkit-transition:1s;
+}
+
+#caly:hover{
+  left: 0;
+}
+
+#blok1 {
+  float:left;
+  width:233px;
+}
+
+#blok2 {
+  float:left;
+  width:30px;
+}
+
+#blok_na_zawartosc {
+  background-color:#FDD700;
+  border:3px solid #000;
+  border-left:none;
+  border-bottom-right-radius:6px;
+}
+
+#zawartosc {
+  margin:0;
+  padding:5px;
+
+  overflow:auto;
+}
+
+#uchwyt {
+  text-align:center;
+  font-weight:bold;
+  color:#FFF;
+  background-color:#000;
+  border-radius:0 6px 6px 0;
+}
+
+#uchwyt:hover {
+  cursor:pointer;
+}
 </style>
 <!-- *******************************************************-->
 <script type="text/javascript">
 
 $(document).ready(function() {
-    $('.dropdown-toggle').dropdown()
+    $('.dropdown-toggle').dropdown();
+       
 });
 
 var app = angular.module('myApp', ['ngSanitize', 'zingchart-angularjs']);
@@ -308,13 +359,12 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
     $scope.ratings = [{
         current: 3,
         max: 5
-    }];	
+    }];	 
 
 
 	var loadAllRecipes = function(){
 		$http.get('/ProjectSecurityGit/user/recipes/loadAllRecipes').then(function(response){
-			/* console.log(response.data); */
-			$scope.recipes = response.data;
+			$scope.recipes = response.data;			
 		});
 	}	
 	
@@ -352,14 +402,22 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 				console.log(response);
 		});
 	}
-
+	
+	$scope.ratingRecipe = function(id){
+ 		$http.get('/ProjectSecurityGit/user/recipes/ratingAverage/'+id).then(function(response) {
+			
+ 			$scope.WidgetService.setXXX(12);
+ 			
+			$scope.WidgetService.getXXX();
+		});	
+	} 
 	
 });
 </script>	
 
 </head>
 <body ng-app="myApp">
-<div id="firtLevel">
+<div id="firtLevel" ng-controller="homeController">
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="container-fluid">
 		  <security:authorize access="hasRole('ROLE_USER')">
@@ -437,7 +495,7 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 		 	
 		</nav>
 			
-		<div id="secondLevel" ng-controller="homeController"><!-- -------------------------------------------------------------------------------------- -->
+		<div id="secondLevel"><!-- -------------------------------------------------------------------------------------- -->
  			<div class="collapse navbar-collapse js-navbar-collapse">
 				<ul class="nav navbar-nav">
 				           
@@ -455,7 +513,7 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Rozwin <b class="caret"></b></a>
                
 						<ul class="dropdown-menu dropdown-menu-large row">
-							<li class="col-sm-3">
+							<li class="col-sm-3 col-xs-4">
 								<ul>
 									<li class="dropdown-header"><a href="" ng-click="dropdownType('Ciasta')">Ciasta</a></li>
 									<li class="dropdown-header"><a href="" ng-click="dropdownType('Dania miesne')">Dania miesne</a></li>
@@ -467,7 +525,7 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 									<li class="dropdown-header"><a href="">Maczne</a></li>
 								</ul>
 							</li>
-							<li class="col-sm-3">
+							<li class="col-sm-3 col-xs-4">
 								<ul>
 									<li class="dropdown-header"><a href="">Salatki</a></li>
 									<li class="dropdown-header"><a href="">Sosy</a></li>
@@ -479,7 +537,7 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 									<li class="dropdown-header"><a href="">Grzyby</a></li>
 								</ul>
 							</li>
-							<li class="col-sm-3">
+							<li class="col-sm-3 col-xs-4">
 								<ul>
 									<li class="dropdown-header"><a href="" >Swiateczne</a></li>
 									<li class="dropdown-header"><a href="">Warzywa</a></li>
@@ -490,7 +548,7 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 									<li class="dropdown-header"><a href="">Ryby i owoce morza</a></li>
 								</ul>
 							</li>
-							<li class="col-sm-3">
+							<li class="col-sm-3 col-xs-4">
 								<ul>
 									<li class="dropdown-header"><a href="">Na grilla</a></li>
 									<li class="dropdown-header"><a href="">Napoje</a></li>																										
@@ -509,8 +567,84 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 			</div>	
 		</div><!-- -------------------------------------------------------------------------------------------------------->
 		
-		<div class="container">
-			<tiles:insertAttribute name="body"/>
+		<div class="container row">
+		  <div class="col-md-3 col-xs-4">
+		  	<div class="row">
+		  		<div class="col-md-12 col-xs-18">
+<!-- ******************************************************************** -->		
+				  <div id="caly">
+				    <div id="blok1">
+				      <div id="blok_na_zawartosc">
+				        <div id="zawartosc">
+							<ul>
+								<li><a href="">Wyslij wiadomosc</a></li>
+								<li><a href="">Odczytaj wiadomosc</a></li>
+								<li><a href="">Historia wiadomosci</a></li>
+							</ul>
+				        </div>
+				      </div>
+				    </div>
+				    <div id="blok2">
+				      <div id="uchwyt">	
+					      <button type="button" class="btn btn-default">						      
+						      <span class="glyphicon glyphicon-envelope"></span>	
+						  </button>         
+				      </div>    
+				    </div>
+				  </div>	
+	
+<!-- ******************************************************************** -->		
+		  		</div>
+		  		<div class="col-md-12 col-xs-18">
+<!-- ******************************************************************** -->	
+				<div id="second">
+					  <ul class="nav nav-tabs">
+					    <li class="active"><a data-toggle="tab" href="#latest">Latest</a></li>
+					    <li><a data-toggle="tab" href="#popular">Popular</a></li>
+					  </ul>
+					
+					  <div id="second" class="tab-content" align="left" style="padding-left: 10px; padding-top: 10px; color: red;">
+					    <div id="latest" class="tab-pane fade in active">
+					      <ul  style="text-decoration: none; padding-left: 0px;">
+						      <c:forEach items="${latest}" var="recipe">
+						      		<li><a href='<spring:url value="/user/recipes/show/${recipe.id}"></spring:url>' style="color: red; font-family: fantasy;"><c:out value="${recipe.name}"/></a></li>		      
+						      </c:forEach>
+					      </ul>
+					    </div>
+					    <div id="popular" class="tab-pane fade">
+					      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					    </div>
+					  </div>
+				</div>	
+<!-- ******************************************************************** -->			  		
+		  		</div>
+		  		<div class="col-md-12 col-xs-18">
+<!-- ******************************************************************** -->	
+				<div id="second">
+					  <ul class="nav nav-tabs">
+					    <li class="active"><a data-toggle="tab" href="#home">Newest users</a></li>
+					    <li><a data-toggle="tab" href="#menu1">Best users</a></li>
+					  </ul>
+					
+					  <div id="second" class="tab-content" align="left" style="padding-left: 10px; padding-top: 10px; color: red;">
+					    <div id="home" class="tab-pane fade in active">
+					      <ul  style="text-decoration: none; padding-left: 0px;">
+				
+					      </ul>
+					    </div>
+					    <div id="menu1" class="tab-pane fade">
+					      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					    </div>
+					  </div>
+				</div>	
+<!-- ******************************************************************** -->				  		
+		  		</div>
+		  	</div>
+		  </div>
+		  		
+		  <div class="col-md-9 col-xs-14">
+		       <tiles:insertAttribute name="body"/>		  
+		  </div>			
 		</div>		
 </div>		
 <!-- *********************************************  COMPONENTS  ******************************************************	 -->

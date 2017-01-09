@@ -11,6 +11,9 @@
 	<definition name="loginSide" template="/WEB-INF/jsp/user/loggingPage.jsp">
 	</definition>
 	
+	<definition name="expandedLoginSide" template="/WEB-INF/jsp/user/expandedLoggingPage.jsp">
+	</definition>
+	
 	<definition name="AdminSide" template="/WEB-INF/jsp/admin/mainPanel.jsp">
 	</definition>
 	
@@ -55,7 +58,7 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/user/mainShowRecipe.jsp"></put-attribute>
 	</definition>	
 	
-	<definition name="home" extends="loginSide">
+	<definition name="home" extends="expandedLoginSide">
   		<put-attribute name="title" value="Bakos Title"></put-attribute>	
 		<put-attribute name="body" value="/WEB-INF/jsp/user/home.jsp"></put-attribute>
 	</definition>	
@@ -85,7 +88,7 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/admin/settings.jsp"></put-attribute>
 	</definition>	
 	
-	<definition name="addRecipe" extends="loginSide">
+	<definition name="addRecipe" extends="expandedLoginSide">
   		<put-attribute name="title" value="Bakos Title"></put-attribute>	
 		<put-attribute name="body" value="/WEB-INF/jsp/user/addRecipe.jsp"></put-attribute>
 	</definition>	
@@ -95,7 +98,7 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/admin/allUsers.jsp"></put-attribute>
 	</definition>	
 	
-	<definition name="myCulinaryRecipe" extends="loginSide">
+	<definition name="myCulinaryRecipe" extends="expandedLoginSide">
   		<put-attribute name="title" value="Bakos Title"></put-attribute>	
 		<put-attribute name="body" value="/WEB-INF/jsp/user/myCulinaryRecipe.jsp"></put-attribute>
 	</definition>	

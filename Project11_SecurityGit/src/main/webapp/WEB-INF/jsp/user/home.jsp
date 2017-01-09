@@ -23,18 +23,18 @@
   display: none;
 }
 .sizeWidth {
-    width: 30vw;
+    width: 20vw;
     height: 50vh;
     padding: 0px;
 }
 .sizeWidth2 {
-    width: 40vw;
+    width: 30vw;
     height: 50vh;	
     padding: 0px;
 }
 .sizeWidth3 {
-    width: 20vw;
-    height: 50vh;    
+    width: 15vw;
+    height: 35vh;    
     padding: 0px;
 }
 #recipeView > ul > li {
@@ -58,7 +58,7 @@ list-style-type:none;
  }
 
   #pudelko {
-    width: 30vw;
+    width: 20vw;
      height: 50vh;
     margin:0 auto;
 
@@ -66,15 +66,15 @@ list-style-type:none;
   }
       
 #pudelko2 {
-	 width: 40vw;
+	 width: 30vw;
 	 height: 50vh;		
 	 margin:0 auto;
 	 -webkit-perspective:400px;
 }  
       
 #pudelko3 {
-	width: 20vw;
-	height: 50vh;		
+	width: 15vw;
+	height: 35vh;		
 	margin:0 auto;
 	-webkit-perspective:400px;
 }            
@@ -121,7 +121,7 @@ list-style-type:none;
         
         padding-top:20px;
         color:#FFF;
-        font-size:1.6em;
+        font-size:1.0em;
         background-color:#000;
         box-shadow:0 0 4px 8px #FFF inset;
         transform:rotateY(180deg);

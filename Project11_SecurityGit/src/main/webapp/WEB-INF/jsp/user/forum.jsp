@@ -33,6 +33,7 @@ body{
 a
 {
 	color: teal;
+	font-family: fantasy;
 	border-bottom: 1px dotted gray;
 }
 a:hover

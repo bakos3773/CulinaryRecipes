@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bakos.Service.WidgetService;
 import com.bakos.UserDTO.MostPopularRecipesThisDay;
 
-//Jeœli do kontrolera zamiast @Controller zostanie dodana adnotacja @RestController, (Spring zastosuje konwersjê komunikatów do wszystkich metod
-//obs³ugi zdefiniowanych w danym kontrolerze). W takiej sytuacji dodawanie adnotacji
-//@ResponseBody do wszystkich metod nie bêdzie ju¿ konieczne
+
 //@Controller
 @RestController
 public class WidgetController {

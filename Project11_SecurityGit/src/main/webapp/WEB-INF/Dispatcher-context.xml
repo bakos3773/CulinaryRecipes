@@ -130,10 +130,7 @@
 			<property name="validationMessageSource" ref="messageSource"></property>
 			<!-- <property name="basename" value="/WEB-INF/messages" /> -->
 		</bean>		
-		
-	
-		
-	
+
 		<!-- ****************************************************************************************** -->
 		
 		<import resource="databaseConnection.xml"/>

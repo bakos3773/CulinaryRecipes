@@ -28,7 +28,7 @@
   
 <!-- Shared version number properties -->
 <properties>
-    <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
+    <org.springframework.version>4.3.4.RELEASE</org.springframework.version>
     <hibernate.version>5.1.0.Final</hibernate.version>
 </properties>  
   
@@ -395,6 +395,12 @@
 		  <version>${org.springframework.version}</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>1.10.5.RELEASE</version>
+		</dependency>		
+				
 		<!--
 		    Object-to-XML Mapping (OXM) abstraction and integration with JAXB, JiBX, Castor, XStream, and XML Beans.
 		    (depends on spring-core, spring-beans, spring-context)
