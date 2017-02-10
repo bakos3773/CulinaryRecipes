@@ -75,7 +75,7 @@ $(function () {
 	<div class="row">
 		<div class="col-sm-3 col-md-4 col-lg-4" style="padding-top: 10px;">
 			<p>
-				<a href="">Autor: XXX</a>
+				<a href="">Autor: ${author}</a>
 				<div><star-rating rating-value="${recipes.avgRaings}" max="5" on-rating-selected="getSelectedRating(rating)" readonly="true"></star-rating></div>				
 			</p>
 

@@ -34,11 +34,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.bakos.Service.CulinaryRecipesService;
 import com.bakos.Service.UserService;
 import com.bakos.UserDTO.CulinaryRecipes;
 import com.bakos.UserDTO.FilterPattern;
 import com.bakos.UserDTO.RecipesComments;
+import com.bakos.UserDTO.Users;
 import com.bakos.pdf.SaveSelectedRecesice;
 import com.itextpdf.text.DocumentException;
 
@@ -47,7 +49,7 @@ import com.itextpdf.text.DocumentException;
 public class RecipeController {
 
 	@Autowired
-	UserService service;
+	UserService userService;;
 
 	@Autowired
 	CulinaryRecipesService recipesService;
@@ -181,10 +183,12 @@ public class RecipeController {
 	}
 	
 	@GetMapping("/show/{id}")
-	public String show( @PathVariable("id")int id, Model model ){
+	public String show( @PathVariable("id")int recipeId, Model model ){
 		
-		recipesService.setStatistics(id);
-		model.addAttribute("recipes", recipesService.getRecipieById(id));
+		recipesService.setStatistics(recipeId);
+		model.addAttribute("recipes", recipesService.getRecipieById(recipeId));
+		Users user = userService.findUserByRecipeId(recipeId);
+		model.addAttribute("author", user.getLogin());
 		return "getRecipeById";
 	}	
 	

@@ -25,4 +25,6 @@ public interface UserService {
 	public void deleteUser(int id);
 
 	public void changeRole(boolean isTrue);
+	
+	public Users findUserByRecipeId(int id);
 }

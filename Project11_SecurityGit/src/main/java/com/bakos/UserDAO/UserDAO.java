@@ -27,5 +27,7 @@ public interface UserDAO {
 	public void deleteUser(int id);
 
 	public void changeRole(boolean isRight);
+	
+	public Users findUserByRecipeId(int id);
 
 }

@@ -83,4 +83,10 @@ public class UserServiceImpl implements UserService {
 		return userDAO.getUserLogin(login);
 	}
 
+	@Override
+	public Users findUserByRecipeId(int id) {
+		logger.info("Calling a method: findUserByRecipeId");
+		return userDAO.findUserByRecipeId(id);
+	}
+
 }

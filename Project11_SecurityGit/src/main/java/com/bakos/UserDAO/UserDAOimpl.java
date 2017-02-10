@@ -156,4 +156,11 @@ public class UserDAOimpl implements UserDAO {
 		return user;
 	}
 
+	@Override
+	public Users findUserByRecipeId(int id) {
+		Query query = manager.createQuery("SELECT DISTINCT u FROM Users u INNER JOIN u.culinaryRecipes c WHERE c.id= :id");
+		Users user = (Users) query.setParameter("id", id).getSingleResult();
+		return user;
+	}
+
 }
