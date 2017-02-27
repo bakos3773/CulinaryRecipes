@@ -5,12 +5,18 @@
              version="2.0">
              
          
-	    <persistence-unit name="base" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="base" transaction-type="RESOURCE_LOCAL">
 	    <provider>org.hibernate.ejb.HibernatePersistence</provider>
-	    <class>com.bakos.UserDTO.CulinaryRecipes</class>
+	  	<class>com.bakos.UserDTO.CulinaryRecipes</class>
 	    <class>com.bakos.UserDTO.Invitations</class>
 	    <class>com.bakos.UserDTO.Users</class>
-
+	    <class>com.bakos.UserDTO.Forum_Messages</class>
+	    <class>com.bakos.UserDTO.Forum_Themes</class>
+	    <class>com.bakos.UserDTO.Forum</class>
+	    <class>com.bakos.UserDTO.Friends</class>
+	    <class>com.bakos.UserDTO.Messages</class>
+	    <class>com.bakos.UserDTO.RecipesComments</class>
+	    <class>com.bakos.UserDTO.Statistics</class>
 	   <properties>
 	    	 <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 	         <property name="javax.persistence.jdbc.user" value="root"/>
@@ -18,7 +24,31 @@
 	         <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/myDatabase"/>
 	         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
 	         <property name="hibernate.hbm2ddl.auto" value="update"/>
-	    </properties>
-	    
+	    </properties>	    
     </persistence-unit>
+<!-- *******************************************************************************************************************  -->   
+	  <persistence-unit name="testPersistance" transaction-type="RESOURCE_LOCAL">
+	    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+ 	  	<class>com.bakos.UserDTO.CulinaryRecipes</class>
+	    <class>com.bakos.UserDTO.Invitations</class>
+	    <class>com.bakos.UserDTO.Users</class>
+	    <class>com.bakos.UserDTO.Forum_Messages</class>
+	    <class>com.bakos.UserDTO.Forum_Themes</class>
+	    <class>com.bakos.UserDTO.Forum</class>
+	    <class>com.bakos.UserDTO.Friends</class>
+	    <class>com.bakos.UserDTO.Messages</class>
+	    <class>com.bakos.UserDTO.RecipesComments</class>
+	    <class>com.bakos.UserDTO.Statistics</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:testDB"/>
+			<!-- <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:testDB"/> -->
+			<property name="javax.persistence.jdbc.user" value="sa"/>
+	         <property name="javax.persistence.jdbc.password" value=""/>
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
+		</properties>
+	  </persistence-unit>    
+	  
 </persistence>

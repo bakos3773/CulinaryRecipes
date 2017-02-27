@@ -13,6 +13,7 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ import com.itextpdf.text.DocumentException;
 public class RecipeController {
 
 	@Autowired
-	UserService userService;;
+	UserService userService;
 
 	@Autowired
 	CulinaryRecipesService recipesService;
@@ -59,11 +60,22 @@ public class RecipeController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(RecipeController.class);
 	
-	@GetMapping(value="/loadAllRecipes", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<CulinaryRecipes>> loadAllRecipes(){
-
-		List<CulinaryRecipes> xxx = recipesService.getAllRecipies();
+	@GetMapping(value="/loadAllRecipes/{pageNumber}/amount/{amountOfRecipes}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<CulinaryRecipes>> loadAllRecipesByPagination(@PathVariable("pageNumber") Integer pageNumber, @PathVariable("amountOfRecipes")Integer amountOfRecipes, Model model){
+	
+		Page<CulinaryRecipes> page = recipesService.getAllRecipiesByPagination(pageNumber, amountOfRecipes);	
+//		int	current = page.getNumber()+1;
+//		int end = page.getTotalPages();//		
+//	    model.addAttribute("endPagination", end);
+//	    model.addAttribute("currentIndex", current);		
+		List<CulinaryRecipes> xxx = page.getContent();
 		return new ResponseEntity<List<CulinaryRecipes>>(xxx, HttpStatus.OK);
+	}	
+	
+	@RequestMapping(value="/howMany", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Integer> getTotalAmountOfRecipes(){
+		Integer howMany = recipesService.getAllRecipies().size();
+		return new ResponseEntity<Integer>(howMany, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/loadAllRecipesComments/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
@@ -71,7 +83,6 @@ public class RecipeController {
 		
 		List<RecipesComments> recipe = recipesService.getAllRecipiesComments(id);
 		HttpStatus status = recipe!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-		System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwww");
 		
 		return new ResponseEntity<List<RecipesComments>>(recipe, status);		
 	}
@@ -96,16 +107,16 @@ public class RecipeController {
 		return new ResponseEntity<List<CulinaryRecipes>>(recipe, status);
 	}	
 	@Secured(value = { "ROLE_USER", "ROLE_ADMIN" })
-	@RequestMapping(value = "/dropdownTypes/{type}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/dropdownTypes/{type}", method = RequestMethod.POST, produces="application/json")
 	public ResponseEntity<List<CulinaryRecipes>> dropdownTypes(@PathVariable("type")String type) {
-
+		
 		List<String> pattern = new ArrayList<String>();
 		pattern.add(type);
 		List<CulinaryRecipes> recipe = recipesService.checkedTypes(pattern);
 		HttpStatus status = recipe!=null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 
 		return new ResponseEntity<List<CulinaryRecipes>>(recipe, status);
-	}	
+	}
 	
 	@PostMapping("/{id}")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
@@ -120,6 +131,7 @@ public class RecipeController {
 	public String addRecipeBefore(Model model) {
 
 		model.addAttribute("latest", recipesService.getlast10Recipies());
+		model.addAttribute("popular", recipesService.getMostPopularRecipies());
 		model.addAttribute("culinaryRecipes", new CulinaryRecipes());
 
 		return "addRecipe";
@@ -140,6 +152,7 @@ public class RecipeController {
 		recipesService.addCulinaryRecipe(culinaryRecipes);
 		model.addAttribute("filterPattern", new FilterPattern());
 		model.addAttribute("latest", recipesService.getlast10Recipies());
+		model.addAttribute("popular", recipesService.getMostPopularRecipies());
 
 		return "redirect:/user/recipes/upload";
 	}	
@@ -150,6 +163,7 @@ public class RecipeController {
 		model.addAttribute("myRecipes", recipesService.getAllMyCulinaryRecipes());
 		model.addAttribute("recipe", new CulinaryRecipes());
 		model.addAttribute("latest", recipesService.getlast10Recipies());
+		model.addAttribute("popular", recipesService.getMostPopularRecipies());
 
 		return "myCulinaryRecipe";
 	}

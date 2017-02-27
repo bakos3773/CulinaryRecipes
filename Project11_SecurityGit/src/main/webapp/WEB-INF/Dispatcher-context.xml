@@ -29,18 +29,16 @@
         
 	    <context:component-scan base-package="com.bakos" />		
 		
-		<bean id="multipartResolver"
-    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 			<property name="maxUploadSize" value="5000000" />
 		</bean>
-        
+
         <mvc:annotation-driven validator="validator">
             <mvc:message-converters>
 		        <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
 		        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
 		    </mvc:message-converters>
-        </mvc:annotation-driven>
-        
+        </mvc:annotation-driven>        
 
 	    <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled" />
 <!-- ***************************************** JMS *********************************** -->	  
@@ -127,12 +125,19 @@
 	    </bean>
 			
 		<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-			<property name="validationMessageSource" ref="messageSource"></property>
+			<property name="validationMessageSource" ref="messageSource"/>
 			<!-- <property name="basename" value="/WEB-INF/messages" /> -->
-		</bean>		
+		</bean>
 
 		<!-- ****************************************************************************************** -->
 		
-		<import resource="databaseConnection.xml"/>
-		 <import resource="mail-bean.xml"/>
+		<beans profile="dev">
+		    <import resource="databaseConnection.xml"/>
+		    <import resource="mail-bean.xml"/>
+		</beans>			
+		
+		  <beans profile="testing">
+		     <import resource="databaseConnectionTest.xml"/>
+		 </beans>
+
 </beans>

@@ -12,48 +12,24 @@
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 
 <h2><b><i>A R T I C L E S</i></b></h2>
-<div ng-controller="articlesCtrl">
-<table id="example" class="table table-striped table-bordered" cellspacing="10" width="100%">
-  <thead>
-    <tr>
-      <th>Data dodania</th>
-      <th>Artykul</th>
-      <th>EDIT</th>
-    </tr>
-  </thead>
-  <tbody>
-       <tr ng-repeat="x in allArtivles">
-		  <td>{{x.date}}</td>
-	      <td ng-bind-html="x.name"> </td> 
-	      <td><button type="button" class="btn btn-danger btn-lg" ng-click="removeItem(x.id)">Delete</button></td>    
-	   </tr>
-  </tbody>
-</table>
+<div>
+	<table id="example" class="table table-striped table-bordered" style="background-color: white;" cellspacing="10" width="100%">
+	  <thead>
+	    <tr>
+	      <th>Data dodania</th>
+	      <th>Artykul</th>
+	      <th>EDIT</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	       <tr ng-repeat="x in allArtivles">
+			  <td>{{x.date}}</td>
+		      <td ng-bind-html="x.name"> </td> 
+		      <td><button type="button" class="btn btn-danger btn-lg" ng-click="removeItem(x.id)">Delete</button></td>    
+		   </tr>
+	  </tbody>
+	</table>
 </div>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
+
 </script>   
-<script type="text/javascript">
-app.controller("articlesCtrl", function($scope, $http, $log){
-	
-	var refreshRecipes = function(){
-		$http.get('/ProjectSecurityGit/admin/allArticles').then(function(response) {
-				$scope.allArtivles = response.data;
-				
-		});
-	};
-	
-	refreshRecipes();
-	
-	$scope.removeItem = function(id){
- 		$http.put('/ProjectSecurityGit/admin/articles/remove/'+id)
-		.success(function(data){	
-			$log.info(data);
-			refreshRecipes();
-		});  		
-	}
-	
-});
-</script>

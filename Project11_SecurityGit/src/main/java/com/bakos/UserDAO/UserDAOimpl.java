@@ -3,6 +3,8 @@ package com.bakos.UserDAO;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,7 +30,8 @@ import com.bakos.UserDTO.Users;
 @Transactional
 public class UserDAOimpl implements UserDAO {
 
-	@PersistenceContext
+	@PersistenceContext(unitName="base")
+	@Qualifier("manager")
 	private EntityManager manager;
 
 	public void addUser(Users user) {
@@ -64,7 +67,7 @@ public class UserDAOimpl implements UserDAO {
 				"Select z from Users z where z.login= :arg1", Users.class);
 		query.setParameter("arg1", login);
 
-		List results = query.getResultList();
+		List<Users> results = query.getResultList();
 
 		if (results.isEmpty()) {
 			return false;
@@ -83,16 +86,14 @@ public class UserDAOimpl implements UserDAO {
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked" })
 	public List<String> getAllUsersLogin() {
 
-		List<Users> query = manager.createQuery("Select e From Users e WHERE e.role= 'ROLE_USER'").getResultList();
-		
-		List<String> lista = new ArrayList<String>();
-		
-		for( Users x: query){
-			lista.add(x.getLogin());
-		}
+		List<Users> query = manager.createQuery("Select e From Users e WHERE e.role= 'ROLE_USER'").getResultList();		
+
+//		List<String> lista = query.stream().map(x->x.getLogin()).collect(Collectors.toList());
+		List<String> lista = query.stream().map(Users::getLogin).collect(Collectors.toList());
+
 		return lista;
 	}
 
@@ -126,8 +127,9 @@ public class UserDAOimpl implements UserDAO {
 	public void changeRole(boolean isTrue) {
 		Users user = findUserByUsername();
 		final UsernamePasswordAuthenticationToken token;
-		if (isTrue) {
+		if (isTrue) {			
 			user.setRole("ROLE_SHADOW");
+			
 			token = new UsernamePasswordAuthenticationToken(
 					user.getLogin(),
 					user.getPassword(),
@@ -135,6 +137,7 @@ public class UserDAOimpl implements UserDAO {
 							"ROLE_SHADOW")));
 		} else {
 			user.setRole("ROLE_ADMIN");
+			
 			token = new UsernamePasswordAuthenticationToken(
 					user.getLogin(),
 					user.getPassword(),

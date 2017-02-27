@@ -27,7 +27,7 @@ public class SaveSelectedRecesice {
 	Document document = new Document(PageSize.A4, 50, 50, 50, 50);
 	
 	public void metoda(CulinaryRecipes recipes) throws DocumentException, IOException{
-		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:\\"+recipes.getName()+".pdf"));
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\Bakos\\Desktop\\"+recipes.getName()+".pdf"));
 		document.open();
 		
         String imagePosition = System.getProperty("catalina.home") +File.separator + "resources" + File.separator + "images"

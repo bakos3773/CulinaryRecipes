@@ -86,7 +86,7 @@ $(document).ready(function() {
   <!-- Nav tabs -->
   <ul id="showWidgets" class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#month" aria-controls="month" role="tab" data-toggle="tab" class="box" ng-click="czas()">Show All Month</a></li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab" class="box" ng-click="zingChartCircle()">Today</a></li>
+    <li role="presentation"><a href="#day" aria-controls="day" role="tab" data-toggle="tab" class="box" ng-click="zingChartCircle()">Today</a></li>
     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab" class="box">Settings</a></li>
   </ul>
 
@@ -118,15 +118,15 @@ $(document).ready(function() {
 		<nvd3 options="options" data="data"></nvd3>
     </div>
 
-    <div role="tabpanel" class="tab-pane" id="messages" ng-if="loaded===false"> <!-- loaded===false -->
+    <div role="tabpanel" class="tab-pane" id="day" ng-if="loaded===false"> <!-- loaded===false -->
 <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&	 -->
     	 <div ng-if="mostPopiulatToday.length">
     		 <div zingchart id="chart-1" zc-json="myJsonCircle" zc-width="100%" zc-height="400px"></div>
     	 </div>
-<!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&	 -->
     	<div ng-if="!mostPopiulatToday.length">
     		<span align="center"><h2><b>No Events</b></h2></span>
-    	</div>    		
+    	</div>  
+<!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&	 -->    	  		
     </div>
     <div role="tabpanel" class="tab-pane" id="settings">
 		<table class="table table-inverse">
@@ -138,6 +138,7 @@ $(document).ready(function() {
 		      <th>Surname</th>
 		      <th>Address</th>
 		      <th>Email</th>
+		      <th>#</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -147,6 +148,7 @@ $(document).ready(function() {
 		      <td><c:out value="${user.surname}"/></td>
 		      <td><c:out value="${user.address}"/></td>
 		      <td><c:out value="${user.mail}"/></td>
+		      <td><a href="#" class="btn btn-danger">Change</a></td>
 		    </tr>
 		  </tbody>
 		</table>    

@@ -15,8 +15,10 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
 
+
 //import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +32,8 @@ import com.bakos.UserDTO.Statistics;
 @Transactional
 public class WidgetDAOImpl implements WidgetDAO {
 	
-	@PersistenceContext
+	@PersistenceContext(unitName="base")
+	@Qualifier("manager")
 	private EntityManager manager;	
 	
 	@Autowired

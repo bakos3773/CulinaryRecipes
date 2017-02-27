@@ -3,6 +3,7 @@ package com.bakos.Service;
 import java.util.List;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +18,8 @@ public interface CulinaryRecipesService {
 	public void addCulinaryRecipe(CulinaryRecipes culinaryRecipes);
 
 	public List<CulinaryRecipes> getAllRecipies();
+	
+	public Page<CulinaryRecipes> getAllRecipiesByPagination(Integer pageNumber, Integer theAmountOfRecipes);
 
 	public List<CulinaryRecipes> getlast10Recipies();
 
@@ -53,5 +56,7 @@ public interface CulinaryRecipesService {
 	public List<CulinaryRecipes> getAllSearchingRecipies(String searchingText);
 
 	public void ratingRecipe(Short rate, int idRecipe);
+	
+	public List<CulinaryRecipes> getMostPopularRecipies();
 
 }

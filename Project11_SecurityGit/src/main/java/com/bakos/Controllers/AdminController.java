@@ -28,7 +28,15 @@ public class AdminController {
 	
 	@Autowired
 	CulinaryRecipesService recipesService;
-	@Secured(value = { "ROLE_ADMIN" })
+	
+	@Secured(value = { "ROLE_ADMIN", "ROLE_SHADOW" })
+	@RequestMapping(value = "/dashbord", method = RequestMethod.GET)
+	public String dashbord(Model model) {
+
+		return "dashbord";
+	}
+	
+	@Secured(value = { "ROLE_ADMIN", "ROLE_SHADOW" })
 	@RequestMapping(value = "/allUsers", method = RequestMethod.GET)
 	public String allUsers(Model model) {
 
@@ -44,7 +52,7 @@ public class AdminController {
 
 		return "allUsers";
 	}
-	@Secured(value = { "ROLE_ADMIN" })
+	@Secured(value = { "ROLE_ADMIN", "ROLE_SHADOW" })
 	@RequestMapping(value = "/changeRole/{isTrue}", method = RequestMethod.GET)
 	public String checkedTypes(@PathVariable("isTrue") boolean isTrue,
 			Model model) {
@@ -55,23 +63,23 @@ public class AdminController {
 
 		return "adminSettings";
 	}
-	@Secured(value = { "ROLE_ADMIN" })
+	@Secured(value = { "ROLE_ADMIN", "ROLE_SHADOW" })
 	@RequestMapping(value = "/settings", method = RequestMethod.GET)
 	public String adminSettings(Model model) {
-
+		
 		model.addAttribute("user", service.findUserByUsername());
 		model.addAttribute("article", new Articles());
 		return "adminSettings";
 	}
-	@Secured(value = { "ROLE_ADMIN" })	
+	@Secured(value = { "ROLE_ADMIN", "ROLE_SHADOW" })	
 	@RequestMapping(value = "/settings", method = RequestMethod.POST)
 	public String adminSettingsPost( @ModelAttribute("article")Articles article ) {
-
-		article.setDate(new Date());
 		
+		article.setDate(new Date());		
 		recipesService.addArticle(article);
 		return "adminSettings";
-	}	
+	}
+	@Secured(value = { "ROLE_ADMIN", "ROLE_SHADOW" })
 	@RequestMapping(value = "/articles", method = RequestMethod.GET)
 	public String articles( Model model) {
 
@@ -86,10 +94,11 @@ public class AdminController {
 		return to;
 	}
 	@Secured(value = { "ROLE_ADMIN" })	
-	@RequestMapping(value="/articles/remove/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/articles/remove/{id}", method=RequestMethod.GET)
 	@ResponseStatus(value=HttpStatus.NO_CONTENT)
 	public void removeItem(@PathVariable("id") int id) {
 
+		System.out.println("USOWANIE PRZEPISU :p ");
 		recipesService.removeArticle(id);
 	}
 }

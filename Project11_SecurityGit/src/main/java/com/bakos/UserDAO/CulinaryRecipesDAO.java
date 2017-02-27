@@ -68,4 +68,5 @@ public interface CulinaryRecipesDAO {
 
 	public void ratingRecipe(Short rate, int idRecipe);
 
+	public List<CulinaryRecipes> getMostPopularRecipies();
 }

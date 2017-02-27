@@ -37,6 +37,7 @@ public class UserController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model) {
 		model.addAttribute("latest", recipeService.getlast10Recipies());
+		model.addAttribute("popular", recipeService.getMostPopularRecipies());
 		return "home";
 	}
 	@Secured(value = { "ROLE_USER" })
@@ -54,6 +55,7 @@ public class UserController {
 	public String sendMessage(@ModelAttribute("message") Messages message,
 			Principal principal, Model model) {
 
+//		return "redirect:/home";
 		return "redirect:/";
 	}
 	

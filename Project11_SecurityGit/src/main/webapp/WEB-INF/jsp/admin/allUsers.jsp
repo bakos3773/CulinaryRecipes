@@ -12,7 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 
 
-<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%" style="background-color: white;">
   <thead>
     <tr>
       <th>ID</th>

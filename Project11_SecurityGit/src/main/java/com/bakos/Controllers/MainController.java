@@ -52,11 +52,10 @@ public class MainController {
 	@ResponseStatus(HttpStatus.OK)
 	public String main(Model model) throws FileNotFoundException, DocumentException {
 		
-
+		model.addAttribute("latest", recipesService.getlast10Recipies());			
+		model.addAttribute("popular", recipesService.getMostPopularRecipies());
 		
-		model.addAttribute("latest", recipesService.getlast10Recipies());
-		
-		SaveSelectedRecesice savePdf = new SaveSelectedRecesice();
+//		SaveSelectedRecesice savePdf = new SaveSelectedRecesice();
 		
 		return "index";
 	}
@@ -64,7 +63,6 @@ public class MainController {
 	@GetMapping(value="/contact")
 	@ResponseStatus(HttpStatus.OK)
 	public String contact() {
-		
 		return "contact";
 	}	
 
@@ -76,7 +74,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerForm(@ModelAttribute("user") @Valid Users user,
+	public String registerForm(@Valid Users user,
 			BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
@@ -98,7 +96,7 @@ public class MainController {
 	@RequestMapping(value = "/logging")
 	@ResponseStatus(HttpStatus.OK)
 	public String LoggingBefore(Model model) {
-		// model.addAttribute("user", new Users());
+		
 		return "logging";
 	}
 
@@ -106,6 +104,7 @@ public class MainController {
 	public String getRecipeById(@PathVariable("id") int id, Model model) {
 
 		model.addAttribute("latest", recipesService.getlast10Recipies());
+		model.addAttribute("popular", recipesService.getMostPopularRecipies());
 		model.addAttribute("recipe", recipesService.getRecipieById(id));
 
 		return "mainPageShowRecipe";

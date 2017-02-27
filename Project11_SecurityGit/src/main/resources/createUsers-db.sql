@@ -1,0 +1,19 @@
+--ALTER TABLE ORDERS DROP FOREIGN KEY(FK6M6GIYL2BWS8LWCKX0LXWQS8K) REFERENCES INVOICE(FK6M6GIYL2BWS8LWCKX0LXWQS8K);
+--DROP TABLE FK6M6GIYL2BWS8LWCKX0LXWQS8K IF exists;
+--ALTER TABLE Users NOCHECK CONSTRAINT FK6M6GIYL2BWS8LWCKX0LXWQS8K;
+DROP TABLE Users IF EXISTS;
+
+CREATE TABLE Users (
+  id         INTEGER PRIMARY KEY,
+  login VARCHAR(30),
+  username VARCHAR(30),
+  surname VARCHAR(30),
+  mail VARCHAR(30),
+  address VARCHAR(30),
+  password  VARCHAR(30),
+  role VARCHAR(30)
+);
+
+INSERT INTO Users VALUES (1, 'janosik', 'Jan', 'Kowalski', 'janosik@wp.pl', 'polna 30', '12345', 'ROLE_USER');
+INSERT INTO Users VALUES (2, 'alex', 'Kazik', 'Poleski', 'janek@gmail.com', 'polna 20', '12345', 'ROLE_USER');
+INSERT INTO Users VALUES (3, 'joel', 'Bogdan', 'Strycharczuk', 'Boniek@gmail.com', 'polna 35', '12345', 'ROLE_USER');

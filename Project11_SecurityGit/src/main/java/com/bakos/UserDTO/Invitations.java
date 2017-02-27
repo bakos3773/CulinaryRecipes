@@ -1,5 +1,6 @@
 package com.bakos.UserDTO;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Invitations {
 	
 	
 	public Invitations() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Invitations(boolean isAccepted, int idSender, int idRecipient,

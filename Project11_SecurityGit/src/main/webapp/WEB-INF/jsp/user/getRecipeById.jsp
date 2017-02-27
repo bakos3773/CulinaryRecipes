@@ -90,7 +90,8 @@ $(function () {
 			<div><img src="<c:url value="/user/recipes/images/${recipes.id}"></c:url>" style="max-width: 450px; max-height: 450px;" alt="image"/></div><br/> 
 			<div><p><span class="glyphicon glyphicon-time"></span> ${recipes.timeToPrepare}min &nbsp; <span class="glyphicon glyphicon-stats"></span> ${recipes.level}</p>
 			    <div>
-				    Rate: <span ng-repeat="rating in ratings">{{rating.current}} out of {{rating.max}}
+				    Rate(1-5): <span ng-repeat="rating in ratings">
+<!-- 				    {{rating.current}} out of {{rating.max}} -->
 				        <div star-rating rating-value="rating.current" max="rating.max" on-rating-selected="getSelectedRating(rating)"></div>
 				   </span>	
 				   

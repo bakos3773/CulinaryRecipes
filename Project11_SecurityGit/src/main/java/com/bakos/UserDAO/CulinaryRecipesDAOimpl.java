@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +33,8 @@ import com.bakos.UserDTO.Users;
 @Transactional
 public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 
-	@PersistenceContext
+	@PersistenceContext(unitName="base")
+	@Qualifier(value = "manager")
 	private EntityManager manager;
 
 	@Autowired
@@ -65,7 +67,6 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 		manager.merge(user);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<CulinaryRecipes> getAllRecipies() {
 
@@ -273,6 +274,20 @@ public class CulinaryRecipesDAOimpl implements CulinaryRecipesDAO {
 		recipe.setAvgRaings((int) (Math.round((all / recipe.getCounterRatings()))));
 
 		manager.merge(recipe);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CulinaryRecipes> getMostPopularRecipies() {
+		List<CulinaryRecipes> mostPopulat = manager.createQuery("SELECT c FROM CulinaryRecipes c "
+				+ "WHERE c.id IN("
+					+ "SELECT s.culinaryRecipes.id "
+					+ "FROM Statistics s "
+					+ "GROUP BY s.culinaryRecipes.id "
+					+ "ORDER BY COUNT(s.culinaryRecipes.id) DESC"
+				+ " )").setMaxResults(10).getResultList();
+
+		return mostPopulat;
 	}
 
 }

@@ -78,21 +78,26 @@ body
 			<!-- ****************************************************************************************************************** -->
 				<div id="second">
 					  <ul class="nav nav-tabs">
-					    <li class="active"><a data-toggle="tab" href="#home">Najnowsze</a></li>
-					    <li><a data-toggle="tab" href="#menu1">Najpopularniejsze</a></li>
+					    <li class="active"><a data-toggle="tab" href="#latest">Najnowsze</a></li>
+					    <li><a data-toggle="tab" href="#popular">Najpopularniejsze</a></li>
 					  </ul>
 					
-					  <div id="second" class="tab-content" align="left" style="padding-left: 10px; padding-top: 10px;">
-					    <div id="home" class="tab-pane fade in active">
-					      <ul  style="text-decoration: none;">
-						      <c:forEach items="${latest}" var="recipe">
-						      		<li><a href='<spring:url value="/getRecipeById/${recipe.id}"></spring:url>' style="color: white;"><c:out value="${recipe.name}"/></a></li>		      
-						      </c:forEach>
-					      </ul>
-					    </div>
-					    <div id="menu1" class="tab-pane fade">
-					      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-					    </div>
+					  <div id="third" class="tab-content" align="left" style="padding-left: 10px; padding-top: 10px;">
+						    <div id="latest" class="tab-pane fade in active">
+						      <ul  style="text-decoration: none;">
+							      <c:forEach items="${latest}" var="recipe">
+							      		<li><a href='<spring:url value="/getRecipeById/${recipe.id}"></spring:url>' style="color: white;"><c:out value="${recipe.name}"/></a></li>		      
+							      </c:forEach>
+						      </ul>
+						    </div>
+						    
+						    <div id="popular" class="tab-pane fade">
+						      <ul  style="text-decoration: none;">
+							      <c:forEach items="${popular}" var="popularRecipe">
+							      		<li><a href='<spring:url value="/getRecipeById/${popularRecipe.id}"></spring:url>' style="color: white;"><c:out value="${popularRecipe.name}"/></a></li>		      
+							      </c:forEach>
+						      </ul>
+						    </div>
 					  </div>
 				</div>
 			</div>	

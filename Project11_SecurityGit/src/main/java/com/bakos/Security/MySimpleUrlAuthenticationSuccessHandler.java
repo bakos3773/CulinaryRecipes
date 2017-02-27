@@ -16,8 +16,8 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-public class MySimpleUrlAuthenticationSuccessHandler implements
-		AuthenticationSuccessHandler {
+public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+	
 	protected Log logger = LogFactory.getLog(this.getClass());
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -44,10 +44,6 @@ public class MySimpleUrlAuthenticationSuccessHandler implements
 		redirectStrategy.sendRedirect(request, response, targetUrl);
 	}
 
-	/**
-	 * Builds the target URL according to the logic defined in the main class
-	 * Javadoc.
-	 */
 	protected String determineTargetUrl(Authentication authentication) {
 		boolean isUser = false;
 		boolean isAdmin = false;
@@ -70,8 +66,7 @@ public class MySimpleUrlAuthenticationSuccessHandler implements
 		if (isUser) {
 			return "/user/home";
 		} else if (isAdmin) {
-			// return "/adminPage";
-			return "/user/home";
+			return "/admin/dashbord";
 		} else if (isShadow) {
 			return "/admin/settings";
 		} else {

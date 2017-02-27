@@ -1,5 +1,6 @@
 package com.bakos.UserDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class Messages {
 	List<Users> users;
 	
 	public Messages() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 

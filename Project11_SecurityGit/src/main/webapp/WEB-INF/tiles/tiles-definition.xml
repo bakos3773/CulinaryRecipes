@@ -26,6 +26,18 @@
 	<definition name="friendsMainSide" template="/WEB-INF/jsp/user/friendsMainSide.jsp">
 	</definition>
 	
+	<definition name="dashbord" extends="AdminSide">
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/dashbord.jsp"></put-attribute>
+	</definition>	
+	
+	<definition name="adminSettings" extends="AdminSide">
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/settings.jsp"></put-attribute>
+	</definition>		
+	
+	<definition name="allUsers" extends="AdminSide">
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/allUsers.jsp"></put-attribute>
+	</definition>	
+	
 	<definition name="friendsSideIndex" extends="friendsMainSide">
 		<put-attribute name="body" value="/WEB-INF/jsp/user/friendsSideIndex.jsp"></put-attribute>
 	</definition>
@@ -83,20 +95,12 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/user/settings.jsp"></put-attribute>
 	</definition>		
 	
-	<definition name="adminSettings" extends="loginSide">
-  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
-		<put-attribute name="body" value="/WEB-INF/jsp/admin/settings.jsp"></put-attribute>
-	</definition>	
+
 	
 	<definition name="addRecipe" extends="expandedLoginSide">
   		<put-attribute name="title" value="Bakos Title"></put-attribute>	
 		<put-attribute name="body" value="/WEB-INF/jsp/user/addRecipe.jsp"></put-attribute>
-	</definition>	
-	
-	<definition name="allUsers" extends="loginSide">
-  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
-		<put-attribute name="body" value="/WEB-INF/jsp/admin/allUsers.jsp"></put-attribute>
-	</definition>	
+	</definition>		
 	
 	<definition name="myCulinaryRecipe" extends="expandedLoginSide">
   		<put-attribute name="title" value="Bakos Title"></put-attribute>	
@@ -113,8 +117,7 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/user/articles.jsp"></put-attribute>
 	</definition>		
 	
-	<definition name="setArticle" extends="loginSide">
-  		<put-attribute name="title" value="Bakos Title"></put-attribute>	
+	<definition name="setArticle" extends="AdminSide">	
 		<put-attribute name="body" value="/WEB-INF/jsp/admin/articles.jsp"></put-attribute>
 	</definition>			
 	

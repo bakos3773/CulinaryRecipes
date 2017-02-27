@@ -14,12 +14,12 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
 
 	@Override
 	public void initialize(UniqueUsername constraintAnnotation) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("------------------ UniqueUsernameValidator---------------- initialize");
 	}
 
 	@Override
 	public boolean isValid(String login, ConstraintValidatorContext context) {		
+		System.out.println("------------------ UniqueUsernameValidator---------------- isValid");
 		
 		if(userDAO == null){
 			

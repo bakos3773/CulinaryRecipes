@@ -354,21 +354,52 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 	
 	$scope.recipes = [];
 	$scope.typeOfView = "normal";
+	$scope.paginationIndex = 0;
+	var amountOfRecipesOnThePage = 4; // set dinamiclly!
 	
     $scope.rating = 0;
     $scope.ratings = [{
         current: 3,
         max: 5
-    }];	 
+    }];	 	
+	
+ 	$scope.paginationIndexFunction = function(){
+		$http.get('/ProjectSecurityGit/user/recipes/howMany')
+		.then(function(response){
+			var avg =  (response.data)/amountOfRecipesOnThePage;
+			var avgBeforeDecymalPoint = parseInt(avg.toString().split(".")[0]);
+			var avgaAfterDecymalPoint = parseInt(avg.toString().split(".")[1]);
+				if((avgaAfterDecymalPoint) > 0 ){
+					$scope.paginationIndex = avgBeforeDecymalPoint + 1;
+				}else{
+					$scope.paginationIndex = avgBeforeDecymalPoint;
+				}			
+		});
+	} 
 
-
-	var loadAllRecipes = function(){
-		$http.get('/ProjectSecurityGit/user/recipes/loadAllRecipes').then(function(response){
+	$scope.loadAllRecipes = function(pageNumber){
+		console.log("wszedles nr="+pageNumber);
+		$http.get('/ProjectSecurityGit/user/recipes/loadAllRecipes/'+pageNumber+'/amount/'+amountOfRecipesOnThePage).then(function(response){
+			console.log(response.data);
 			$scope.recipes = response.data;			
 		});
-	}	
+	}
 	
-	loadAllRecipes();	
+	
+	$scope.loadAllRecipes(1);	  	
+
+	
+	$scope.setView = function(view, amount){
+		$scope.typeOfView = view;
+	}
+	
+	
+	$scope.dropdownType = function(type){
+		   $http.post("recipes/dropdownTypes/"+type).success(function($dane){
+			    $scope.recipes = $dane;
+		    	 console.log($scope.recipes);
+		  }); 		  
+	}	
 	
   $scope.showTypes = function() {
 	  $scope.listAllTypes = [];
@@ -385,17 +416,6 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 	  }); 
   	};
   
-  	
-	$scope.dropdownType = function(type){
-		   $http.get("recipes/dropdownTypes/"+type).success(function($dane){
-			    $scope.recipes = $dane;
-		    	 console.log( $scope.recipes);
-		  }); 		  
-	}
-	
-	$scope.setView = function(view){
-		$scope.typeOfView = view;
-	}
 	
 	$scope.searchRecipe = function(searchingTxt){
 		$http.get('/ProjectSecurityGit/user/recipes/serchingRecipes/'+searchingTxt).then(function(response) {
@@ -470,24 +490,6 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 				  </form>
 			  </ul>
 			    <ul class="nav navbar-nav navbar-right">
-					 
-					    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">					      
-					      <span class="glyphicon glyphicon-envelope"></span>
-					    </button>					    
-				 	    <ul class="dropdown-menu">
-					    
-					      <li><a href="#" data-toggle="modal" data-target="#myModal">Wyslij wiadomosc</a></li>
-					      <li><a href="#">Odczytaj wiadomosc</a></li>
-						  <li class="divider"></li>
-						  
-							<li class="dropdown dropdown-submenu">
-					          <a tabindex="0" href="#" class="dropdown-toggle" data-toggle="dropdown" data-submenu>Historia</a>
-					          <ul class="dropdown-menu">
-					          	<li><a tabindex="0" href="#">Second level link</a></li>			      
-							  </ul>							  
-				    		</li>
-				    		
-		    			</ul> -->
 			      	<li><a href="<c:url value="/logout" />"><span class="glyphicon glyphicon-log-out"></span></a></li>
 			    </ul>
  		      </security:authorize>
@@ -515,14 +517,11 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 						<ul class="dropdown-menu dropdown-menu-large row">
 							<li class="col-sm-3 col-xs-4">
 								<ul>
-									<li class="dropdown-header"><a href="" ng-click="dropdownType('Ciasta')">Ciasta</a></li>
-									<li class="dropdown-header"><a href="" ng-click="dropdownType('Dania miesne')">Dania miesne</a></li>
-									<li class="dropdown-header"><a href="">Desery</a></li>
-									<li class="dropdown-header"><a href="">Dla dzieci</a></li>
+									<li class="dropdown-header"><a href="">Pasty</a></li>
+									<li class="dropdown-header"><a href="">Grzyby</a></li>											
+									<li class="dropdown-header"><a href="">Przetwory</a></li>
 									<li class="divider"></li>
-									<li class="dropdown-header"><a href="">Kasza i ryz</a></li>
-									<li class="dropdown-header"><a href="">Makarony</a></li>
-									<li class="dropdown-header"><a href="">Maczne</a></li>
+									<li class="dropdown-header"><a href="">Ryby i owoce morza</a></li>																
 								</ul>
 							</li>
 							<li class="col-sm-3 col-xs-4">
@@ -530,11 +529,10 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 									<li class="dropdown-header"><a href="">Salatki</a></li>
 									<li class="dropdown-header"><a href="">Sosy</a></li>
 									<li class="divider"></li>
-									<li class="dropdown-header"><a href="">Pasty</a></li>
 									<li class="dropdown-header"><a href="">Pieczywo</a></li>
 									<li class="dropdown-header"><a href="">Pizze</a></li>
 									<li class="dropdown-header"><a href="">Przekaski</a></li>
-									<li class="dropdown-header"><a href="">Grzyby</a></li>
+
 								</ul>
 							</li>
 							<li class="col-sm-3 col-xs-4">
@@ -542,20 +540,18 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 									<li class="dropdown-header"><a href="" >Swiateczne</a></li>
 									<li class="dropdown-header"><a href="">Warzywa</a></li>
 									<li class="dropdown-header"><a href="">Wegetarianskie</a></li>
-									<li class="dropdown-header"><a href="" ng-click="dropdownType('Zupy')">Zupy</a></li>
 									<li class="divider"></li>
-									<li class="dropdown-header"><a href="">Przetwory</a></li>
-									<li class="dropdown-header"><a href="">Ryby i owoce morza</a></li>
+									<li class="dropdown-header"><a href="" ng-click="dropdownType('Zupy')">Zupy</a></li>
+									<li class="dropdown-header"><a href="">Diety</a></li>	
 								</ul>
 							</li>
 							<li class="col-sm-3 col-xs-4">
 								<ul>
-									<li class="dropdown-header"><a href="">Na grilla</a></li>
+									
 									<li class="dropdown-header"><a href="">Napoje</a></li>																										
 									<li class="dropdown-header"><a href="">Alkohole</a></li>		
 									<li class="divider"></li>							
-									<li class="dropdown-header"><a href="">Kuchnie swiata</a></li>
-									<li class="dropdown-header"><a href="">Diety</a></li>
+									<li class="dropdown-header"><a href="">Kuchnie swiata</a></li>									
 									<li class="dropdown-header"><a href="">Inne przepisy</a></li>								
 								</ul>
 							</li>
@@ -612,7 +608,9 @@ app.controller("homeController", function($scope, $http, $log, WidgetService) {
 					      </ul>
 					    </div>
 					    <div id="popular" class="tab-pane fade">
-					      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						      <c:forEach items="${popular}" var="recipe">
+						      		<li><a href='<spring:url value="/user/recipes/show/${recipe.id}"></spring:url>' style="color: red; font-family: fantasy;"><c:out value="${recipe.name}"/></a></li>		      
+						      </c:forEach>					      
 					    </div>
 					  </div>
 				</div>	

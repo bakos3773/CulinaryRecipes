@@ -2,9 +2,14 @@ package com.bakos.Service;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +18,6 @@ import com.bakos.UserDAO.CulinaryRecipesDAO;
 import com.bakos.UserDAO.SpringData.CulinaryRecipesJpaRepository;
 import com.bakos.UserDTO.Articles;
 import com.bakos.UserDTO.CulinaryRecipes;
-import com.bakos.UserDTO.FilterPattern;
 import com.bakos.UserDTO.RecipesComments;
 
 @Service
@@ -22,10 +26,14 @@ public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(CulinaryRecipesServiceImpl.class);
-
-	@Autowired
+	
+//	@Autowired
+	@Inject
 	CulinaryRecipesDAO recipeDAO;
 
+//	@Autowired
+	@Inject
+	CulinaryRecipesJpaRepository recipesJpaRepository;
 
 	@Override
 	public void addCulinaryRecipe(CulinaryRecipes culinaryRecipes) {
@@ -39,6 +47,12 @@ public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
 		logger.info("Calling a method: getAllRecipies");
 		return recipeDAO.getAllRecipies();
 
+	}
+
+	@Override
+	public Page<CulinaryRecipes> getAllRecipiesByPagination(Integer pageNumber, Integer theAmountOfRecipes) {
+			PageRequest result = new PageRequest(pageNumber-1, theAmountOfRecipes, Sort.Direction.DESC, "date");
+		return recipesJpaRepository.findAll(result);
 	}
 
 	@Override
@@ -148,6 +162,12 @@ public class CulinaryRecipesServiceImpl implements CulinaryRecipesService {
 	public void ratingRecipe(Short rate, int idRecipe){
 		logger.info("Calling a method: ratingRecipe");
 		recipeDAO.ratingRecipe(rate, idRecipe);
+	}
+
+	@Override
+	public List<CulinaryRecipes> getMostPopularRecipies() {
+		logger.info("Calling a method: getMostPopularRecipies");
+		return recipeDAO.getMostPopularRecipies();
 	}
 
 

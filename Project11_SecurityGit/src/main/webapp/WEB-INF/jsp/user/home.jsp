@@ -133,11 +133,11 @@ list-style-type:none;
 <div ng-controller="homeController">    
    <div id="recipeView"> 
 	   <ul>
-		      <li><a href="" ng-click="setView('big')"><span class="glyphicon glyphicon-th-large"></span></a></li>
+		      <li><a href="" ng-click="setView('big', '2')"><span class="glyphicon glyphicon-th-large"></span></a></li>
 		      
-		      <li><a href="" ng-click="setView('normal')"><span class="glyphicon glyphicon-th-list"></span></a></li>
+		      <li><a href="" ng-click="setView('normal', '4')"><span class="glyphicon glyphicon-th-list"></span></a></li>
 		      
-		      <li><a href="" ng-click="setView('small')"><span class="glyphicon glyphicon-th"></span></a></li>
+		      <li><a href="" ng-click="setView('small', '6')"><span class="glyphicon glyphicon-th"></span></a></li>
 	
 	    </ul>
 		<h1 align="center"><span style="font-family: fantasy;">All Recipes</span></h1>
@@ -158,16 +158,82 @@ list-style-type:none;
         <form id="typeRecipes" ng-submit="showTypes()">
 		    <label>
 		      <input type="checkbox" name="typeOfRecipes" value="Ciasta" checked="checked">Ciasta
-		    </label>		
+		    </label>&nbsp;	
 		    <label>
 		      <input type="checkbox" name="typeOfRecipes" value="Potrawy miesne" checked="checked">Potrawy miesne
-		    </label>		
+		    </label>&nbsp;		
 		    <label>
-		      <input type="checkbox" name="typeOfRecipes" value="Surowki" checked="checked">Surowki
-		    </label>		    
+		      <input type="checkbox" name="typeOfRecipes" value="Desery" checked="checked">Desery
+		    </label>&nbsp;	    
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Dla dzieci" checked="checked">Dla dzieci
+		    </label>&nbsp;
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Grzyby" checked="checked">Grzyby
+		    </label>&nbsp;		
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Kasza i ryz" checked="checked">Kasza i ryz
+		    </label>&nbsp;		
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Makarony" checked="checked">Makarony
+		    </label>&nbsp;		    
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Maczne" checked="checked">Maczne
+		    </label>&nbsp;
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Na grilla" checked="checked">Na grilla
+		    </label>&nbsp;		
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Pasty" checked="checked">Pasty
+		    </label>&nbsp;		
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Przetwory" checked="checked">Przetwory
+		    </label>&nbsp;		    
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Ryby i owoce morza" checked="checked">Ryby i owoce morza
+		    </label>&nbsp;
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Salatki" checked="checked">Salatki
+		    </label>&nbsp;		
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Sosy" checked="checked">Sosy
+		    </label>&nbsp;	
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Pieczywo" checked="checked">Pieczywo
+		    </label>&nbsp;		    
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Pizze" checked="checked">Pizze
+		    </label>&nbsp;
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Przekosaski" checked="checked">Przekosaski
+		    </label>&nbsp;		
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Swiateczne" checked="checked">Swiateczne
+		    </label>&nbsp;		
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Warzywa" checked="checked">Warzywa
+		    </label>&nbsp;		    
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Wegetarianskie" checked="checked">Wegetarianskie
+		    </label>&nbsp;
 		    <label>
 		      <input type="checkbox" name="typeOfRecipes" value="Zupy" checked="checked">Zupy
-		    </label>			    
+		    </label>&nbsp;		
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Diety" checked="checked">Diety
+		    </label>&nbsp;		
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Napoje" checked="checked">Napoje
+		    </label>&nbsp;		    
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Alkohole" checked="checked">Alkohole
+		    </label>&nbsp;
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Kuchnie swiata" checked="checked">Kuchnie swiata
+		    </label>&nbsp;	
+		    <label>
+		      <input type="checkbox" name="typeOfRecipes" value="Inne przepisy" checked="checked">Inne przepisy
+		    </label>&nbsp;		
 		    <input type="submit" value="OK">	    
         </form>
 
@@ -177,20 +243,6 @@ list-style-type:none;
 </div>
 
 <table id="recipeTable" class="table inventory_related" cellspacing="0" width="100%">
-<thead>
-<!-- 	<tr>
-		<th></th>
-		<th></th>
-		<th></th>
-	</tr> -->
-</thead>
-<tfoot>
-<!-- 	<tr>
-		<th></th>
-		<th></th>
-		<th></th>
-	</tr> -->
-</tfoot>
 <tbody>
 
 		<tr ng-repeat="recipe in recipes | orderBy:'date':true" ng-if="$index%3==0" ng-show="typeOfView=='normal'">
@@ -326,4 +378,9 @@ list-style-type:none;
 
 </tbody>
 </table>
+	<div ng-init="paginationIndexFunction();">
+	    <ul class="pagination" ng-repeat="n in [].constructor(paginationIndex) track by $index">
+	         <li ><a href="" ng-click="loadAllRecipes($index +1)"> {{ $index +1 }}</a></li>  
+	    </ul>
+	</div>
 </div>
